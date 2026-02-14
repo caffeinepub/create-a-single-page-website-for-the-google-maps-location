@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 45,
-  "summary": "Single-page marketing website for HOTEL NASRA DA with HND branding; keep the existing menu text exactly unchanged, and currently remove/hide the per-menu-item photos from the Menu item cards; fix the HND logo to have a properly removed/transparent background; update overall text colors to be lighter for readability on the dark theme; remove any “Build with using Caffeine” label and any heart emoji from the UI; adjust HND logo background to light green; avoid making all text/fonts pure white; add subtle UI animations.",
+  "projectStateVersion": 51,
+  "summary": "Single-page marketing website for HOTEL NASRA DA with HND branding; keep the existing menu text exactly unchanged, and currently remove/hide the per-menu-item photos from the Menu item cards; fix the HND logo to have a properly removed/transparent background; adjust HND logo background to light green; remove any “Build with using Caffeine” label and any heart emoji from the UI; avoid making all text/fonts pure white; add subtle UI animations; user now requests switching the overall site to a light-color theme (instead of the current premium dark theme).",
   "architectural_notes": [
     "Menu content should be stored in the centralized content configuration (same TS object/file as other business details) and rendered as text (no menu image dependency).",
     "Potential scope change: user requests images for each menu item, which conflicts with the prior requirement that the menu be text-only (no menu image dependency). Clarify/decide whether to allow per-item images and how they will be sourced/stored.",
@@ -12,7 +12,7 @@
     "Ordering UX enhancement: if an item has multiple variants (e.g., Half/Full), the Order flow should first collect the user’s selection and include the chosen variant (and corresponding price if shown) in the WhatsApp pre-filled message.",
     "User requirement update: ensure the page/site background is not transparent (avoid unintended transparency in global layout/background layers).",
     "User requirement: menu item naming may need to be standardized with an 'HND' prefix before item names (confirm exact formatting: e.g., 'HND <Item Name>').",
-    "Menu imagery requirement clarification: for each written menu item (e.g., Pizza), display the matching item photo alongside it (no generic/full-menu image usage)."
+    "User request: add a relevant photo per Menu category/section (e.g., Pizza category shows a pizza image, Burger category shows a burger image). This may conflict with the current requirement to hide/remove photos from menu item cards; decide whether to allow category images while keeping item cards text-only."
   ],
   "known_issues": [
     "Images are not displaying correctly on the site (user reported missing/incorrect image rendering).",
@@ -20,7 +20,8 @@
     "User reports the website background is transparent and should be fixed (should render as solid/dark background).",
     "Homepage/section reveal behavior is incorrect: when clicking navigation buttons, sections appear in a way that still feels like everything is on one long scrolling page; user wants content to be conditionally shown per button (not all sections visible at once)."
   ],
-  "isFixRequest": true,
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Salad category banner photo (menu-category-salad.dim_1600x900.jpg)\n- Soup category banner photo (menu-category-soup.dim_1600x900.jpg)\n\n## Edit Images\n- Remove any beer imagery and make it represent juice/cold drinks (menu-category-drinks.dim_1600x900.jpg > menu-category-drinks.dim_1600x900.jpg)\n- Remove any beer imagery and make it represent juice/cold drinks (menu-thumb-drinks-hnd.dim_256x256.jpg > menu-thumb-drinks-hnd.dim_256x256.jpg)",
   "existing_features": [
     {
       "id": "feature-create-a-responsive-marketing-website-single-page-for-the-place-referenced-by-https-maps-app-goo-gl-ndbp8xbnmzzhedmm8-with-clear-sections-for-hero-name-short-tagline-about-description-hours-address-contact-phone-email-placeholders-if-not-known-and-a-location-section-that-includes-a-prominent-button-linking-to-the-google-maps-url",
@@ -541,6 +542,70 @@
         "REQ-65"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-show-a-relevant-photo-banner-for-each-menu-category-section-e-g-pizza-section-shows-a-pizza-photo-burger-section-shows-a-burger-photo-using-the-existing-category-image-field-from-businesscontent-menu-and-rendering-it-prominently-in-the-category-header-area-above-the-item-grid",
+      "title": "Show a relevant photo/banner for each Menu category/section (e.g., Pizza section shows a pizza photo, Burger section shows a burger photo), using the existing `category.image` field from `businessContent.menu` and rendering it prominently in the category header area above the item grid.",
+      "reqIds": [
+        "REQ-66"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-use-safeimage-to-render-each-category-section-image-with-a-graceful-fallback-use-defaultmenuimage-so-the-ui-never-shows-broken-image-icons-if-a-category-image-is-missing-or-fails-to-load",
+      "title": "Use `SafeImage` to render each category/section image with a graceful fallback (use `defaultMenuImage`) so the UI never shows broken image icons if a category image is missing or fails to load.",
+      "reqIds": [
+        "REQ-67"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-centralized-menu-configuration-in-frontend-src-content-business-ts-so-every-menu-category-section-used-in-businesscontent-menu-has-an-appropriate-image-value-that-matches-the-category-pizza-uses-a-pizza-image-burger-uses-a-burger-image-etc",
+      "title": "Update the centralized menu configuration in `frontend/src/content/business.ts` so every menu category/section used in `businessContent.menu` has an appropriate `image` value that matches the category (Pizza uses a pizza image, Burger uses a burger image, etc.).",
+      "reqIds": [
+        "REQ-68"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-switch-the-website-s-default-appearance-to-a-light-color-theme-light-mode-across-all-sections-by-updating-the-global-theme-tokens-and-defaults-backgrounds-cards-borders-text-muted-text-so-the-ui-is-readable-and-consistent-in-light-mode",
+      "title": "Switch the website’s default appearance to a light-color theme (light mode) across all sections by updating the global theme tokens and defaults (backgrounds, cards, borders, text, muted text) so the UI is readable and consistent in light mode.",
+      "reqIds": [
+        "REQ-69"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-frontend-index-html-and-global-first-paint-styles-so-the-initial-background-color-matches-the-new-light-theme-remove-avoid-hardcoded-dark-background-and-ensure-the-document-does-not-default-to-dark-mode",
+      "title": "Update `frontend/index.html` and global first-paint styles so the initial background color matches the new light theme (remove/avoid hardcoded dark background) and ensure the document does not default to dark mode.",
+      "reqIds": [
+        "REQ-70"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-improve-the-hnd-logo-presentation-so-it-looks-good-and-premium-on-the-light-theme-and-ensure-the-logo-container-badge-background-behind-the-hnd-logo-is-light-green-wherever-the-logo-is-shown-header-and-hero",
+      "title": "Improve the HND logo presentation so it looks ‘good’ and premium on the light theme, and ensure the logo container/badge background behind the HND logo is light green wherever the logo is shown (header and hero).",
+      "reqIds": [
+        "REQ-71"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-menu-category-banner-image-mapping-so-salad-soup-categories-use-salad-soup-appropriate-photos-not-drinks-and-ensure-drinks-categories-use-juice-cold-drink-photos-with-no-beer-imagery-apply-this-specifically-by-updating-frontend-src-content-business-ts-category-image-fields-and-or-categorybannerimages-so-that-lawazmat-salads-salad-use-a-salad-banner-image-soup-uses-a-soup-banner-image-hot-cold-bar-and-fresh-juice-seasonal-use-a-drinks-banner-image-that-visually-represents-juice-cold-drinks-and-contains-no-beer-imagery-no-menu-item-names-or-prices-may-be-changed",
+      "title": "Update Menu category banner image mapping so Salad/Soup categories use salad/soup-appropriate photos (not drinks), and ensure Drinks categories use juice/cold-drink photos with no beer imagery. Apply this specifically by updating `frontend/src/content/business.ts` category `image` fields and/or `categoryBannerImages` so that:\n- \"Lawazmat (Salads)\", \"Salad\" use a salad banner image.\n- \"Soup\" uses a soup banner image.\n- \"Hot & Cold Bar\" and \"Fresh Juice Seasonal\" use a drinks banner image that visually represents juice/cold drinks and contains no beer imagery.\nNo menu item names or prices may be changed.",
+      "reqIds": [
+        "REQ-72"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-required-static-image-assets-under-frontend-public-assets-generated-and-ensure-all-updated-category-banner-references-point-to-files-that-exist-at-runtime-no-broken-images",
+      "title": "Add the required static image assets under `frontend/public/assets/generated/` and ensure all updated category banner references point to files that exist at runtime (no broken images).",
+      "reqIds": [
+        "REQ-73"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -727,6 +792,24 @@
     {
       "id": "AR-31",
       "summary": "Add animations to the site (subtle UI motion/animated elements).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-32",
+      "summary": "Add category/section-level photos in the Menu (e.g., Pizza section shows a pizza photo, Burger section shows a burger photo) so each menu section has a relevant image.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-33",
+      "summary": "Switch the overall site UI/theme to a light-color (light mode) design per user request (replace premium dark default).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Update Menu category/section images: Salad/Soup section should show salad/soup photos (not drink photos); remove beer photos everywhere; Drinks section should show juice/cold drink photos.",
       "reqIds": [],
       "status": "pending"
     }

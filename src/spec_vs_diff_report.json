@@ -1,76 +1,75 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T23:28:45.761Z",
-  "summary": "The diff implements the requested visual/styling changes (logo light-green badge, softer off-white typography, and subtle entrance/hover animations) and indicates removal of Caffeine credit and heart usage. However, it also introduces multiple unrequested functional/content changes (e.g., filtering/removing the “Deals” menu category, WhatsApp ordering + variant dialog, new icons/docs/config tweaks), some of which may violate the constraint to not change existing menu content.",
-  "missing_requirements": [],
+  "generatedAt": "2026-02-14T23:47:11.708Z",
+  "summary": "Diff updates `categoryBannerImages` in `frontend/src/content/business.ts` to include `salad` and `soup` banner paths and retains `drinks`. However, the diff does not add/update the required static image assets under `frontend/public/assets/generated/`, and it does not provide evidence that the drinks images were actually edited to remove beer imagery. Additional unrelated changes appear in `business.ts` (e.g., menu item image resolution path logic) and unrelated metadata files.",
+  "missing_requirements": [
+    {
+      "id": "REQ-72",
+      "requirement": "Ensure Drinks categories (“Hot & Cold Bar”, “Fresh Juice Seasonal”) use a drinks banner image with no beer imagery, and update banner mappings in `frontend/src/content/business.ts` accordingly.",
+      "reason": "While `categoryBannerImages.drinks` points to `/assets/generated/menu-category-drinks.dim_1600x900.jpg`, the diff provides no evidence that the underlying drinks assets were updated to remove beer imagery, and the truncated `menu` section prevents confirming the specific categories (“Hot & Cold Bar”, “Fresh Juice Seasonal”) are mapped to `drinks` (or have correct `image` fields) without changing names/prices.",
+      "evidence": [
+        "frontend/src/content/business.ts (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-72",
+      "requirement": "Update banner mapping so “Lawazmat (Salads)”, “Salad” use a salad banner image and “Soup” uses a soup banner image in `frontend/src/content/business.ts`.",
+      "reason": "`categoryBannerImages` includes `salad` and `soup` paths, but the `menu: [...]` structure where category objects and their `image`/mapping would be applied is truncated, so the diff summary does not conclusively show those specific categories are wired to these keys/paths.",
+      "evidence": [
+        "frontend/src/content/business.ts (truncated)",
+        "frontend-file-summaries.txt (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-73",
+      "requirement": "Add new banner image files for Salad and Soup under `frontend/public/assets/generated/` with exact filenames referenced by `frontend/src/content/business.ts`.",
+      "reason": "No files were added in the diff; there is no evidence that `frontend/public/assets/generated/menu-category-salad.dim_1600x900.jpg` and `frontend/public/assets/generated/menu-category-soup.dim_1600x900.jpg` were created.",
+      "evidence": [
+        "File diff summary (Added: 0)",
+        "frontend/src/content/business.ts (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-73",
+      "requirement": "Update the existing drinks banner and thumb images so they contain no beer imagery (menu-category-drinks.dim_1600x900.jpg and menu-thumb-drinks-hnd.dim_256x256.jpg) under `frontend/public/assets/generated/`.",
+      "reason": "The diff shows no static asset modifications/additions; thus there is no evidence the drinks images were edited/replaced to remove beer imagery.",
+      "evidence": [
+        "File diff summary (Added: 0, Modified: 3)",
+        "frontend/src/content/business.ts (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-73",
+      "requirement": "Ensure all updated category banner references point to files that exist at runtime (no broken images).",
+      "reason": "Because the referenced salad/soup banner files are not shown as added, the updated references may be broken at runtime; diff provides no evidence of the files’ existence.",
+      "evidence": [
+        "frontend/src/content/business.ts (truncated)",
+        "File diff summary (Added: 0)"
+      ]
+    }
+  ],
   "hallucinated_features": [
     {
-      "description": "Filtering out/removing the “Deals” menu category (content change rather than styling).",
-      "reason": "BuildRequest explicitly limits changes to styling/decoration/animations and forbids changing existing menu item names/prices/content text; filtering/removing a category changes rendered content.",
+      "description": "Changed menu item image path generation to use Ultra HD 4K (`.dim_3840x2160.jpg`) for menu item images.",
+      "reason": "BuildRequest only asked to fix category banner images for Salad/Soup and remove beer imagery from Drinks visuals; it explicitly constrained changes to category banner image references and not broader menu image behavior.",
       "evidence": [
-        "frontend/src/App.tsx (\"Filter out \\\"Deals\\\" category as a defensive measure\")",
-        "frontend-file-summaries.txt (\"frontend/src/content/business.ts\": \"Deals category removed\")"
+        "frontend/src/content/business.ts (truncated): `getMenuItemImage` returns `/assets/generated/menu-item-${slug}.dim_3840x2160.jpg` and comments about Ultra HD 4K"
       ]
     },
     {
-      "description": "Added/expanded WhatsApp ordering functionality including variant selection dialog and link-building utilities.",
-      "reason": "Not requested; BuildRequest only asked for styling/color/animation adjustments and footer/logo tweaks.",
+      "description": "Modified/updated project metadata files (`frontend-file-summaries.txt`, `project_state.json`).",
+      "reason": "Not requested by the BuildRequest; only `frontend/src/content/business.ts` image mapping and static assets under `frontend/public/assets/generated/` were in scope.",
       "evidence": [
-        "frontend/src/components/MenuItemCard.tsx (variant selection dialog, WhatsApp ordering)",
-        "frontend-file-summaries.txt (\"frontend/src/lib/whatsapp.ts\": variant selection support)"
-      ]
-    },
-    {
-      "description": "Custom TikTok icon SVG added to the app.",
-      "reason": "Not requested in requirements (REQ-62 to REQ-65).",
-      "evidence": [
-        "frontend/src/App.tsx (\"TikTok icon component\")"
-      ]
-    },
-    {
-      "description": "Added/changed map preview behavior to embed Google Maps with fallback logic.",
-      "reason": "Not part of current BuildRequest scope (only footer/logo/colors/animations).",
-      "evidence": [
-        "frontend-file-summaries.txt (\"frontend/src/components/LocationMapPreview.tsx\": embed with fallback)"
-      ]
-    },
-    {
-      "description": "Updated menu item images to Ultra HD 4K paths and added related documentation files.",
-      "reason": "Not requested; BuildRequest focuses on UI styling/credits/logo/colors/animations, not asset upgrades or documentation additions.",
-      "evidence": [
-        "frontend-file-summaries.txt (\"frontend/src/content/business.ts\": updated to use Ultra HD 4K resolution paths)",
-        "frontend-file-summaries.txt (\"frontend/public/assets/generated/menu-item-photos-4k.README.txt\")",
-        "frontend-file-summaries.txt (\"frontend/public/assets/generated/README-menu-item-images.md\")"
-      ]
-    },
-    {
-      "description": "Introduced an empty placeholder hook file for React Query.",
-      "reason": "Not requested; also potentially conflicts with “no backend changes are required” (even though it’s frontend-only, it’s unrelated scope).",
-      "evidence": [
-        "frontend-file-summaries.txt (\"frontend/src/hooks/useQueries.ts\": Placeholder file)"
-      ]
-    },
-    {
-      "description": "Changed build tooling/configuration (PostCSS config) and enabled dark mode by default in index.html / updated favicon.",
-      "reason": "Not requested by REQ-62–REQ-65; these are project/config/entrypoint adjustments beyond the described UI tweaks.",
-      "evidence": [
-        "frontend-file-summaries.txt (\"frontend/postcss.config.cjs\")",
-        "frontend-file-summaries.txt (\"frontend/index.html\": dark mode enabled by default, favicon link changed)"
+        "frontend-file-summaries.txt (truncated)",
+        "project_state.json (truncated)"
       ]
     }
   ],
   "confidence": 0.74,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/App.tsx",
-    "frontend/src/components/MenuCategoryGrid.tsx",
-    "frontend/src/components/MenuItemCard.tsx",
-    "frontend/src/components/RevealableSection.tsx",
-    "frontend/src/components/Section.tsx",
-    "frontend/src/components/SiteHeader.tsx",
-    "frontend/src/index.css",
-    "frontend/tailwind.config.js",
+    "frontend/src/content/business.ts",
     "project_state.json"
   ]
 }

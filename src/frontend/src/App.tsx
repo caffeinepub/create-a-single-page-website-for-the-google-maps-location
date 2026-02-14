@@ -62,7 +62,7 @@ function App() {
           <section className="relative min-h-[600px] md:min-h-[700px] flex items-center justify-center overflow-hidden bg-background">
             {/* Background Image */}
             <div 
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
               style={{ backgroundImage: 'url(/assets/generated/hero-bg-premium-dark.dim_1920x1080.png)' }}
               aria-hidden="true"
             >
@@ -72,12 +72,12 @@ function App() {
             {/* Hero Content */}
             <div className="relative z-10 container mx-auto px-4 max-w-6xl text-center">
               <div className="flex justify-center mb-6 md:mb-8 animate-fade-in-up">
-                <div className="bg-logo-badge rounded-2xl p-4 shadow-premium">
+                <div className="bg-logo-badge rounded-2xl p-5 shadow-soft">
                   <SafeImage
                     src="/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png"
                     alt="HND Restaurant logo"
                     fallbackSrc={defaultMenuImage}
-                    className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-2xl"
+                    className="w-24 h-24 md:w-32 md:h-32 object-contain"
                   />
                 </div>
               </div>
@@ -91,7 +91,7 @@ function App() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 animate-fade-in-up animation-delay-300">
-                <Button asChild size="lg" className="text-base px-8 py-6 shadow-premium transition-all duration-300 hover:scale-105">
+                <Button asChild size="lg" className="text-base px-8 py-6 shadow-soft transition-all duration-300 hover:scale-105">
                   <a
                     href={businessContent.mapsUrl}
                     target="_blank"
@@ -183,7 +183,7 @@ function App() {
                     src="/assets/generated/hero-bg-premium-dark.dim_1920x1080.png"
                     alt="Restaurant ambiance"
                     fallbackSrc={defaultMenuImage}
-                    className="rounded-lg shadow-premium w-full h-auto"
+                    className="rounded-lg shadow-soft w-full h-auto"
                   />
                 </div>
               </div>
@@ -197,23 +197,23 @@ function App() {
             className="py-16 md:py-24 bg-cover bg-center bg-no-repeat relative"
             style={{ backgroundImage: 'url(/assets/generated/menu-bg-premium-neon-gold.dim_3840x2160.png)' }}
           >
-            <div className="absolute inset-0 bg-background/90 backdrop-blur-sm"></div>
-            <div className="container mx-auto px-4 max-w-7xl relative z-10">
+            <div className="absolute inset-0 bg-background/95 backdrop-blur-sm"></div>
+            <div className="container mx-auto px-4 max-w-6xl relative z-10">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Our Menu</h2>
                 <div className="w-20 h-1 bg-accent mx-auto mb-6"></div>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
-                  Explore our diverse selection of authentic Pakistani and Chinese cuisine
+                  Explore our diverse selection of authentic Pakistani and Chinese cuisine, crafted with passion and served with pride.
                 </p>
               </div>
 
-              <Tabs defaultValue={filteredMenu[0]?.category || 'menu'} className="w-full">
+              <Tabs defaultValue={filteredMenu[0]?.category || 'pizza'} className="w-full">
                 <TabsList className="w-full flex flex-wrap justify-center gap-2 h-auto bg-card/50 backdrop-blur-sm p-2 mb-8">
                   {filteredMenu.map((category) => (
                     <TabsTrigger
                       key={category.category}
                       value={category.category}
-                      className="data-[state=active]:bg-accent data-[state=active]:text-accent-foreground px-4 py-2 transition-all duration-300"
+                      className="data-[state=active]:bg-accent data-[state=active]:text-accent-foreground"
                     >
                       {category.category}
                     </TabsTrigger>
@@ -221,7 +221,7 @@ function App() {
                 </TabsList>
 
                 {filteredMenu.map((category) => (
-                  <TabsContent key={category.category} value={category.category} className="mt-6">
+                  <TabsContent key={category.category} value={category.category}>
                     <MenuCategoryGrid category={category} />
                   </TabsContent>
                 ))}
@@ -233,29 +233,31 @@ function App() {
         {/* Hours Section */}
         <RevealableSection id="hours" isRevealed={isRevealed('hours')}>
           <section className="py-16 md:py-24 bg-background">
-            <div className="container mx-auto px-4 max-w-4xl">
+            <div className="container mx-auto px-4 max-w-6xl">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Opening Hours</h2>
                 <div className="w-20 h-1 bg-accent mx-auto mb-6"></div>
               </div>
 
-              <Card className="border-border/30 shadow-premium bg-card/80 backdrop-blur-sm">
+              <Card className="max-w-2xl mx-auto shadow-soft">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-2xl">
-                    <Clock className="w-6 h-6 text-accent" />
+                  <CardTitle className="flex items-center gap-2 text-foreground">
+                    <Clock className="w-5 h-5 text-accent" />
                     Weekly Schedule
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  {hoursArray.map((schedule, idx) => (
-                    <div
-                      key={idx}
-                      className="flex justify-between items-center py-3 border-b border-border/30 last:border-0"
-                    >
-                      <span className="font-medium text-foreground">{schedule.days}</span>
-                      <span className="text-muted-foreground">{schedule.hours}</span>
-                    </div>
-                  ))}
+                <CardContent>
+                  <div className="space-y-3">
+                    {hoursArray.map((day) => (
+                      <div
+                        key={day.days}
+                        className="flex justify-between items-center py-2 border-b border-border/50 last:border-0"
+                      >
+                        <span className="font-medium text-foreground">{day.days}</span>
+                        <span className="text-muted-foreground">{day.hours}</span>
+                      </div>
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -264,17 +266,17 @@ function App() {
 
         {/* Contact Section */}
         <RevealableSection id="contact" isRevealed={isRevealed('contact')}>
-          <section className="py-16 md:py-24 bg-background">
-            <div className="container mx-auto px-4 max-w-4xl">
+          <section className="py-16 md:py-24 bg-muted/30">
+            <div className="container mx-auto px-4 max-w-6xl">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Contact Us</h2>
                 <div className="w-20 h-1 bg-accent mx-auto mb-6"></div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                <Card className="border-border/30 shadow-premium bg-card/80 backdrop-blur-sm">
+              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <Card className="shadow-soft">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-3">
+                    <CardTitle className="flex items-center gap-2 text-foreground">
                       <Phone className="w-5 h-5 text-accent" />
                       Phone
                     </CardTitle>
@@ -282,16 +284,16 @@ function App() {
                   <CardContent>
                     <a
                       href={`tel:${businessContent.contact.phone}`}
-                      className="text-muted-foreground hover:text-accent transition-colors"
+                      className="text-lg text-muted-foreground hover:text-accent transition-colors"
                     >
                       {businessContent.contact.phone}
                     </a>
                   </CardContent>
                 </Card>
 
-                <Card className="border-border/30 shadow-premium bg-card/80 backdrop-blur-sm">
+                <Card className="shadow-soft">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-3">
+                    <CardTitle className="flex items-center gap-2 text-foreground">
                       <Mail className="w-5 h-5 text-accent" />
                       Email
                     </CardTitle>
@@ -299,34 +301,10 @@ function App() {
                   <CardContent>
                     <a
                       href={`mailto:${businessContent.contact.email}`}
-                      className="text-muted-foreground hover:text-accent transition-colors break-all"
+                      className="text-lg text-muted-foreground hover:text-accent transition-colors break-all"
                     >
                       {businessContent.contact.email}
                     </a>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-border/30 shadow-premium bg-card/80 backdrop-blur-sm md:col-span-2">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-3">
-                      <MapPin className="w-5 h-5 text-accent" />
-                      Address
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-muted-foreground">{fullAddress}</p>
-                    <Button asChild className="w-full sm:w-auto">
-                      <a
-                        href={businessContent.mapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2"
-                      >
-                        <MapPin className="w-4 h-4" />
-                        View on Google Maps
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    </Button>
                   </CardContent>
                 </Card>
               </div>
@@ -339,22 +317,67 @@ function App() {
           <section className="py-16 md:py-24 bg-background">
             <div className="container mx-auto px-4 max-w-6xl">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Find Us</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Visit Us</h2>
                 <div className="w-20 h-1 bg-accent mx-auto mb-6"></div>
               </div>
 
-              <LocationMapPreview />
+              <div className="grid md:grid-cols-2 gap-8 items-start">
+                <Card className="shadow-soft">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-foreground">
+                      <MapPin className="w-5 h-5 text-accent" />
+                      Address
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-muted-foreground leading-relaxed">
+                      {fullAddress}
+                    </p>
+                    <Button asChild className="w-full">
+                      <a
+                        href={businessContent.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2"
+                      >
+                        <MapPin className="w-4 h-4" />
+                        Open in Google Maps
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <div className="h-[400px] rounded-lg overflow-hidden shadow-soft">
+                  <LocationMapPreview />
+                </div>
+              </div>
             </div>
           </section>
         </RevealableSection>
       </main>
 
       {/* Footer */}
-      <footer className="bg-card/50 backdrop-blur-sm border-t border-border/30 py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-muted-foreground text-sm">
-            © {currentYear} {businessContent.name}. All rights reserved.
-          </p>
+      <footer className="bg-card border-t border-border/50 py-8">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-muted-foreground text-center md:text-left">
+              © {currentYear} {businessContent.name}. All rights reserved.
+            </p>
+            <p className="text-sm text-muted-foreground text-center md:text-right">
+              Built with love using{' '}
+              <a
+                href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
+                  typeof window !== 'undefined' ? window.location.hostname : 'hnd-restaurant'
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:underline"
+              >
+                caffeine.ai
+              </a>
+            </p>
+          </div>
         </div>
       </footer>
     </div>

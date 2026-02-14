@@ -1,95 +1,54 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "UI polish: remove Caffeine credit & heart, add logo badge, refine typography colors, and subtle animations",
+  "title": "Fix Menu category banner images for Salad/Soup and remove beer imagery from Drinks visuals",
   "requirements": [
     {
-      "id": "REQ-62",
-      "summary": "Remove any Caffeine build credit text and caffeine.ai referral link from the footer while keeping other footer content unchanged.",
+      "id": "REQ-72",
+      "summary": "Update menu category banner image mapping so Salad/Soup categories use appropriate photos and Drinks categories use juice/cold-drink imagery, by adjusting banner image references in frontend/src/content/business.ts only (no item/name/price changes).",
       "acceptanceCriteria": [
-        "The footer no longer renders any text that mentions “Built with”, “using caffeine.ai”, “caffeine.ai”, or similar Caffeine build credit wording.",
-        "No caffeine.ai referral link is present anywhere in the rendered UI.",
-        "All other footer content (copyright line, year, business name) remains visible and unchanged."
+        "In the Menu UI, the category banner for \"Lawazmat (Salads)\" displays a salad-related image (not a drinks image).",
+        "In the Menu UI, the category banner for \"Salad\" displays a salad-related image (not a drinks image).",
+        "In the Menu UI, the category banner for \"Soup\" displays a soup-related image (not a drinks image).",
+        "In the Menu UI, the category banners for \"Hot & Cold Bar\" and \"Fresh Juice Seasonal\" display drinks imagery that represents juice/cold drinks and does not include beer imagery.",
+        "No menu item names, descriptions/notes, or prices are modified in `frontend/src/content/business.ts`."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/content/business.ts",
           "operation": "modify",
-          "description": "Update the footer to remove the entire “Built with … using caffeine.ai” line and remove the outbound caffeine.ai link, preserving the existing copyright line exactly as-is."
+          "description": "Update category banner mapping by adding salad/soup entries to categoryBannerImages and switching the category `image` fields for \"Lawazmat (Salads)\" and \"Salad\" to use the salad banner, and \"Soup\" to use the soup banner; keep \"Hot & Cold Bar\" and \"Fresh Juice Seasonal\" using the drinks banner. Do not change any menu item names/descriptions/notes/prices."
         }
       ]
     },
     {
-      "id": "REQ-63",
-      "summary": "Remove all heart emoji/symbol usage (including decorative heart icons) across the production UI while keeping user-facing text in English.",
+      "id": "REQ-73",
+      "summary": "Add/replace static generated banner/thumb image assets so all referenced category banners render without broken images and drinks visuals contain no beer imagery.",
       "acceptanceCriteria": [
-        "No heart emoji (e.g., ❤️) is rendered anywhere in the UI.",
-        "No heart icon/symbol is rendered inline as a decorative replacement for emoji (e.g., the footer line currently using a Heart icon is removed or updated to not include a heart).",
-        "No new non-English user-facing strings are introduced as part of this change."
+        "New banner image files for Salad and Soup exist under `frontend/public/assets/generated/` with the exact filenames referenced by `frontend/src/content/business.ts`.",
+        "The existing drinks banner image file used by the drinks categories is updated so it contains no beer imagery and visually matches juice/cold drinks.",
+        "No category banner image renders as a broken image icon; if an image fails, the existing `SafeImage` fallback behavior continues to work."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Remove the Heart icon usage from the UI (including the About section decorative icon and any footer usage), update imports accordingly, and ensure any replacement decorative element is non-heart (or omitted) without changing existing user-facing text content."
-        }
-      ]
-    },
-    {
-      "id": "REQ-64",
-      "summary": "Present the HND logo with a light-green background badge/container in both header and hero while keeping the logo image intact and accessible.",
-      "acceptanceCriteria": [
-        "The HND logo in the header and hero is displayed on top of a clearly visible light-green background shape (badge/container).",
-        "The light-green background does not create visible jagged edges/boxes around the logo image itself (logo image should still look clean on the dark theme).",
-        "Logo remains accessible with appropriate alt text unchanged (e.g., “HND Restaurant logo”)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/SiteHeader.tsx",
-          "operation": "modify",
-          "description": "Wrap the header logo <SafeImage> in a rounded light-green badge/container (with padding) so the transparent logo sits cleanly on the badge; keep existing alt text unchanged."
+          "path": "frontend/public/assets/generated/menu-category-salad.dim_1600x900.jpg",
+          "operation": "create",
+          "description": "Add the required Salad category banner photo asset (menu-category-salad.dim_1600x900.jpg) as a static file so category banner references resolve at runtime."
         },
         {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wrap the hero logo <SafeImage> in a larger rounded light-green badge/container (with padding) to match the header treatment; keep existing alt text unchanged and preserve the logo image source."
-        }
-      ]
-    },
-    {
-      "id": "REQ-65",
-      "summary": "Refine site-wide text colors away from pure white while preserving readability on dark theme, and add subtle UI animations without changing content/sections.",
-      "acceptanceCriteria": [
-        "Primary text (foreground) is changed from pure/near-pure white to a slightly softer off-white, while maintaining strong contrast on the dark background.",
-        "Muted text remains visibly readable (not too dim) and maintains hierarchy vs. headings/body text.",
-        "Subtle animations are present (e.g., gentle entrance/fade/slide for sections or cards, and/or refined hover/focus transitions) without adding new sections or changing existing content text.",
-        "No changes are made to menu item names/prices text content; animations must not interfere with navigation/section swapping behavior."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Adjust the theme tokens for --foreground and --muted-foreground (and any related text tokens as needed) to use a softer off-white for primary text and a readable muted tone, maintaining strong contrast on the dark background."
+          "path": "frontend/public/assets/generated/menu-category-soup.dim_1600x900.jpg",
+          "operation": "create",
+          "description": "Add the required Soup category banner photo asset (menu-category-soup.dim_1600x900.jpg) as a static file so category banner references resolve at runtime."
         },
         {
-          "path": "frontend/tailwind.config.js",
+          "path": "frontend/public/assets/generated/menu-category-drinks.dim_1600x900.jpg",
           "operation": "modify",
-          "description": "Extend Tailwind animation/keyframes to support subtle entrance and micro-interaction animations (e.g., gentle fade/slide), using existing project tooling only (no new third-party animation libraries)."
+          "description": "Replace/update the existing drinks category banner image to remove any beer imagery and ensure it visually represents juice/cold drinks; keep the filename unchanged so current references continue to work."
         },
         {
-          "path": "frontend/src/components/Section.tsx",
+          "path": "frontend/public/assets/generated/menu-thumb-drinks-hnd.dim_256x256.jpg",
           "operation": "modify",
-          "description": "Apply a subtle entrance animation to sections when they mount (works naturally with reveal-based rendering), including motion-reduction handling so animations are non-intrusive and do not affect layout/scroll behavior."
-        },
-        {
-          "path": "frontend/src/components/MenuItemCard.tsx",
-          "operation": "modify",
-          "description": "Refine hover/focus micro-interactions (e.g., smoother transitions, subtle lift/shadow) without changing any menu item names/prices/content text, and ensure animations do not interfere with clicking or dialog behavior."
-        },
-        {
-          "path": "frontend/src/components/MenuCategoryGrid.tsx",
-          "operation": "modify",
-          "description": "Add subtle container/card entrance or transition styling for menu category presentation (non-content), ensuring the UI remains readable and navigation/section swapping behavior is unaffected."
+          "description": "Replace/update the existing drinks thumbnail image to remove any beer imagery and ensure it visually represents juice/cold drinks; keep the filename unchanged so current references continue to work."
         }
       ]
     }

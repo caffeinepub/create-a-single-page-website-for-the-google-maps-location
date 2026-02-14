@@ -23,7 +23,7 @@ export function SiteHeader({ onNavigate }: SiteHeaderProps) {
         <div className="flex items-center justify-between gap-4 h-16">
           {/* Logo */}
           <div className="flex items-center gap-3 flex-shrink-0">
-            <div className="bg-logo-badge rounded-xl p-2 shadow-md">
+            <div className="bg-logo-badge rounded-xl p-2.5 shadow-soft">
               <SafeImage
                 src="/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png"
                 alt="HND Restaurant logo"

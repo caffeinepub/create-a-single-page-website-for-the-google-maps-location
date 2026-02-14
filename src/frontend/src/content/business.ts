@@ -31,6 +31,21 @@ const menuImages = {
   default: "/assets/generated/menu-thumb-default-hnd.dim_256x256.jpg"
 };
 
+// Category banner images - Wide format for section headers
+const categoryBannerImages = {
+  tandoor: "/assets/generated/menu-category-tandoor.dim_1600x900.jpg",
+  handi: "/assets/generated/menu-category-handi.dim_1600x900.jpg",
+  karahi: "/assets/generated/menu-category-karahi.dim_1600x900.jpg",
+  chinese: "/assets/generated/menu-category-chinese.dim_1600x900.jpg",
+  bbq: "/assets/generated/menu-category-bbq.dim_1600x900.jpg",
+  burger: "/assets/generated/menu-category-burger.dim_1600x900.jpg",
+  pizza: "/assets/generated/menu-category-pizza.dim_1600x900.jpg",
+  drinks: "/assets/generated/menu-category-drinks.dim_1600x900.jpg",
+  desserts: "/assets/generated/menu-category-desserts.dim_1600x900.jpg",
+  salad: "/assets/generated/menu-category-salad.dim_1600x900.jpg",
+  soup: "/assets/generated/menu-category-soup.dim_1600x900.jpg"
+};
+
 // Export default menu image for fallback
 export const defaultMenuImage = menuImages.default;
 
@@ -82,7 +97,7 @@ export const businessContent = {
   menu: [
     {
       category: "Tandoor",
-      image: menuImages.tandoor,
+      image: categoryBannerImages.tandoor,
       items: [
         { name: "Tandoori Roti", full: 20, image: getMenuItemImage("Tandoori Roti"), alt: "HND Tandoori Roti" },
         { name: "Khamiri Roti", full: 30, image: getMenuItemImage("Khamiri Roti"), alt: "HND Khamiri Roti" },
@@ -104,7 +119,7 @@ export const businessContent = {
     },
     {
       category: "Handi Special",
-      image: menuImages.handi,
+      image: categoryBannerImages.handi,
       items: [
         { name: "HND Special Chicken Handi", full: 1790, half: 890, image: getMenuItemImage("HND Special Chicken Handi"), alt: "HND Special Chicken Handi" },
         { name: "Chicken Makhni Handi", full: 1750, half: 850, image: getMenuItemImage("Chicken Makhni Handi"), alt: "HND Chicken Makhni Handi" },
@@ -117,7 +132,7 @@ export const businessContent = {
     },
     {
       category: "Chinese Rice",
-      image: menuImages.chinese,
+      image: categoryBannerImages.chinese,
       items: [
         { name: "HND Special Rice", full: 990, half: 490, image: getMenuItemImage("HND Special Rice"), alt: "HND Special Rice" },
         { name: "Chicken Fried Rice", full: 790, half: 390, image: getMenuItemImage("Chicken Fried Rice"), alt: "HND Chicken Fried Rice" },
@@ -131,7 +146,7 @@ export const businessContent = {
     },
     {
       category: "Desi Food - Chicken",
-      image: menuImages.karahi,
+      image: categoryBannerImages.karahi,
       items: [
         { name: "HND Special Chicken Karahi", full: 1800, half: 900, image: getMenuItemImage("HND Special Chicken Karahi"), alt: "HND Special Chicken Karahi" },
         { name: "Chicken Karahi", full: 1600, half: 800, image: getMenuItemImage("Chicken Karahi"), alt: "HND Chicken Karahi" },
@@ -143,7 +158,7 @@ export const businessContent = {
     },
     {
       category: "Chinese Gravy",
-      image: menuImages.chinese,
+      image: categoryBannerImages.chinese,
       items: [
         { name: "Chicken Manchurian with Rice", full: 690, image: getMenuItemImage("Chicken Manchurian with Rice"), alt: "HND Chicken Manchurian with Rice" },
         { name: "Chicken Shashlik with Rice", full: 690, image: getMenuItemImage("Chicken Shashlik with Rice"), alt: "HND Chicken Shashlik with Rice" },
@@ -159,7 +174,7 @@ export const businessContent = {
     },
     {
       category: "Desi Food - Beef",
-      image: menuImages.karahi,
+      image: categoryBannerImages.karahi,
       items: [
         { name: "HND Special Beef Karahi", full: 1990, half: 990, image: getMenuItemImage("HND Special Beef Karahi"), alt: "HND Special Beef Karahi" },
         { name: "Beef Karahi", full: 1790, half: 890, image: getMenuItemImage("Beef Karahi"), alt: "HND Beef Karahi" },
@@ -172,7 +187,7 @@ export const businessContent = {
     },
     {
       category: "Steaks",
-      image: menuImages.bbq,
+      image: categoryBannerImages.bbq,
       items: [
         { name: "HND Special Steak", beef: 1950, chicken: 1950, note: "Beef and Chicken is mainly composed of tender meat and moist-marinated fillet, present in an environmentally friendly manner.", image: getMenuItemImage("HND Special Steak"), alt: "HND Special Steak" },
         { name: "Black Pepper Steak", beef: 1050, chicken: 1200, note: "Tender beef and chicken cooked with black peppers, onion, capsicum, and soy sauce.", image: getMenuItemImage("Black Pepper Steak"), alt: "HND Black Pepper Steak" },
@@ -182,7 +197,7 @@ export const businessContent = {
     },
     {
       category: "Desi Food - Mutton",
-      image: menuImages.karahi,
+      image: categoryBannerImages.karahi,
       items: [
         { name: "HND Special Mutton", full: 3500, half: 1800, single: 500, image: getMenuItemImage("HND Special Mutton"), alt: "HND Special Mutton" },
         { name: "Mutton Karahi", full: 3300, half: 1650, image: getMenuItemImage("Mutton Karahi"), alt: "HND Mutton Karahi" },
@@ -194,7 +209,7 @@ export const businessContent = {
     },
     {
       category: "Lawazmat (Salads)",
-      image: menuImages.drinks,
+      image: categoryBannerImages.salad,
       items: [
         { name: "HND Special Green Salad", full: 200, image: getMenuItemImage("HND Special Green Salad"), alt: "HND Special Green Salad" },
         { name: "Mint Raita", full: 100, image: getMenuItemImage("Mint Raita"), alt: "HND Mint Raita" },
@@ -205,7 +220,7 @@ export const businessContent = {
     },
     {
       category: "Hot & Cold Bar",
-      image: menuImages.drinks,
+      image: categoryBannerImages.drinks,
       items: [
         { name: "Pinacolada", price: 490, image: getMenuItemImage("Pinacolada"), alt: "HND Pinacolada" },
         { name: "Mint Margarita", price: 256, image: getMenuItemImage("Mint Margarita"), alt: "HND Mint Margarita" },
@@ -225,7 +240,7 @@ export const businessContent = {
     },
     {
       category: "Desserts",
-      image: menuImages.drinks,
+      image: categoryBannerImages.desserts,
       items: [
         { name: "Special Kheer", price: null, image: getMenuItemImage("Special Kheer"), alt: "HND Special Kheer" },
         { name: "Gulab Jaman", price: null, image: getMenuItemImage("Gulab Jaman"), alt: "HND Gulab Jaman" },
@@ -235,7 +250,7 @@ export const businessContent = {
     },
     {
       category: "Fresh Juice Seasonal",
-      image: menuImages.drinks,
+      image: categoryBannerImages.drinks,
       items: [
         { name: "Apple Juice", price: 290, image: getMenuItemImage("Apple Juice"), alt: "HND Apple Juice" },
         { name: "Musammi Juice", price: 190, image: getMenuItemImage("Musammi Juice"), alt: "HND Musammi Juice" },
@@ -246,7 +261,7 @@ export const businessContent = {
     },
     {
       category: "Salad",
-      image: menuImages.drinks,
+      image: categoryBannerImages.salad,
       items: [
         { name: "HND Special Salad", large: 1400, medium: 900, small: 500, image: getMenuItemImage("HND Special Salad"), alt: "HND Special Salad" },
         { name: "Russian Salad", large: 1300, medium: 600, small: 400, image: getMenuItemImage("Russian Salad"), alt: "HND Russian Salad" },
@@ -258,35 +273,34 @@ export const businessContent = {
     },
     {
       category: "Soup",
-      image: menuImages.drinks,
+      image: categoryBannerImages.soup,
       items: [
         { name: "HND Special Soup", family: 1200, single: 400, image: getMenuItemImage("HND Special Soup"), alt: "HND Special Soup" },
         { name: "Lyal Soup", family: 1100, single: 390, image: getMenuItemImage("Lyal Soup"), alt: "HND Lyal Soup" },
         { name: "Chicken Corn Soup", family: 1000, single: 350, image: getMenuItemImage("Chicken Corn Soup"), alt: "HND Chicken Corn Soup" },
         { name: "Hot & Sour Soup", family: 1000, single: 350, image: getMenuItemImage("Hot & Sour Soup"), alt: "HND Hot & Sour Soup" },
-        { name: "Manchow Soup", family: 1000, single: 350, image: getMenuItemImage("Manchow Soup"), alt: "HND Manchow Soup" },
-        { name: "Vegetable Soup", family: 900, single: 300, image: getMenuItemImage("Vegetable Soup"), alt: "HND Vegetable Soup" }
+        { name: "Vegetable Soup", family: 900, single: 300, image: getMenuItemImage("Vegetable Soup"), alt: "HND Vegetable Soup" },
+        { name: "Manchow Soup", family: 1000, single: 350, image: getMenuItemImage("Manchow Soup"), alt: "HND Manchow Soup" }
       ]
     },
     {
       category: "BBQ",
-      image: menuImages.bbq,
+      image: categoryBannerImages.bbq,
       items: [
-        { name: "HND Special BBQ Platter", price: 3500, note: "A grand platter featuring our finest BBQ selections", image: getMenuItemImage("HND Special BBQ Platter"), alt: "HND Special BBQ Platter" },
+        { name: "HND Special BBQ Platter", full: 3500, half: 1800, image: getMenuItemImage("HND Special BBQ Platter"), alt: "HND Special BBQ Platter" },
         { name: "Chicken Tikka", full: 1200, half: 600, image: getMenuItemImage("Chicken Tikka"), alt: "HND Chicken Tikka" },
-        { name: "Malai Boti", full: 1300, half: 650, image: getMenuItemImage("Malai Boti"), alt: "HND Malai Boti" },
-        { name: "Seekh Kabab", full: 1100, half: 550, image: getMenuItemImage("Seekh Kabab"), alt: "HND Seekh Kabab" },
-        { name: "Chicken Boti", full: 1200, half: 600, image: getMenuItemImage("Chicken Boti"), alt: "HND Chicken Boti" },
-        { name: "Reshmi Kabab", full: 1300, half: 650, image: getMenuItemImage("Reshmi Kabab"), alt: "HND Reshmi Kabab" },
+        { name: "Chicken Malai Boti", full: 1300, half: 650, image: getMenuItemImage("Chicken Malai Boti"), alt: "HND Chicken Malai Boti" },
+        { name: "Chicken Seekh Kabab", full: 1100, half: 550, image: getMenuItemImage("Chicken Seekh Kabab"), alt: "HND Chicken Seekh Kabab" },
         { name: "Beef Seekh Kabab", full: 1200, half: 600, image: getMenuItemImage("Beef Seekh Kabab"), alt: "HND Beef Seekh Kabab" },
         { name: "Mutton Seekh Kabab", full: 1400, half: 700, image: getMenuItemImage("Mutton Seekh Kabab"), alt: "HND Mutton Seekh Kabab" },
-        { name: "Chicken Wings", full: 1100, half: 550, image: getMenuItemImage("Chicken Wings"), alt: "HND Chicken Wings" },
-        { name: "Tandoori Chicken", full: 1500, half: 750, image: getMenuItemImage("Tandoori Chicken"), alt: "HND Tandoori Chicken" }
+        { name: "Chicken Reshmi Kabab", full: 1300, half: 650, image: getMenuItemImage("Chicken Reshmi Kabab"), alt: "HND Chicken Reshmi Kabab" },
+        { name: "Chicken Bihari Boti", full: 1400, half: 700, image: getMenuItemImage("Chicken Bihari Boti"), alt: "HND Chicken Bihari Boti" },
+        { name: "Beef Bihari Boti", full: 1500, half: 750, image: getMenuItemImage("Beef Bihari Boti"), alt: "HND Beef Bihari Boti" }
       ]
     },
     {
       category: "Fast Food",
-      image: menuImages.fastfood,
+      image: categoryBannerImages.burger,
       items: [
         { name: "HND Special Burger", price: 450, image: getMenuItemImage("HND Special Burger"), alt: "HND Special Burger" },
         { name: "Zinger Burger", price: 350, image: getMenuItemImage("Zinger Burger"), alt: "HND Zinger Burger" },
@@ -294,15 +308,21 @@ export const businessContent = {
         { name: "Beef Burger", price: 350, image: getMenuItemImage("Beef Burger"), alt: "HND Beef Burger" },
         { name: "Club Sandwich", price: 400, image: getMenuItemImage("Club Sandwich"), alt: "HND Club Sandwich" },
         { name: "Chicken Sandwich", price: 300, image: getMenuItemImage("Chicken Sandwich"), alt: "HND Chicken Sandwich" },
-        { name: "Chicken Roll", price: 250, image: getMenuItemImage("Chicken Roll"), alt: "HND Chicken Roll" },
-        { name: "Beef Roll", price: 280, image: getMenuItemImage("Beef Roll"), alt: "HND Beef Roll" },
-        { name: "Chicken Pizza", small: 650, medium: 1100, large: 1600, image: getMenuItemImage("Chicken Pizza"), alt: "HND Chicken Pizza" },
-        { name: "Beef Pizza", small: 700, medium: 1200, large: 1700, image: getMenuItemImage("Beef Pizza"), alt: "HND Beef Pizza" },
-        { name: "Vegetable Pizza", small: 550, medium: 950, large: 1400, image: getMenuItemImage("Vegetable Pizza"), alt: "HND Vegetable Pizza" },
-        { name: "Fries", regular: 200, large: 350, image: getMenuItemImage("Fries"), alt: "HND Fries" },
-        { name: "Loaded Fries", price: 450, image: getMenuItemImage("Loaded Fries"), alt: "HND Loaded Fries" },
-        { name: "Chicken Nuggets", price: 400, image: getMenuItemImage("Chicken Nuggets"), alt: "HND Chicken Nuggets" },
-        { name: "Chicken Strips", price: 450, image: getMenuItemImage("Chicken Strips"), alt: "HND Chicken Strips" }
+        { name: "French Fries", price: 200, image: getMenuItemImage("French Fries"), alt: "HND French Fries" },
+        { name: "Chicken Nuggets", price: 350, image: getMenuItemImage("Chicken Nuggets"), alt: "HND Chicken Nuggets" },
+        { name: "Chicken Wings", price: 400, image: getMenuItemImage("Chicken Wings"), alt: "HND Chicken Wings" }
+      ]
+    },
+    {
+      category: "Pizza",
+      image: categoryBannerImages.pizza,
+      items: [
+        { name: "HND Special Pizza", large: 1800, medium: 1200, small: 800, image: getMenuItemImage("HND Special Pizza"), alt: "HND Special Pizza" },
+        { name: "Chicken Tikka Pizza", large: 1600, medium: 1100, small: 700, image: getMenuItemImage("Chicken Tikka Pizza"), alt: "HND Chicken Tikka Pizza" },
+        { name: "Chicken Fajita Pizza", large: 1600, medium: 1100, small: 700, image: getMenuItemImage("Chicken Fajita Pizza"), alt: "HND Chicken Fajita Pizza" },
+        { name: "Beef Pizza", large: 1700, medium: 1200, small: 800, image: getMenuItemImage("Beef Pizza"), alt: "HND Beef Pizza" },
+        { name: "Vegetable Pizza", large: 1400, medium: 900, small: 600, image: getMenuItemImage("Vegetable Pizza"), alt: "HND Vegetable Pizza" },
+        { name: "Cheese Pizza", large: 1300, medium: 850, small: 550, image: getMenuItemImage("Cheese Pizza"), alt: "HND Cheese Pizza" }
       ]
     }
   ]
