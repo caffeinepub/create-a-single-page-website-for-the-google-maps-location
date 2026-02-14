@@ -1,0 +1,306 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 15,
+  "summary": "Single-page marketing website for HOTEL NASRA DA; user wants HND logo branding, menu items displayed with unique photos, improved UI polish, and now requests an per-item Order button that opens WhatsApp with a pre-filled message for that specific menu item.",
+  "architectural_notes": [
+    "Menu content should be stored in the centralized content configuration (same TS object/file as other business details) and rendered as text (no menu image dependency).",
+    "Potential scope change: user requests images for each menu item, which conflicts with the prior requirement that the menu be text-only (no menu image dependency). Clarify/decide whether to allow per-item images and how they will be sourced/stored.",
+    "Branding update: add/use an 'HND' logo in the header/hero start area and remove/avoid the existing map logo.",
+    "Menu item imagery requirement: each menu item image must be distinct; avoid reusing the same photo across items.",
+    "User requested a navigation-driven/conditional rendering layout: keep Contact/Location on the main view and reveal other sections on button click (instead of showing all sections at once).",
+    "Ordering UX requirement: add a per-menu-item 'Order' CTA that deep-links to WhatsApp (wa.me / click-to-chat) with a prefilled message including the item name (and optionally price), so the user can order that specific item."
+  ],
+  "known_issues": [
+    "Images are not displaying correctly on the site (user reported missing/incorrect image rendering).",
+    "Build/deployment failing due to a \"System configuration error\" (platform/system-level error)."
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-create-a-responsive-marketing-website-single-page-for-the-place-referenced-by-https-maps-app-goo-gl-ndbp8xbnmzzhedmm8-with-clear-sections-for-hero-name-short-tagline-about-description-hours-address-contact-phone-email-placeholders-if-not-known-and-a-location-section-that-includes-a-prominent-button-linking-to-the-google-maps-url",
+      "title": "Create a responsive marketing website (single-page) for the place referenced by https://maps.app.goo.gl/NdbP8XBnMzZHEdmM8, with clear sections for: hero (name + short tagline), about/description, hours, address, contact (phone/email placeholders if not known), and a location section that includes a prominent button linking to the Google Maps URL.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-embedded-map-preview-in-the-location-section-e-g-google-maps-embed-iframe-when-feasible-and-provide-a-graceful-fallback-to-a-static-location-card-with-the-open-in-google-maps-link-if-embedding-is-blocked-by-browser-policy-config",
+      "title": "Add an embedded map preview in the location section (e.g., Google Maps embed/iframe when feasible) and provide a graceful fallback to a static location card with the “Open in Google Maps” link if embedding is blocked by browser policy/config.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-establish-a-coherent-visual-theme-and-layout-system-for-the-site-colors-typography-spacing-component-styling-and-apply-it-consistently-across-all-sections-choose-a-distinctive-style-appropriate-for-a-local-business-website-and-avoid-a-blue-purple-primary-palette",
+      "title": "Establish a coherent visual theme and layout system for the site (colors, typography, spacing, component styling) and apply it consistently across all sections. Choose a distinctive style appropriate for a local business website and avoid a blue/purple primary palette.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-basic-seo-and-accessibility-set-a-descriptive-page-title-and-meta-description-ensure-headings-use-a-logical-hierarchy-h1-h2-h3-interactive-elements-are-keyboard-accessible-and-key-icons-images-have-appropriate-alt-text",
+      "title": "Add basic SEO and accessibility: set a descriptive page title and meta description, ensure headings use a logical hierarchy (H1/H2/H3), interactive elements are keyboard accessible, and key icons/images have appropriate alt text.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-include-a-simple-centralized-content-configuration-e-g-a-single-ts-file-object-for-business-name-tagline-description-hours-address-and-contact-details-and-wire-the-ui-to-read-from-it-so-updating-site-content-is-straightforward",
+      "title": "Include a simple, centralized content configuration (e.g., a single TS file/object) for business name, tagline, description, hours, address, and contact details, and wire the UI to read from it so updating site content is straightforward.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-required-generated-images-to-the-frontend-as-static-assets-under-frontend-public-assets-generated-and-use-them-in-the-hero-and-or-branding-area-of-the-site",
+      "title": "Add the required generated images to the frontend as static assets under frontend/public/assets/generated and use them in the hero and/or branding area of the site.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-branding-to-use-the-business-name-hotel-nasra-da-everywhere-it-appears-header-site-title-hero-h1-footer-and-centralized-content-config",
+      "title": "Update the site branding to use the business name “HOTEL NASRA DA” everywhere it appears (header/site title, hero H1, footer, and centralized content config).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-seo-metadata-to-reflect-the-business-name-hotel-nasra-da-by-setting-an-appropriate-html-title-and-meta-description-in-frontend-index-html-english",
+      "title": "Update SEO metadata to reflect the business name “HOTEL NASRA DA” by setting an appropriate HTML `<title>` and meta description in `frontend/index.html` (English).",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-text-based-menu-section-to-the-single-page-site-do-not-display-the-uploaded-menu-images-the-menu-content-must-include-all-items-and-prices-from-the-4-uploaded-menu-images-fb-img-1771102731629-jpg-fb-img-1771102734566-jpg-fb-img-1771102727004-jpg-fb-img-1771102729097-jpg-transcribed-into-english-text-where-needed-and-organized-into-clear-categories",
+      "title": "Add a new text-based “Menu” section to the single-page site (do not display the uploaded menu images). The menu content must include all items and prices from the 4 uploaded menu images (FB_IMG_1771102731629.jpg, FB_IMG_1771102734566.jpg, FB_IMG_1771102727004.jpg, FB_IMG_1771102729097.jpg) transcribed into English text where needed and organized into clear categories.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-navigation-access-to-the-new-menu-section-include-a-menu-link-button-in-the-fixed-header-navigation-and-in-the-footer-quick-links-that-smooth-scrolls-to-the-menu-section",
+      "title": "Add navigation access to the new Menu section: include a “Menu” link/button in the fixed header navigation and in the footer quick links that smooth-scrolls to the Menu section.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-extend-the-centralized-content-configuration-frontend-src-content-business-ts-to-include-structured-menu-data-categories-and-items-and-render-the-menu-section-from-this-configuration-so-future-edits-do-not-require-modifying-react-component-markup",
+      "title": "Extend the centralized content configuration (`frontend/src/content/business.ts`) to include structured menu data (categories and items), and render the Menu section from this configuration so future edits do not require modifying React component markup.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-website-use-a-premium-dark-ui-as-the-default-appearance-dark-background-high-contrast-readable-typography-and-refined-surfaces-without-adding-any-new-site-sections-or-changing-existing-content-text",
+      "title": "Make the website use a premium dark UI as the default appearance (dark background, high-contrast readable typography, and refined surfaces), without adding any new site sections or changing existing content text.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-upgrade-the-menu-section-ui-to-a-more-premium-design-use-a-card-grid-layout-for-menu-items-improved-spacing-typography-and-more-polished-tabs-styling-while-keeping-the-existing-tab-categories-and-menu-data-structure-driven-rendering",
+      "title": "Upgrade the Menu section UI to a more premium design: use a card/grid layout for menu items, improved spacing/typography, and more polished Tabs styling while keeping the existing tab categories and menu data structure-driven rendering.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-image-photo-next-to-every-menu-item-in-the-menu-section-extend-the-centralized-menu-data-in-frontend-src-content-business-ts-to-support-an-image-reference-per-item-and-render-that-image-for-each-menu-item-with-accessible-alt-text",
+      "title": "Add an image/photo next to every menu item in the Menu section. Extend the centralized menu data in frontend/src/content/business.ts to support an image reference per item, and render that image for each menu item with accessible alt text.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-every-menu-item-displays-a-unique-image-no-repeated-photos-across-different-menu-items-by-updating-frontend-src-content-business-ts-so-each-menu-item-points-to-its-own-distinct-static-asset-under-frontend-public-assets-generated",
+      "title": "Ensure every menu item displays a unique image (no repeated photos across different menu items) by updating `frontend/src/content/business.ts` so each menu item points to its own distinct static asset under `frontend/public/assets/generated`.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-any-visible-premium-text-from-all-generated-food-menu-photos-used-on-the-site-and-replace-it-with-hnd-on-the-image-artwork-itself-not-as-html-overlay-text",
+      "title": "Remove any visible 'PREMIUM' text from all generated food/menu photos used on the site and replace it with 'HND' on the image artwork itself (not as HTML overlay text).",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-and-apply-an-hnd-brand-logo-for-the-top-starting-branding-area-and-replace-map-pin-style-branding-in-the-header-hero-logo-and-footer-with-the-hnd-logo-do-not-use-a-map-logo-for-branding",
+      "title": "Create and apply an 'HND' brand logo for the top/starting branding area and replace map/pin-style branding in the header, hero logo, and footer with the HND logo (do not use a map logo for branding).",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-improve-the-overall-ui-polish-spacing-typography-hierarchy-alignment-and-component-consistency-across-the-single-page-site-while-keeping-existing-section-structure-and-keeping-user-facing-text-in-english",
+      "title": "Improve the overall UI polish (spacing, typography hierarchy, alignment, and component consistency) across the single-page site while keeping existing section structure and keeping user-facing text in English.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-change-the-homepage-behavior-so-that-not-all-sections-are-shown-immediately-keep-the-main-view-focused-on-contact-and-location-and-show-other-sections-e-g-about-menu-hours-only-after-the-user-clicks-their-respective-navigation-buttons",
+      "title": "Change the homepage behavior so that not all sections are shown immediately: keep the main view focused on Contact and Location, and show other sections (e.g., About, Menu, Hours) only after the user clicks their respective navigation buttons.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-header-and-footer-navigation-behavior-so-that-section-buttons-both-reveal-the-target-section-if-hidden-and-then-navigate-scroll-to-it-ensure-contact-and-location-remain-accessible-from-the-main-view",
+      "title": "Update header and footer navigation behavior so that section buttons both reveal the target section (if hidden) and then navigate/scroll to it; ensure Contact and Location remain accessible from the main view.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-site-images-that-are-not-displaying-correctly-broken-missing-images-especially-menu-item-images-by-ensuring-image-asset-paths-match-actual-files-and-adding-a-graceful-ui-fallback-when-an-image-fails-to-load",
+      "title": "Fix the site images that are not displaying correctly (broken/missing images), especially menu item images, by ensuring image asset paths match actual files and adding a graceful UI fallback when an image fails to load.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-current-hnd-logo-used-in-the-header-and-hero-with-the-user-provided-hnd-logo-image-uploaded-as-picsart-26-02-15-02-31-07-789-png-by-adding-an-optimized-logo-asset-under-frontend-public-assets-generated-and-updating-the-ui-to-reference-it-consistently-header-logo-hero-logo-and-any-other-existing-logo-placements",
+      "title": "Replace the current HND logo used in the header and hero with the user-provided HND logo image (uploaded as `Picsart_26-02-15_02-31-07-789.png`) by adding an optimized logo asset under `frontend/public/assets/generated/` and updating the UI to reference it consistently (header logo, hero logo, and any other existing logo placements).",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-menu-ui-so-that-every-menu-item-across-all-categories-tabs-displays-1-its-unique-photo-from-businesscontent-menu-items-image-2-its-name-and-price-s-and-3-an-order-on-whatsapp-button-next-to-on-the-item-card-ensure-the-layout-is-consistent-across-all-tabs-no-categories-rendered-as-text-only-lists",
+      "title": "Update the Menu UI so that every menu item (across all categories/tabs) displays: (1) its unique photo (from `businessContent.menu[].items[].image`), (2) its name and price(s), and (3) an \"Order on WhatsApp\" button next to/on the item card. Ensure the layout is consistent across all tabs (no categories rendered as text-only lists).",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-per-item-whatsapp-ordering-clicking-an-item-s-order-on-whatsapp-button-must-open-whatsapp-web-app-with-a-pre-filled-message-that-includes-the-selected-item-name-and-any-displayed-price-s-add-a-configurable-whatsapp-phone-number-international-format-and-an-optional-message-template-to-frontend-src-content-business-ts-and-use-it-to-generate-the-whatsapp-deep-link",
+      "title": "Implement per-item WhatsApp ordering: clicking an item's \"Order on WhatsApp\" button must open WhatsApp (web/app) with a pre-filled message that includes the selected item name and any displayed price(s). Add a configurable WhatsApp phone number (international format) and an optional message template to `frontend/src/content/business.ts` and use it to generate the WhatsApp deep link.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-identify-and-fix-the-root-cause-of-the-caffeine-build-deployment-failure-that-reports-system-configuration-error-ensuring-the-project-builds-successfully-in-the-platform-environment",
+      "title": "Identify and fix the root cause of the Caffeine build/deployment failure that reports “System configuration error”, ensuring the project builds successfully in the platform environment.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-tailwind-configuration-compatible-with-the-build-toolchain-by-removing-any-module-format-mismatch-e-g-esm-only-imports-exports-that-could-break-tailwind-vite-processing-in-the-deployment-environment",
+      "title": "Make the Tailwind configuration compatible with the build toolchain by removing any module-format mismatch (e.g., ESM-only imports/exports) that could break Tailwind/Vite processing in the deployment environment.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a website for the business/location referenced by the provided Google Maps link.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Update site branding/content to use the business name “HOTEL NASRA DA”.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add a Menu section with menu items/details as text/content (not as an image).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Switch the site UI to a premium dark theme design.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Enhance the Menu section with a premium design and add a photo/image for each menu item.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Ensure all menu item photos are unique (no repeated images).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Update/replace any 'PREMIUM' text on photos to 'HND' (remove 'PREMIUM').",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Improve the overall UI styling ('UI acha sa bnao') beyond current premium dark theme.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Create an 'HND' logo and place it at the start/top; do not use the map logo.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Change the homepage layout so not everything is shown on the first view; show key content/sections when their respective buttons are clicked, while keeping Contact/Location visible on the main page.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Fix site images that are not displaying correctly (broken/missing/incorrect rendering).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Add an 'Order' button for each menu item that opens WhatsApp with a pre-filled message containing that selected item (and relevant details).",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Create a single-page website for the Google Maps location",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

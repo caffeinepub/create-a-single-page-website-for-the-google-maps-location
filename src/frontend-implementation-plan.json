@@ -1,0 +1,44 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Fix Tailwind/build configuration to eliminate deployment “System configuration error”",
+  "requirements": [
+    {
+      "id": "REQ-25",
+      "summary": "Fix the deployment build configuration so the app builds and deploys successfully without the “System configuration error”, preserving the existing SPA behavior.",
+      "acceptanceCriteria": [
+        "A clean build and deploy completes without the “System configuration error”.",
+        "The deployed site loads successfully and renders the existing single-page UI (Hero, Contact, Location, and revealable sections) without runtime errors.",
+        "No existing implemented features regress (menu rendering, image loading with fallback, reveal-then-scroll navigation, WhatsApp ordering links)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Align Tailwind config module format with the deployment toolchain (convert to a CommonJS-compatible configuration) to address build-time configuration failures. (Related template: build-template-react / initial-app. Verify the component's usage instructions before implementing.)"
+        },
+        {
+          "path": "frontend/postcss.config.cjs",
+          "operation": "create",
+          "description": "Add an explicit, CommonJS PostCSS configuration that wires Tailwind and autoprefixer in a toolchain-compatible way, reducing reliance on implicit defaults that may differ in the platform environment. (Related template: build-template-react / initial-app. Verify the component's usage instructions before implementing.)"
+        }
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "summary": "Remove Tailwind module-format mismatches so Tailwind/Vite processing works reliably in the deployment environment without changing immutable UI component files.",
+      "acceptanceCriteria": [
+        "Tailwind configuration loads without errors during build.",
+        "CSS is generated correctly (dark theme tokens and existing Tailwind utilities continue to work).",
+        "No changes are made to any files under `frontend/src/components/ui` or other immutable paths."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Replace ESM-only imports/exports with a CommonJS-compatible configuration (e.g., require/module.exports) while preserving existing theme tokens, content globs, and plugin usage to keep current styling output unchanged. (Related template: initial-app. Verify the component's usage instructions before implementing.)"
+        }
+      ]
+    }
+  ]
+}

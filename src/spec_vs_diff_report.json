@@ -1,0 +1,52 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-14T21:56:08.048Z",
+  "summary": "REQ-26 appears implemented by converting Tailwind/PostCSS config to explicit CommonJS to avoid module-format mismatches. However, the diff also introduces multiple unrelated frontend/UI changes and a new backend migration mechanism that were not requested. REQ-25’s end-to-end goal (clean deploy without “System configuration error” and no regressions) cannot be confirmed from the diff summary alone.",
+  "missing_requirements": [
+    {
+      "id": "REQ-25",
+      "requirement": "Identify and fix the root cause of the Caffeine build/deployment failure (“System configuration error”) and ensure a clean build/deploy with the existing single-page UI working and no feature regressions.",
+      "reason": "While Tailwind/PostCSS compatibility changes are present, the diff summary does not provide evidence that the specific Caffeine deployment “System configuration error” is resolved, nor does it demonstrate that the deployed site loads successfully and preserves all existing behaviors without regressions.",
+      "evidence": [
+        "frontend/tailwind.config.js",
+        "frontend/postcss.config.cjs",
+        "backend/main.mo",
+        "frontend-file-summaries.txt"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Added a backend migration module and changed backend actor initialization to use a `(with migration = Migration.run)` clause.",
+      "reason": "BuildRequest focuses on fixing a deployment build configuration issue (not adding backend migration wiring). This is a new backend behavior/configuration not requested and risks altering backend structure/behavior beyond the stated constraints.",
+      "evidence": [
+        "backend/migration.mo",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Broad frontend UI/content refactors and feature additions (new HND logo usage, MenuCategoryGrid/MenuItemCard changes, map embed fallback component behavior, dark theme token overhaul, SEO/meta/font preload tweaks, new hooks/utilities).",
+      "reason": "Non-goals explicitly prohibit adding new website sections or changing existing content copy; the request is narrowly scoped to build/deployment configuration (Tailwind toolchain compatibility). The diff summary indicates extensive UI/component/content changes unrelated to the build fix request.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Introduced an empty placeholder hook file for future React Query hooks (`useQueries.ts`).",
+      "reason": "Not requested by the BuildRequest and unrelated to fixing Tailwind/build deployment configuration.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    }
+  ],
+  "confidence": 0.72,
+  "changed_files": [
+    "backend/main.mo",
+    "backend/migration.mo",
+    "frontend-file-summaries.txt",
+    "frontend/postcss.config.cjs",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-identify-and-fix-the-root-cause-of-the-caffeine-build-deployment-failure-that-reports-system-configuration-error-ensuring-the-project-builds-successfully-in-the-platform-environment",
+      "featureTitle": "Identify and fix the root cause of the Caffeine build/deployment failure that reports “System configuration error”, ensuring the project builds successfully in the platform environment.",
+      "files": [
+        "frontend/postcss.config.cjs",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-25"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-make-the-tailwind-configuration-compatible-with-the-build-toolchain-by-removing-any-module-format-mismatch-e-g-esm-only-imports-exports-that-could-break-tailwind-vite-processing-in-the-deployment-environment",
+      "featureTitle": "Make the Tailwind configuration compatible with the build toolchain by removing any module-format mismatch (e.g., ESM-only imports/exports) that could break Tailwind/Vite processing in the deployment environment.",
+      "files": [
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-26"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

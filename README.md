@@ -1,2 +1,3 @@
-# create-a-single-page-website-for-the-google-maps-location
-Exported from Caffeine project: Create a single-page website for the Google Maps location
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

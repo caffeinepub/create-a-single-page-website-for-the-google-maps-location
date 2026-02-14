@@ -1,0 +1,56 @@
+{
+  "kind": "build_request",
+  "title": "Fix deployment “System configuration error” by correcting project build configuration",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-25",
+      "text": "Identify and fix the root cause of the Caffeine build/deployment failure that reports “System configuration error”, ensuring the project builds successfully in the platform environment.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Solve system configuration error"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A clean build and deploy completes without the “System configuration error”.",
+        "The deployed site loads successfully and renders the existing single-page UI (Hero, Contact, Location, and revealable sections) without runtime errors.",
+        "No existing implemented features regress (menu rendering, image loading with fallback, reveal-then-scroll navigation, WhatsApp ordering links)."
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "text": "Make the Tailwind configuration compatible with the build toolchain by removing any module-format mismatch (e.g., ESM-only imports/exports) that could break Tailwind/Vite processing in the deployment environment.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Solve system configuration error"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Tailwind configuration loads without errors during build.",
+        "CSS is generated correctly (dark theme tokens and existing Tailwind utilities continue to work).",
+        "No changes are made to any files under `frontend/src/components/ui` or other immutable paths."
+      ]
+    }
+  ],
+  "constraints": [
+    "Respect the single-actor backend architecture (all Motoko logic remains in `backend/main.mo`).",
+    "Do not edit any paths listed in `frontend.immutablePaths` in SYSTEM_CONTEXT.",
+    "Use English for any user-facing text."
+  ],
+  "nonGoals": [
+    "Adding new website sections or changing existing content copy.",
+    "Introducing new backend services, databases, or third-party auth providers beyond Internet Identity."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
