@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 29,
-  "summary": "Single-page marketing website for HOTEL NASRA DA with HND branding; includes requirements to fix transparent background, create/use a restaurant-appropriate HND logo with transparent background (now specified as a modern circular badge logo with a cartoon chef for header + favicon), correct the menu so each listed item has its own unique photo (no repeats), standardize naming to include 'HND' before item names, and add Facebook/TikTok social links on the homepage.",
+  "projectStateVersion": 43,
+  "summary": "Single-page marketing website for HOTEL NASRA DA with HND branding; keep the existing menu text exactly unchanged, and currently remove/hide the per-menu-item photos from the Menu item cards; fix the HND logo to have a properly removed/transparent background; update overall text colors to be lighter for readability on the dark theme.",
   "architectural_notes": [
     "Menu content should be stored in the centralized content configuration (same TS object/file as other business details) and rendered as text (no menu image dependency).",
     "Potential scope change: user requests images for each menu item, which conflicts with the prior requirement that the menu be text-only (no menu image dependency). Clarify/decide whether to allow per-item images and how they will be sourced/stored.",
@@ -17,10 +17,11 @@
   "known_issues": [
     "Images are not displaying correctly on the site (user reported missing/incorrect image rendering).",
     "Build/deployment failing due to a \"System configuration error\" (platform/system-level error).",
-    "User reports the website background is transparent and should be fixed (should render as solid/dark background)."
+    "User reports the website background is transparent and should be fixed (should render as solid/dark background).",
+    "Homepage/section reveal behavior is incorrect: when clicking navigation buttons, sections appear in a way that still feels like everything is on one long scrolling page; user wants content to be conditionally shown per button (not all sections visible at once)."
   ],
-  "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Circular badge logo with red outer ring and white inner circle; centered friendly minimal cartoon chef holding a pizza tray, wearing chef hat and scarf, smiling; “HND” in bold rounded modern type below the chef using red and green; transparent background (hnd-logo-badge-chef.dim_512x512.png)\n- Simplified circular badge favicon matching the same chef + “HND” mark; readable at small size; transparent background (hnd-favicon-badge-chef.dim_64x64.png)",
+  "isFixRequest": true,
+  "imageRequirements": "## Edit Images\n- Cleanly remove any non-transparent background/edges (hnd-logo-badge-chef-transparent.dim_512x512.png > hnd-logo-badge-chef-transparent-fixed.dim_512x512.png)\n- Cleanly remove any non-transparent background/edges (hnd-favicon-badge-chef.dim_64x64.png > hnd-favicon-badge-chef-fixed.dim_64x64.png)",
   "existing_features": [
     {
       "id": "feature-create-a-responsive-marketing-website-single-page-for-the-place-referenced-by-https-maps-app-goo-gl-ndbp8xbnmzzhedmm8-with-clear-sections-for-hero-name-short-tagline-about-description-hours-address-contact-phone-email-placeholders-if-not-known-and-a-location-section-that-includes-a-prominent-button-linking-to-the-google-maps-url",
@@ -397,6 +398,118 @@
         "REQ-47"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-generate-and-integrate-ultra-hd-4k-high-quality-realistic-food-photography-for-every-single-menu-item-listed-in-frontend-src-content-business-ts-ensuring-each-item-has-its-own-unique-dish-accurate-photo-no-repeats-no-generic-mismatches-store-the-photos-as-static-assets-under-frontend-public-assets-generated-and-update-the-menu-image-references-so-the-ui-renders-the-correct-per-item-image-next-to-the-item-text-text-on-the-left-image-on-the-right-for-the-entire-menu-without-skipping-any-item",
+      "title": "Generate and integrate ultra HD (4K) high-quality realistic food photography for every single menu item listed in `frontend/src/content/business.ts`, ensuring each item has its own unique, dish-accurate photo (no repeats, no generic mismatches). Store the photos as static assets under `frontend/public/assets/generated/` and update the menu image references so the UI renders the correct per-item image next to the item text (text on the left, image on the right) for the entire menu without skipping any item.",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-and-use-a-dedicated-transparent-background-hnd-watermark-logo-asset-for-overlaying-on-every-menu-item-photo-and-update-the-menu-item-photo-overlay-to-use-this-watermark-so-it-appears-small-premium-clear-and-slightly-transparent-above-each-food-image-across-the-entire-menu",
+      "title": "Create and use a dedicated transparent-background HND watermark logo asset for overlaying on every menu item photo, and update the menu item photo overlay to use this watermark so it appears small, premium, clear, and slightly transparent above each food image across the entire menu.",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-section-reveal-navigation-behavior-so-the-page-does-not-become-a-single-long-scrolling-page-where-previously-opened-sections-remain-visible-keep-contact-and-location-visible-by-default-but-for-the-other-sections-about-menu-hours-ensure-only-one-of-these-sections-is-visible-at-a-time-when-the-user-clicks-a-navigation-button-for-about-menu-hours-reveal-that-section-and-simultaneously-hide-the-other-non-default-sections-then-smooth-scroll-to-the-revealed-section",
+      "title": "Update the section reveal/navigation behavior so the page does not become a single long scrolling page where previously opened sections remain visible. Keep Contact and Location visible by default, but for the other sections (About, Menu, Hours) ensure only one of these sections is visible at a time: when the user clicks a navigation button for About/Menu/Hours, reveal that section and simultaneously hide the other non-default sections, then smooth-scroll to the revealed section.",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-section-visibility-behavior-so-the-site-no-longer-feels-like-a-single-long-scrolling-page-at-any-time-only-one-main-section-is-visible-contact-location-about-menu-or-hours-scrolling-must-not-reveal-other-sections-content-should-change-only-when-a-navigation-button-is-clicked-similar-to-a-new-page-experience-but-within-the-spa",
+      "title": "Update the section visibility behavior so the site no longer feels like a single long scrolling page: at any time, only ONE main section is visible (Contact, Location, About, Menu, or Hours). Scrolling must not reveal other sections; content should change only when a navigation button is clicked (similar to a “new page” experience, but within the SPA).",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-refactor-frontend-src-hooks-userevealablesections-ts-and-frontend-src-app-tsx-to-remove-the-concept-of-always-visible-sections-and-instead-drive-all-sections-contact-location-about-menu-hours-through-the-same-single-active-section-mechanism-using-revealablesection-so-only-the-active-section-is-mounted-in-the-dom",
+      "title": "Refactor `frontend/src/hooks/useRevealableSections.ts` and `frontend/src/App.tsx` to remove the concept of “always visible” sections and instead drive ALL sections (Contact, Location, About, Menu, Hours) through the same single-active-section mechanism using `RevealableSection` so only the active section is mounted in the DOM.",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-navigation-click-behavior-so-that-when-a-user-clicks-a-header-navigation-item-about-menu-hours-contact-location-the-app-activates-the-corresponding-section-and-then-scrolls-to-the-top-of-that-section-or-page-top-to-reinforce-the-new-page-feel",
+      "title": "Update navigation click behavior so that when a user clicks a header navigation item (About/Menu/Hours/Contact/Location), the app activates the corresponding section and then scrolls to the top of that section (or page top) to reinforce the “new page” feel.",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-deals-category-section-from-the-menu-so-it-is-not-shown-anywhere-in-the-ui-no-menu-tab-for-deals-and-no-deals-items-rendered-update-the-centralized-menu-configuration-in-frontend-src-content-business-ts-accordingly-without-changing-any-other-menu-item-names-prices-categories",
+      "title": "Remove the “Deals” category/section from the Menu so it is not shown anywhere in the UI (no Menu tab for Deals, and no Deals items rendered). Update the centralized menu configuration in `frontend/src/content/business.ts` accordingly, without changing any other menu item names/prices/categories.",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-hnd-logo-used-in-the-header-and-hero-assets-generated-hnd-logo-badge-chef-dim-512x512-png-has-a-transparent-background-and-update-the-ui-references-if-the-asset-filename-changes-so-the-logo-appears-without-any-visible-background-box-on-the-dark-theme",
+      "title": "Ensure the HND logo used in the header and hero (`/assets/generated/hnd-logo-badge-chef.dim_512x512.png`) has a transparent background, and update the UI references if the asset filename changes so the logo appears without any visible background box on the dark theme.",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-mobile-header-navigation-so-the-primary-section-links-about-menu-hours-contact-location-are-directly-visible-on-mobile-screens-no-3-line-hamburger-menu-required-and-remain-visible-across-the-site",
+      "title": "Update the mobile header/navigation so the primary section links (About, Menu, Hours, Contact, Location) are directly visible on mobile screens (no 3-line/hamburger menu required) and remain visible across the site.",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-change-section-navigation-behavior-so-that-clicking-any-navigation-item-swaps-the-main-content-in-place-single-active-section-and-brings-the-newly-activated-section-into-view-at-the-top-of-the-viewport-accounting-for-the-fixed-header-rather-than-feeling-like-content-is-appearing-below-on-a-long-scrolling-homepage",
+      "title": "Change section navigation behavior so that clicking any navigation item swaps the main content in-place (single active section) and brings the newly activated section into view at the top of the viewport (accounting for the fixed header), rather than feeling like content is appearing below on a long scrolling homepage.",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-hide-the-per-menu-item-food-photos-from-the-menu-item-cards-so-each-menu-item-displays-text-content-name-description-note-if-present-and-all-prices-plus-the-existing-whatsapp-ordering-button-variant-selection-behavior-but-no-food-image-thumbnail-is-shown",
+      "title": "Remove/hide the per-menu-item food photos from the Menu item cards so each Menu item displays text content (name, description/note if present, and all prices) plus the existing WhatsApp ordering button/variant-selection behavior, but no food image thumbnail is shown.",
+      "reqIds": [
+        "REQ-58"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-hnd-watermark-logo-overlay-that-is-currently-rendered-on-top-of-each-menu-item-photo-since-menu-item-photos-are-being-removed",
+      "title": "Remove the HND watermark/logo overlay that is currently rendered on top of each Menu item photo (since Menu item photos are being removed).",
+      "reqIds": [
+        "REQ-59"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-hnd-logo-image-assets-used-in-the-header-and-hero-so-the-logo-image-itself-has-a-clean-fully-transparent-background-no-visible-background-box-edges-on-the-dark-theme-update-any-ui-references-if-the-logo-filenames-change",
+      "title": "Fix the HND logo image assets used in the header and hero so the logo image itself has a clean, fully transparent background (no visible background box/edges on the dark theme). Update any UI references if the logo filenames change.",
+      "reqIds": [
+        "REQ-60"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-site-wide-text-colors-to-be-lighter-more-readable-on-the-premium-dark-theme-by-adjusting-the-theme-tokens-styles-so-that-muted-text-e-g-tagline-descriptions-secondary-labels-is-noticeably-brighter-while-maintaining-contrast-and-hierarchy",
+      "title": "Update site-wide text colors to be lighter/more readable on the premium dark theme by adjusting the theme tokens/styles so that muted text (e.g., tagline, descriptions, secondary labels) is noticeably brighter while maintaining contrast and hierarchy.",
+      "reqIds": [
+        "REQ-61"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -517,6 +630,42 @@
     {
       "id": "AR-20",
       "summary": "Create a modern circular badge 'HND' logo (red outer circular border, white inner background) with a friendly cartoon chef holding a pizza tray, and 'HND' text in bold rounded typography using red/green; deliver as high-res vector-style asset with transparent background suitable for website header and favicon.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Generate Ultra HD/4K high-quality realistic food photos for every menu item (each item unique and dish-accurate) for use in premium digital menu cards.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Auto-generate and display a realistic, high-quality, dish-accurate individual image for each menu item next to its existing text, without editing any menu text and without using full-menu photos; images must be proportional and match the website style, keeping the existing layout unchanged aside from adding the image.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Remove/hide the “Deals” content/section from the menu (user requested: 'deal hata do').",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Update navigation/section UX so Menu/Hours/About are directly visible on the homepage (including mobile) without requiring the 3-line (hamburger) menu; clicking a button should swap/show the target content in the main view (not appear below/after scrolling).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-25",
+      "summary": "Remove/hide the photos currently displayed on menu items in the Menu section (menu items should display without item photos).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-26",
+      "summary": "Update site-wide text colors to a lighter palette for better readability on the dark theme.",
       "reqIds": [],
       "status": "pending"
     }

@@ -4,122 +4,66 @@
 
 @layer base {
   :root {
-    /* Premium Dark Theme with Gold/Neon Accents */
-    --background: 20% 0.015 240;
-    --foreground: 95% 0.01 240;
-    --card: 22% 0.02 240;
-    --card-foreground: 95% 0.01 240;
-    --popover: 22% 0.02 240;
-    --popover-foreground: 95% 0.01 240;
-    --primary: 70% 0.15 240;
-    --primary-foreground: 20% 0.015 240;
-    --secondary: 30% 0.03 240;
-    --secondary-foreground: 95% 0.01 240;
-    --muted: 25% 0.02 240;
-    --muted-foreground: 70% 0.03 240;
-    --accent: 75% 0.18 60; /* Gold/Neon accent */
-    --accent-foreground: 20% 0.015 60;
-    --destructive: 55% 0.22 25;
-    --destructive-foreground: 95% 0.01 240;
-    --border: 30% 0.03 240;
-    --input: 30% 0.03 240;
-    --ring: 70% 0.15 240;
-    --chart-1: 70% 0.15 240;
-    --chart-2: 65% 0.18 180;
-    --chart-3: 70% 0.16 120;
-    --chart-4: 75% 0.18 60;
-    --chart-5: 60% 0.20 300;
+    --background: oklch(0.15 0.02 240);
+    --foreground: oklch(0.98 0.01 240);
+    --card: oklch(0.18 0.02 240);
+    --card-foreground: oklch(0.98 0.01 240);
+    --popover: oklch(0.18 0.02 240);
+    --popover-foreground: oklch(0.98 0.01 240);
+    --primary: oklch(0.75 0.18 45);
+    --primary-foreground: oklch(0.15 0.02 240);
+    --secondary: oklch(0.25 0.03 240);
+    --secondary-foreground: oklch(0.98 0.01 240);
+    --muted: oklch(0.22 0.02 240);
+    --muted-foreground: oklch(0.78 0.02 240);
+    --accent: oklch(0.75 0.18 45);
+    --accent-foreground: oklch(0.15 0.02 240);
+    --destructive: oklch(0.55 0.22 25);
+    --destructive-foreground: oklch(0.98 0.01 240);
+    --border: oklch(0.28 0.02 240);
+    --input: oklch(0.28 0.02 240);
+    --ring: oklch(0.75 0.18 45);
     --radius: 0.5rem;
   }
 
+  .dark {
+    --background: oklch(0.15 0.02 240);
+    --foreground: oklch(0.98 0.01 240);
+    --card: oklch(0.18 0.02 240);
+    --card-foreground: oklch(0.98 0.01 240);
+    --popover: oklch(0.18 0.02 240);
+    --popover-foreground: oklch(0.98 0.01 240);
+    --primary: oklch(0.75 0.18 45);
+    --primary-foreground: oklch(0.15 0.02 240);
+    --secondary: oklch(0.25 0.03 240);
+    --secondary-foreground: oklch(0.98 0.01 240);
+    --muted: oklch(0.22 0.02 240);
+    --muted-foreground: oklch(0.78 0.02 240);
+    --accent: oklch(0.75 0.18 45);
+    --accent-foreground: oklch(0.15 0.02 240);
+    --destructive: oklch(0.55 0.22 25);
+    --destructive-foreground: oklch(0.98 0.01 240);
+    --border: oklch(0.28 0.02 240);
+    --input: oklch(0.28 0.02 240);
+    --ring: oklch(0.75 0.18 45);
+  }
+}
+
+@layer base {
   * {
     @apply border-border;
   }
-
-  html {
-    @apply bg-background;
-  }
-
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-
-  #root {
-    @apply bg-background;
   }
 }
 
-@layer components {
-  /* Premium Menu Section Styling */
-  .menu-section-premium {
-    @apply relative overflow-hidden;
-  }
-
-  /* Menu Item Card Enhancements */
-  .menu-item-card {
-    @apply transition-all duration-300;
-    @apply border-accent/20;
-  }
-
-  .menu-item-card:hover {
-    @apply border-accent/40;
-    @apply shadow-[0_8px_30px_rgb(0,0,0,0.4)];
-  }
-
-  /* Watermark Styling */
-  .menu-watermark {
-    @apply transition-opacity duration-300;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-  }
-
-  .menu-item-card:hover .menu-watermark {
-    @apply opacity-60;
-  }
-
-  /* Tab Styling for Menu */
-  [data-state="active"] {
-    @apply shadow-md;
-  }
+/* Hide scrollbar for horizontal nav on mobile */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-@layer utilities {
-  /* Premium shadow utilities */
-  .shadow-premium {
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3), 0 2px 10px -2px rgba(0, 0, 0, 0.2);
-  }
-
-  /* Text shadow for better readability on backgrounds */
-  .text-shadow {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  }
-
-  /* Backdrop blur utilities */
-  .backdrop-blur-premium {
-    backdrop-filter: blur(12px);
-  }
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
-
-/* Animation for menu items */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.menu-item-card {
-  animation: fadeInUp 0.4s ease-out;
-}
-
-/* Stagger animation for grid items */
-.menu-item-card:nth-child(1) { animation-delay: 0.05s; }
-.menu-item-card:nth-child(2) { animation-delay: 0.1s; }
-.menu-item-card:nth-child(3) { animation-delay: 0.15s; }
-.menu-item-card:nth-child(4) { animation-delay: 0.2s; }
-.menu-item-card:nth-child(5) { animation-delay: 0.25s; }
-.menu-item-card:nth-child(6) { animation-delay: 0.3s; }

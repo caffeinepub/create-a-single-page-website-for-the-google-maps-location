@@ -1,44 +1,37 @@
 import { useState, useCallback } from 'react';
 
-type SectionId = 'about' | 'menu' | 'hours' | 'contact' | 'location';
+type SectionId = 'about' | 'menu' | 'hours' | 'contact' | 'location' | 'home';
 
 export function useRevealableSections() {
-  const [revealedSections, setRevealedSections] = useState<Set<SectionId>>(
-    new Set(['contact', 'location']) // Contact and Location are visible by default
-  );
-
-  const revealSection = useCallback((sectionId: SectionId) => {
-    setRevealedSections(prev => new Set(prev).add(sectionId));
-  }, []);
+  // Track the currently active section (default to 'home' on initial load)
+  const [activeSection, setActiveSection] = useState<SectionId>('home');
 
   const isRevealed = useCallback((sectionId: SectionId) => {
-    return revealedSections.has(sectionId);
-  }, [revealedSections]);
+    // Only the active section is revealed
+    return activeSection === sectionId;
+  }, [activeSection]);
 
   const revealThenScroll = useCallback((sectionId: SectionId) => {
-    // First reveal the section
-    setRevealedSections(prev => new Set(prev).add(sectionId));
+    // Set the clicked section as the active section (hiding all others)
+    setActiveSection(sectionId);
     
-    // Then scroll to it after a brief delay to ensure DOM update
-    setTimeout(() => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        const offset = 80;
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }
-    }, 50);
+    // Scroll to top of page immediately to position content below fixed header
+    // Use requestAnimationFrame to ensure DOM has updated
+    requestAnimationFrame(() => {
+      // Calculate header height to offset scroll position
+      const header = document.querySelector('header');
+      const headerHeight = header?.offsetHeight || 64;
+      
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant' as ScrollBehavior
+      });
+    });
   }, []);
 
   return {
-    revealedSections,
-    revealSection,
     isRevealed,
-    revealThenScroll
+    revealThenScroll,
+    activeSection
   };
 }

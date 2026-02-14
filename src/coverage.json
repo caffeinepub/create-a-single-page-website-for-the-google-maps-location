@@ -1,50 +1,69 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T22:41:44.678Z",
+  "generatedAt": "2026-02-14T23:21:35.824Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 3,
+    "total": 4,
+    "implemented": 4,
     "items": [
       {
-        "id": "REQ-45",
-        "summary": "Add new generated logo image assets under `frontend/public/assets/generated/` that match the provided design: modern circular badge for brand text “HND” with a red outer circular border, white inner background, a friendly minimal cartoon chef (smiling) holding a pizza tray, wearing a chef hat and scarf; the “HND” text must be bold, modern, rounded, and use red and green; the asset must be clean, minimal, professional, high-resolution, vector-style, transparent background, with no watermark, blur, or extra text.",
+        "id": "REQ-58",
+        "summary": "Remove/hide the per-menu-item food photos from the Menu item cards so each Menu item displays text content (name, description/note if present, and all prices) plus the existing WhatsApp ordering button/variant-selection behavior, but no food image thumbnail is shown.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/assets/generated/hnd-logo-badge-chef.dim_512x512.png",
-          "frontend/public/assets/generated/hnd-favicon-badge-chef.dim_64x64.png"
+          "frontend/src/components/MenuItemCard.tsx",
+          "frontend/src/components/MenuCategoryGrid.tsx"
         ],
         "matchedFiles": [
-          "frontend/public/assets/generated/hnd-logo-badge-chef.dim_512x512.png",
-          "frontend/public/assets/generated/hnd-favicon-badge-chef.dim_64x64.png"
+          "frontend/src/components/MenuItemCard.tsx"
         ]
       },
       {
-        "id": "REQ-46",
-        "summary": "Update the site UI to use the new HND badge logo asset for all current logo placements (header logo and hero logo), replacing the existing `/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png` references.",
+        "id": "REQ-59",
+        "summary": "Remove the HND watermark/logo overlay that is currently rendered on top of each Menu item photo (since Menu item photos are being removed).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/SiteHeader.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/components/MenuItemCard.tsx",
+          "frontend/src/index.css"
         ],
         "matchedFiles": [
-          "frontend/src/components/SiteHeader.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/components/MenuItemCard.tsx",
+          "frontend/src/index.css"
         ]
       },
       {
-        "id": "REQ-47",
-        "summary": "Add favicon configuration in `frontend/index.html` to use the new favicon asset so browsers display the HND badge in the tab icon.",
+        "id": "REQ-60",
+        "summary": "Fix the HND logo image assets used in the header and hero so the logo image itself has a clean, fully transparent background (no visible background box/edges on the dark theme). Update any UI references if the logo filenames change.",
         "status": "implemented",
         "plannedFiles": [
+          "frontend/public/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png",
+          "frontend/public/assets/generated/hnd-favicon-badge-chef-fixed.dim_64x64.png",
+          "frontend/src/components/SiteHeader.tsx",
+          "frontend/src/App.tsx",
           "frontend/index.html"
         ],
         "matchedFiles": [
+          "frontend/public/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png",
+          "frontend/public/assets/generated/hnd-favicon-badge-chef-fixed.dim_64x64.png",
+          "frontend/src/components/SiteHeader.tsx",
+          "frontend/src/App.tsx",
           "frontend/index.html"
+        ]
+      },
+      {
+        "id": "REQ-61",
+        "summary": "Update site-wide text colors to be lighter/more readable on the premium dark theme by adjusting the theme tokens/styles so that muted text (e.g., tagline, descriptions, secondary labels) is noticeably brighter while maintaining contrast and hierarchy.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/index.css",
+          "frontend/index.css"
+        ],
+        "matchedFiles": [
+          "frontend/src/index.css"
         ]
       }
     ]
@@ -55,10 +74,12 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/index.html",
-    "frontend/public/assets/generated/hnd-favicon-badge-chef.dim_64x64.png",
-    "frontend/public/assets/generated/hnd-logo-badge-chef.dim_512x512.png",
+    "frontend/public/assets/generated/hnd-favicon-badge-chef-fixed.dim_64x64.png",
+    "frontend/public/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png",
     "frontend/src/App.tsx",
+    "frontend/src/components/MenuItemCard.tsx",
     "frontend/src/components/SiteHeader.tsx",
+    "frontend/src/index.css",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

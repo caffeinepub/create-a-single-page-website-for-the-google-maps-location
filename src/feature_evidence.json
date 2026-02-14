@@ -2,9 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-new-generated-logo-image-assets-under-frontend-public-assets-generated-that-match-the-provided-design-modern-circular-badge-for-brand-text-hnd-with-a-red-outer-circular-border-white-inner-background-a-friendly-minimal-cartoon-chef-smiling-holding-a-pizza-tray-wearing-a-chef-hat-and-scarf-the-hnd-text-must-be-bold-modern-rounded-and-use-red-and-green-the-asset-must-be-clean-minimal-professional-high-resolution-vector-style-transparent-background-with-no-watermark-blur-or-extra-text",
-      "featureTitle": "Add new generated logo image assets under `frontend/public/assets/generated/` that match the provided design: modern circular badge for brand text “HND” with a red outer circular border, white inner background, a friendly minimal cartoon chef (smiling) holding a pizza tray, wearing a chef hat and scarf; the “HND” text must be bold, modern, rounded, and use red and green; the asset must be clean, minimal, professional, high-resolution, vector-style, transparent background, with no watermark, blur, or extra text.",
-      "files": [],
+      "featureId": "feature-remove-hide-the-per-menu-item-food-photos-from-the-menu-item-cards-so-each-menu-item-displays-text-content-name-description-note-if-present-and-all-prices-plus-the-existing-whatsapp-ordering-button-variant-selection-behavior-but-no-food-image-thumbnail-is-shown",
+      "featureTitle": "Remove/hide the per-menu-item food photos from the Menu item cards so each Menu item displays text content (name, description/note if present, and all prices) plus the existing WhatsApp ordering button/variant-selection behavior, but no food image thumbnail is shown.",
+      "files": [
+        "frontend/src/components/MenuItemCard.tsx"
+      ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
@@ -13,14 +15,34 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-45"
+        "REQ-58"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-site-ui-to-use-the-new-hnd-badge-logo-asset-for-all-current-logo-placements-header-logo-and-hero-logo-replacing-the-existing-assets-generated-hnd-logo-restaurant-transparent-dim-512x512-png-references",
-      "featureTitle": "Update the site UI to use the new HND badge logo asset for all current logo placements (header logo and hero logo), replacing the existing `/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png` references.",
+      "featureId": "feature-remove-the-hnd-watermark-logo-overlay-that-is-currently-rendered-on-top-of-each-menu-item-photo-since-menu-item-photos-are-being-removed",
+      "featureTitle": "Remove the HND watermark/logo overlay that is currently rendered on top of each Menu item photo (since Menu item photos are being removed).",
       "files": [
+        "frontend/src/components/MenuItemCard.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-59"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-fix-the-hnd-logo-image-assets-used-in-the-header-and-hero-so-the-logo-image-itself-has-a-clean-fully-transparent-background-no-visible-background-box-edges-on-the-dark-theme-update-any-ui-references-if-the-logo-filenames-change",
+      "featureTitle": "Fix the HND logo image assets used in the header and hero so the logo image itself has a clean, fully transparent background (no visible background box/edges on the dark theme). Update any UI references if the logo filenames change.",
+      "files": [
+        "frontend/index.html",
         "frontend/src/App.tsx",
         "frontend/src/components/SiteHeader.tsx"
       ],
@@ -32,15 +54,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-46"
+        "REQ-60"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-favicon-configuration-in-frontend-index-html-to-use-the-new-favicon-asset-so-browsers-display-the-hnd-badge-in-the-tab-icon",
-      "featureTitle": "Add favicon configuration in `frontend/index.html` to use the new favicon asset so browsers display the HND badge in the tab icon.",
+      "featureId": "feature-update-site-wide-text-colors-to-be-lighter-more-readable-on-the-premium-dark-theme-by-adjusting-the-theme-tokens-styles-so-that-muted-text-e-g-tagline-descriptions-secondary-labels-is-noticeably-brighter-while-maintaining-contrast-and-hierarchy",
+      "featureTitle": "Update site-wide text colors to be lighter/more readable on the premium dark theme by adjusting the theme tokens/styles so that muted text (e.g., tagline, descriptions, secondary labels) is noticeably brighter while maintaining contrast and hierarchy.",
       "files": [
-        "frontend/index.html"
+        "frontend/src/index.css"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -50,7 +72,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-47"
+        "REQ-61"
       ],
       "confidence": "high"
     }

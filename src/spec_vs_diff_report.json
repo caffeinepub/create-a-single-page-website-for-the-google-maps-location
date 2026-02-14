@@ -1,31 +1,47 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T22:41:44.675Z",
-  "summary": "REQ-46 and REQ-47 appear implemented (logo references updated in header/hero; favicon link added). REQ-45 is missing because the required new PNG assets are not added under frontend/public/assets/generated/. The diff also includes several UI/theme/content changes beyond the stated constraint of limiting changes to logo assets and logo references.",
-  "missing_requirements": [
-    {
-      "id": "REQ-45",
-      "requirement": "Add new generated logo image assets under `frontend/public/assets/generated/`: `hnd-logo-badge-chef.dim_512x512.png` and `hnd-favicon-badge-chef.dim_64x64.png`.",
-      "reason": "The diff shows no added files, so the required new image assets are not present in the change set.",
-      "evidence": [
-        "File diff summary: \"Added: 0\" / \"ADDED FILES: - none\""
-      ]
-    }
-  ],
+  "generatedAt": "2026-02-14T23:21:35.820Z",
+  "summary": "Diff appears to implement the requested presentation updates: menu item cards no longer show food photos, logo references updated to the new transparent-fixed assets in header/hero, favicon updated, and muted text color tokens brightened. However, the diff summary also indicates several unrelated/unrequested structural and content changes (e.g., filtering/removing the “Deals” category, rewriting menu image paths to 4K helpers, adding new section-visibility/navigation behavior, and adding placeholder hooks/config changes).",
+  "missing_requirements": [],
   "hallucinated_features": [
     {
-      "description": "Added/changed hero and other UI behavior not limited to swapping logo references (e.g., introduction of a custom TikTok SVG icon component and other non-logo UI code in App).",
-      "reason": "BuildRequest constraints require changes to be limited to logo assets and logo references; TikTok icon/UI behavior is unrelated to updating logo and favicon.",
+      "description": "Filtering/removing the “Deals” menu category (content change) even though the request specified keeping existing menu item names/prices/categories unchanged.",
+      "reason": "BuildRequest only asked to hide photos and adjust styling; altering categories is out of scope and may violate constraints.",
       "evidence": [
-        "frontend/src/App.tsx (adds \"// TikTok icon component\" and defines `TikTokIcon` SVG)"
+        "frontend/src/App.tsx (\"Filter out \\\"Deals\\\" category\")",
+        "frontend-file-summaries.txt (\"Deals category removed\")"
       ]
     },
     {
-      "description": "Broader site redesign/theme/menu-related changes (premium dark theme, menu section styling, watermark utilities, Tailwind/PostCSS config changes, menu/photo layout changes, business/menu content expansion).",
-      "reason": "Non-goals/constraints explicitly say to keep changes limited to logo assets and references and not change existing site sections or unrelated content; these changes go beyond favicon/logo updates.",
+      "description": "Updating business menu image paths to Ultra HD/4K via a helper function (content/config change) despite the request being presentation-only and explicitly a non-goal to regenerate/add new food photos.",
+      "reason": "Not requested; the requirement was to hide/remove images from UI, not to change menu image assets/paths.",
       "evidence": [
-        "frontend-file-summaries.txt (describes premium dark mode color system, menu section styling, Tailwind config conversion, PostCSS config, menu item card layout changes, business menu structure updates)"
+        "frontend-file-summaries.txt (frontend/src/content/business.ts: \"updated to use Ultra HD 4K resolution paths for all menu item images via the getMenuItemImage helper function\")"
+      ]
+    },
+    {
+      "description": "Changing section mounting/navigation behavior by introducing mutually-exclusive revealable sections and scroll-to-top switching behavior.",
+      "reason": "Explicit non-goal: do not add new site sections or change section navigation behavior.",
+      "evidence": [
+        "frontend-file-summaries.txt (frontend/src/hooks/useRevealableSections.ts: \"managing mutually-exclusive section visibility including 'home' as default, with instant scroll-to-top behavior\")",
+        "frontend-file-summaries.txt (frontend/src/components/RevealableSection.tsx: \"returns null when hidden\")",
+        "frontend/src/App.tsx (imports/use of RevealableSection and useRevealableSections)"
+      ]
+    },
+    {
+      "description": "Adding a placeholder React Query hooks file.",
+      "reason": "Not requested and introduces new scaffolding unrelated to hiding photos/logo transparency/text color tweaks.",
+      "evidence": [
+        "frontend-file-summaries.txt (frontend/src/hooks/useQueries.ts: \"Placeholder file for future React Query hooks\")"
+      ]
+    },
+    {
+      "description": "Tailwind and PostCSS build configuration changes (CommonJS conversion and new postcss.config.cjs).",
+      "reason": "Not requested; may be valid refactoring but is out of scope for the specified UI-only changes.",
+      "evidence": [
+        "frontend-file-summaries.txt (frontend/tailwind.config.js: \"converted to CommonJS\")",
+        "frontend-file-summaries.txt (frontend/postcss.config.cjs: \"Explicit CommonJS PostCSS configuration\")"
       ]
     }
   ],
@@ -34,7 +50,9 @@
     "frontend-file-summaries.txt",
     "frontend/index.html",
     "frontend/src/App.tsx",
+    "frontend/src/components/MenuItemCard.tsx",
     "frontend/src/components/SiteHeader.tsx",
+    "frontend/src/index.css",
     "project_state.json"
   ]
 }

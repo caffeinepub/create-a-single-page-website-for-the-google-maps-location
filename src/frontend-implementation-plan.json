@@ -1,62 +1,103 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add new circular HND badge logo asset and use it for header + favicon",
+  "title": "Hide menu item photos, remove watermark, fix logo transparency, and brighten muted text",
   "requirements": [
     {
-      "id": "REQ-45",
-      "summary": "Add new generated circular badge logo + favicon image assets under frontend/public/assets/generated/ matching the specified chef + HND design.",
+      "id": "REQ-58",
+      "summary": "Remove/hide per-menu-item food photos from Menu item cards while preserving existing text, prices, and WhatsApp ordering/variant selection behavior.",
       "acceptanceCriteria": [
-        "The following files exist in `frontend/public/assets/generated/` with transparent backgrounds and crisp edges at 1:1 zoom: `hnd-logo-badge-chef.dim_512x512.png` and `hnd-favicon-badge-chef.dim_64x64.png`.",
-        "The logo visually matches the specified layout: red circular border + white inner circle, chef character holding a pizza tray with chef hat + scarf, smiling, and “HND” text beneath in bold rounded styling using red + green.",
-        "No watermarking, no additional text besides “HND”, and no visible blur/pixelation artifacts."
+        "In the Menu section, each Menu item card renders without any visible food image/thumbnail area.",
+        "Menu item name, optional description/note, and prices render exactly as before (no changes to menu text/prices).",
+        "The 'Order on WhatsApp' button remains available per item, and the variant-selection dialog still appears for items with multiple variants.",
+        "No empty/blank placeholder image container is shown where the photo used to be."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/hnd-logo-badge-chef.dim_512x512.png",
-          "operation": "create",
-          "description": "Add the new high-resolution, vector-style (rasterized PNG) circular badge logo asset with transparent background that matches the provided design spec (red outer ring, white inner circle, smiling cartoon chef holding pizza tray with chef hat + scarf, bold rounded “HND” in red + green). Keep changes limited to static assets under frontend/public/assets/generated/."
+          "path": "frontend/src/components/MenuItemCard.tsx",
+          "operation": "modify",
+          "description": "Remove the image/thumbnail column (including SafeImage usage) from the Menu item card layout so only text content, prices, and WhatsApp order controls render; keep variant-selection dialog behavior unchanged."
         },
         {
-          "path": "frontend/public/assets/generated/hnd-favicon-badge-chef.dim_64x64.png",
-          "operation": "create",
-          "description": "Add the simplified favicon PNG (64x64) matching the same badge mark (chef + “HND”), readable at small size, transparent background, crisp edges, no watermark/blur/extra text. Keep as a static file under frontend/public/assets/generated/ (do not serve from backend)."
+          "path": "frontend/src/components/MenuCategoryGrid.tsx",
+          "operation": "modify",
+          "description": "Adjust any grid/card sizing assumptions (if present) so Menu item cards lay out cleanly without an image column and without leaving reserved/blank image space."
         }
       ]
     },
     {
-      "id": "REQ-46",
-      "summary": "Replace existing logo references in the header and hero to use the new HND badge logo asset while continuing to render via SafeImage with appropriate English alt text.",
+      "id": "REQ-59",
+      "summary": "Remove the HND watermark/logo overlay styling and rendering from Menu item cards.",
       "acceptanceCriteria": [
-        "`frontend/src/components/SiteHeader.tsx` uses `/assets/generated/hnd-logo-badge-chef.dim_512x512.png` as the logo `src`.",
-        "`frontend/src/App.tsx` hero logo uses `/assets/generated/hnd-logo-badge-chef.dim_512x512.png` as the logo `src`.",
-        "Logo images still render via the existing `SafeImage` component and retain appropriate `alt` text in English."
+        "No HND watermark overlay is rendered anywhere within Menu item cards.",
+        "The CSS class/styles dedicated to the Menu watermark do not cause any visual artifacts or layout spacing issues in the Menu section."
       ],
       "file_operations": [
         {
+          "path": "frontend/src/components/MenuItemCard.tsx",
+          "operation": "modify",
+          "description": "Remove the watermark overlay markup from Menu item cards (now that photos are removed) so no overlay element is rendered."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Remove the menu watermark CSS rules (e.g., .menu-watermark-premium) to prevent leftover styling from affecting layout or visuals."
+        }
+      ]
+    },
+    {
+      "id": "REQ-60",
+      "summary": "Update header and hero to use fixed transparent HND logo assets (and update favicon) so no background box/edges appear on the dark theme.",
+      "acceptanceCriteria": [
+        "The HND logo displayed in the header and hero appears with a transparent background on the dark UI (no visible box, halo, or solid fill around the logo).",
+        "If updated logo filenames are introduced, all current logo usages (header and hero) reference the updated filenames and load successfully."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the corrected transparent logo asset (background/edges cleanly removed) as a static frontend asset at this exact path/filename."
+        },
+        {
+          "path": "frontend/public/assets/generated/hnd-favicon-badge-chef-fixed.dim_64x64.png",
+          "operation": "create",
+          "description": "Add the corrected transparent favicon asset (background/edges cleanly removed) as a static frontend asset at this exact path/filename."
+        },
+        {
           "path": "frontend/src/components/SiteHeader.tsx",
           "operation": "modify",
-          "description": "Update the existing header logo `SafeImage` to use `/assets/generated/hnd-logo-badge-chef.dim_512x512.png` as `src`, replacing `/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png`. Preserve existing `SafeImage` usage, fallback behavior, and English alt text. Do not modify any files under frontend/src/components/ui."
+          "description": "Update the header logo reference to use /assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png so the logo renders with a clean transparent background."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update the hero logo `SafeImage` to use `/assets/generated/hnd-logo-badge-chef.dim_512x512.png` as `src`, replacing `/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png`. Keep all other hero content/sections unchanged and continue using `SafeImage` with appropriate English alt text."
+          "description": "Update the hero logo reference to use /assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png so the logo renders with a clean transparent background."
+        },
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Update the favicon reference to use /assets/generated/hnd-favicon-badge-chef-fixed.dim_64x64.png so the favicon uses the corrected transparent asset."
         }
       ]
     },
     {
-      "id": "REQ-47",
-      "summary": "Configure the favicon in frontend/index.html to use the new generated HND badge favicon asset.",
+      "id": "REQ-61",
+      "summary": "Brighten site-wide muted/secondary text colors for better readability on the premium dark theme without changing any text content.",
       "acceptanceCriteria": [
-        "`frontend/index.html` includes a favicon `<link>` pointing to `/assets/generated/hnd-favicon-badge-chef.dim_64x64.png` (e.g., `rel=\"icon\"`, `type=\"image/png\"`).",
-        "When running the app in a browser, the tab favicon displays the new HND badge logo."
+        "Body text remains bright and readable across all sections on the dark background.",
+        "Muted text (elements using muted-foreground) is lighter than before and remains readable (no low-contrast gray-on-dark).",
+        "No user-facing text content is changed (English text remains the same)."
       ],
       "file_operations": [
         {
-          "path": "frontend/index.html",
+          "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Add/ensure a favicon `<link rel=\"icon\" type=\"image/png\">` in the `<head>` pointing to `/assets/generated/hnd-favicon-badge-chef.dim_64x64.png`. Keep changes limited to favicon linkage only (no unrelated head/content changes)."
+          "description": "Adjust the theme token(s) for muted text (notably --muted-foreground in the dark theme variables) to a noticeably lighter value while maintaining hierarchy and contrast."
+        },
+        {
+          "path": "frontend/index.css",
+          "operation": "modify",
+          "description": "If this global token file is used in the build, align its dark-mode --muted-foreground (and any related muted text tokens) with the brighter muted text color so muted text is consistently more readable across the app."
         }
       ]
     }

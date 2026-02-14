@@ -16,12 +16,16 @@ export function RevealableSection({
   children,
   className 
 }: RevealableSectionProps) {
+  // If not revealed, don't render the section at all (removes from DOM flow and prevents focus)
+  if (!isRevealed) {
+    return null;
+  }
+
   return (
     <Section 
       id={id} 
       background={background}
-      className={`${!isRevealed ? 'hidden' : ''} ${className || ''}`}
-      aria-hidden={!isRevealed}
+      className={className}
     >
       {children}
     </Section>

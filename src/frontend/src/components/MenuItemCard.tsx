@@ -8,8 +8,6 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { SafeImage } from './SafeImage';
-import { defaultMenuImage } from '@/content/business';
 import { buildWhatsAppOrderLink, isWhatsAppConfigured, getAvailableVariants, VariantOption } from '@/lib/whatsapp';
 import { MessageCircle } from 'lucide-react';
 import { ReactElement, useState } from 'react';
@@ -40,8 +38,8 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
   const hasWhatsApp = isWhatsAppConfigured();
   const availableVariants = getAvailableVariants(item);
 
-  // Ensure item name starts with "HND " prefix
-  const displayName = item.name.startsWith('HND ') ? item.name : `HND ${item.name}`;
+  // Use the exact item name as provided in business.ts without any modifications
+  const displayName = item.name;
   
   // Build price display
   const priceElements: ReactElement[] = [];
@@ -82,16 +80,14 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
     if (availableVariants.length > 1) {
       setIsDialogOpen(true);
     } else if (availableVariants.length === 1) {
-      // Single variant: order directly with prefixed name
-      const itemWithPrefix = { ...item, name: displayName };
-      const whatsappLink = buildWhatsAppOrderLink(itemWithPrefix, availableVariants[0]);
+      // Single variant: order directly with exact name from business.ts
+      const whatsappLink = buildWhatsAppOrderLink(item, availableVariants[0]);
       if (whatsappLink) {
         window.open(whatsappLink, '_blank', 'noopener,noreferrer');
       }
     } else {
-      // No variants: fallback to generic order with prefixed name
-      const itemWithPrefix = { ...item, name: displayName };
-      const whatsappLink = buildWhatsAppOrderLink(itemWithPrefix);
+      // No variants: fallback to generic order with exact name from business.ts
+      const whatsappLink = buildWhatsAppOrderLink(item);
       if (whatsappLink) {
         window.open(whatsappLink, '_blank', 'noopener,noreferrer');
       }
@@ -99,8 +95,7 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
   };
 
   const handleVariantSelect = (variant: VariantOption) => {
-    const itemWithPrefix = { ...item, name: displayName };
-    const whatsappLink = buildWhatsAppOrderLink(itemWithPrefix, variant);
+    const whatsappLink = buildWhatsAppOrderLink(item, variant);
     if (whatsappLink) {
       window.open(whatsappLink, '_blank', 'noopener,noreferrer');
       setIsDialogOpen(false);
@@ -110,70 +105,46 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
   return (
     <>
       <Card className="menu-item-card border-border/30 overflow-hidden hover:shadow-premium transition-all duration-300 hover:scale-[1.02] flex flex-col h-full bg-card/95 backdrop-blur-sm">
-        {/* Responsive layout: stacked on mobile, side-by-side on sm+ */}
-        <div className="flex flex-col sm:flex-row h-full">
-          {/* Content column - left on sm+ */}
-          <div className="flex flex-col flex-1 order-2 sm:order-1">
-            <CardHeader className="pb-2 flex-grow">
-              <CardTitle className="text-base text-foreground">{displayName}</CardTitle>
-              {(item.description || item.note) && (
-                <CardDescription className="text-xs line-clamp-2">
-                  {item.description || item.note}
-                </CardDescription>
-              )}
-            </CardHeader>
-            <CardContent className="pt-0 space-y-3">
-              {priceElements.length > 0 ? (
-                <div className="flex flex-wrap gap-2 text-sm font-semibold text-accent">
-                  {priceElements}
-                </div>
-              ) : (
-                <div className="text-sm text-muted-foreground">Price on request</div>
-              )}
-              
-              {hasWhatsApp ? (
-                <Button
-                  onClick={handleOrderClick}
-                  className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
-                  size="sm"
-                  variant="default"
-                >
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  Order on WhatsApp
-                </Button>
-              ) : (
-                <Button
-                  disabled
-                  className="w-full"
-                  size="sm"
-                  variant="outline"
-                  title="WhatsApp ordering is not configured"
-                >
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  Order Unavailable
-                </Button>
-              )}
-            </CardContent>
-          </div>
-
-          {/* Image column - right on sm+ */}
-          <div className="w-full sm:w-40 md:w-48 flex-shrink-0 overflow-hidden bg-muted/50 relative order-1 sm:order-2">
-            <SafeImage
-              src={item.image}
-              alt={displayName}
-              fallbackSrc={defaultMenuImage}
-              className="w-full h-40 sm:h-full object-cover hover:scale-105 transition-transform duration-300"
-            />
-            {/* HND Logo Watermark Overlay - refined positioning */}
-            <img
-              src="/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png"
-              alt=""
-              className="menu-watermark absolute top-2 right-2 w-10 h-10 opacity-40 pointer-events-none"
-              loading="lazy"
-              aria-hidden="true"
-            />
-          </div>
-        </div>
+        <CardHeader className="pb-2 flex-grow">
+          <CardTitle className="text-base text-foreground">{displayName}</CardTitle>
+          {(item.description || item.note) && (
+            <CardDescription className="text-xs line-clamp-2">
+              {item.description || item.note}
+            </CardDescription>
+          )}
+        </CardHeader>
+        <CardContent className="pt-0 space-y-3">
+          {priceElements.length > 0 ? (
+            <div className="flex flex-wrap gap-2 text-sm font-semibold text-accent">
+              {priceElements}
+            </div>
+          ) : (
+            <div className="text-sm text-muted-foreground">Price on request</div>
+          )}
+          
+          {hasWhatsApp ? (
+            <Button
+              onClick={handleOrderClick}
+              className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+              size="sm"
+              variant="default"
+            >
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Order on WhatsApp
+            </Button>
+          ) : (
+            <Button
+              disabled
+              className="w-full"
+              size="sm"
+              variant="outline"
+              title="WhatsApp ordering is not configured"
+            >
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Order Unavailable
+            </Button>
+          )}
+        </CardContent>
       </Card>
 
       {/* Variant selection dialog */}

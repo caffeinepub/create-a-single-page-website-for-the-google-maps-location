@@ -1,11 +1,10 @@
 import { SiteHeader } from './components/SiteHeader';
-import { Section } from './components/Section';
 import { RevealableSection } from './components/RevealableSection';
 import { LocationMapPreview } from './components/LocationMapPreview';
 import { SafeImage } from './components/SafeImage';
 import { MenuCategoryGrid } from './components/MenuCategoryGrid';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin, Clock, Phone, Mail, ExternalLink, UtensilsCrossed, Heart } from 'lucide-react';
 import { SiFacebook } from 'react-icons/si';
 import { businessContent, defaultMenuImage } from './content/business';
@@ -29,285 +28,343 @@ function App() {
   const appIdentifier = encodeURIComponent(window.location.hostname || 'hotel-nasra-da');
   const { isRevealed, revealThenScroll } = useRevealableSections();
 
+  // Filter out "Deals" category as a defensive measure
+  const filteredMenu = businessContent.menu.filter(
+    (category) => category.category.toLowerCase() !== 'deals'
+  );
+
+  // Convert hours object to array for rendering
+  const hoursArray = [
+    { days: 'Monday', hours: businessContent.hours.monday },
+    { days: 'Tuesday', hours: businessContent.hours.tuesday },
+    { days: 'Wednesday', hours: businessContent.hours.wednesday },
+    { days: 'Thursday', hours: businessContent.hours.thursday },
+    { days: 'Friday', hours: businessContent.hours.friday },
+    { days: 'Saturday', hours: businessContent.hours.saturday },
+    { days: 'Sunday', hours: businessContent.hours.sunday },
+  ];
+
+  // Format address from address object
+  const fullAddress = [
+    businessContent.address.street,
+    businessContent.address.city,
+    businessContent.address.state,
+    businessContent.address.country
+  ].filter(Boolean).join(', ');
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader onNavigate={revealThenScroll} />
       
-      {/* Hero Section */}
-      <section className="relative min-h-[600px] md:min-h-[700px] flex items-center justify-center overflow-hidden pt-16 bg-background">
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/assets/generated/hero-bg-premium-dark.dim_1920x1080.png)' }}
-          aria-hidden="true"
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
-        </div>
-        
-        {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-4 max-w-6xl text-center">
-          <div className="flex justify-center mb-6 md:mb-8">
-            <SafeImage
-              src="/assets/generated/hnd-logo-badge-chef.dim_512x512.png"
-              alt="HND Restaurant logo"
-              fallbackSrc={defaultMenuImage}
-              className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-2xl"
-            />
-          </div>
-          
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 tracking-tight">
-            {businessContent.name}
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed">
-            {businessContent.tagline}
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <Button asChild size="lg" className="text-base px-8 py-6 shadow-premium">
-              <a
-                href={businessContent.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2"
-              >
-                <MapPin className="w-5 h-5" />
-                View on Google Maps
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </Button>
+      {/* Main content area - positioned below fixed header */}
+      <main className="pt-16">
+        {/* Hero Section - Only visible when home/default */}
+        <RevealableSection id="home" isRevealed={isRevealed('home')}>
+          <section className="relative min-h-[600px] md:min-h-[700px] flex items-center justify-center overflow-hidden bg-background">
+            {/* Background Image */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: 'url(/assets/generated/hero-bg-premium-dark.dim_1920x1080.png)' }}
+              aria-hidden="true"
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
+            </div>
             
-            <Button 
-              asChild 
-              size="lg" 
-              variant="outline" 
-              className="text-base px-8 py-6 bg-card/80 backdrop-blur-sm border-border/50"
-            >
-              <a href={`tel:${businessContent.contact.phone}`} className="inline-flex items-center gap-2">
-                <Phone className="w-5 h-5" />
-                Call Us
-              </a>
-            </Button>
-          </div>
-
-          {/* Social Media Links */}
-          <div className="flex gap-4 justify-center items-center">
-            <a
-              href={businessContent.social.facebookUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-card/80 backdrop-blur-sm border border-border/50 text-muted-foreground hover:text-primary hover:border-primary transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background shadow-premium"
-              aria-label="Facebook"
-            >
-              <SiFacebook className="w-5 h-5" />
-            </a>
-            <a
-              href={businessContent.social.tiktokUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-card/80 backdrop-blur-sm border border-border/50 text-muted-foreground hover:text-primary hover:border-primary transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background shadow-premium"
-              aria-label="TikTok"
-            >
-              <TikTokIcon className="w-5 h-5" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section - Always visible */}
-      <Section id="contact">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">Get in Touch</h2>
-            <p className="text-lg text-muted-foreground">We'd love to hear from you</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Address Card */}
-            <Card className="border-border/50 shadow-premium bg-card">
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  <CardTitle>Address</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <address className="not-italic text-muted-foreground leading-relaxed">
-                  <p>{businessContent.address.street}</p>
-                  <p>{businessContent.address.city}, {businessContent.address.state}</p>
-                  <p>{businessContent.address.country}</p>
-                </address>
-              </CardContent>
-            </Card>
-
-            {/* Contact Info Card */}
-            <Card className="border-border/50 shadow-premium bg-card">
-              <CardHeader>
-                <CardTitle>Contact Information</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                  <a 
-                    href={`tel:${businessContent.contact.phone}`}
-                    className="text-muted-foreground hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded"
+            {/* Hero Content */}
+            <div className="relative z-10 container mx-auto px-4 max-w-6xl text-center">
+              <div className="flex justify-center mb-6 md:mb-8">
+                <SafeImage
+                  src="/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png"
+                  alt="HND Restaurant logo"
+                  fallbackSrc={defaultMenuImage}
+                  className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-2xl"
+                />
+              </div>
+              
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 tracking-tight">
+                {businessContent.name}
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-muted-foreground mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed">
+                {businessContent.tagline}
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                <Button asChild size="lg" className="text-base px-8 py-6 shadow-premium">
+                  <a
+                    href={businessContent.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2"
                   >
-                    {businessContent.contact.phone}
+                    <MapPin className="w-5 h-5" />
+                    View on Google Maps
+                    <ExternalLink className="w-4 h-4" />
                   </a>
+                </Button>
+                
+                <Button 
+                  asChild 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-base px-8 py-6 bg-card/80 backdrop-blur-sm border-border/50"
+                >
+                  <a href={`tel:${businessContent.contact.phone}`} className="inline-flex items-center gap-2">
+                    <Phone className="w-5 h-5" />
+                    Call Us
+                  </a>
+                </Button>
+              </div>
+
+              {/* Social Media Links */}
+              <div className="flex gap-4 justify-center items-center">
+                <a
+                  href={businessContent.social.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-card/80 backdrop-blur-sm border border-border/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:scale-110"
+                  aria-label="Visit our Facebook page"
+                >
+                  <SiFacebook className="w-5 h-5" />
+                </a>
+                <a
+                  href={businessContent.social.tiktokUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-card/80 backdrop-blur-sm border border-border/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:scale-110"
+                  aria-label="Visit our TikTok page"
+                >
+                  <TikTokIcon className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </section>
+        </RevealableSection>
+
+        {/* About Section */}
+        <RevealableSection id="about" isRevealed={isRevealed('about')}>
+          <section className="py-16 md:py-24 bg-background">
+            <div className="container mx-auto px-4 max-w-6xl">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">About Us</h2>
+                <div className="w-20 h-1 bg-accent mx-auto mb-6"></div>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                      <UtensilsCrossed className="w-6 h-6 text-accent" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold mb-2 text-foreground">Our Story</h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {businessContent.description}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                      <Heart className="w-6 h-6 text-accent" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold mb-2 text-foreground">Our Commitment</h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        We believe in purity and quality. Every dish is prepared with the finest ingredients and authentic recipes passed down through generations, ensuring an unforgettable dining experience for our guests.
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 
-                <div className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                  <a 
-                    href={`mailto:${businessContent.contact.email}`}
-                    className="text-muted-foreground hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded break-all"
-                  >
-                    {businessContent.contact.email}
-                  </a>
+                <div className="relative">
+                  <SafeImage
+                    src="/assets/generated/hero-bg-premium-dark.dim_1920x1080.png"
+                    alt="Restaurant ambiance"
+                    fallbackSrc={defaultMenuImage}
+                    className="rounded-lg shadow-premium w-full h-auto"
+                  />
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </Section>
-
-      {/* Location Section - Always visible */}
-      <Section id="location" background="muted">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">Visit Us</h2>
-            <p className="text-lg text-muted-foreground">Find us on the map</p>
-          </div>
-          
-          <LocationMapPreview />
-        </div>
-      </Section>
-
-      {/* About Section - Hidden until revealed */}
-      <RevealableSection id="about" background="muted" isRevealed={isRevealed('about')}>
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">About Us</h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            {businessContent.description}
-          </p>
-        </div>
-      </RevealableSection>
-
-      {/* Menu Section - Hidden until revealed with premium dark background */}
-      <RevealableSection 
-        id="menu" 
-        isRevealed={isRevealed('menu')}
-        className="menu-section-premium relative"
-      >
-        {/* Premium Menu Background */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/assets/generated/menu-bg-premium-neon-gold.dim_3840x2160.png)' }}
-          aria-hidden="true"
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background/95" />
-        </div>
-
-        {/* Menu Content */}
-        <div className="relative z-10 max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-accent/20 mb-4">
-              <UtensilsCrossed className="w-7 h-7 text-accent" />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">Our Menu</h2>
-            <p className="text-lg text-muted-foreground">Discover our delicious offerings</p>
-          </div>
-          
-          <Tabs defaultValue={businessContent.menu[0]?.category || 'menu'} className="w-full">
-            <TabsList className="w-full flex-wrap h-auto gap-2 bg-card/80 backdrop-blur-sm border border-border/30 p-2">
-              {businessContent.menu.map((category) => (
-                <TabsTrigger 
-                  key={category.category} 
-                  value={category.category}
-                  className="data-[state=active]:bg-accent data-[state=active]:text-accent-foreground"
-                >
-                  {category.category}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            
-            {businessContent.menu.map((category) => (
-              <TabsContent key={category.category} value={category.category} className="mt-6">
-                <MenuCategoryGrid category={category} />
-              </TabsContent>
-            ))}
-          </Tabs>
-        </div>
-      </RevealableSection>
-
-      {/* Hours Section - Hidden until revealed */}
-      <RevealableSection id="hours" background="muted" isRevealed={isRevealed('hours')}>
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary/10 mb-4">
-              <Clock className="w-7 h-7 text-primary" />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">Opening Hours</h2>
-            <p className="text-lg text-muted-foreground">We're here to serve you</p>
-          </div>
-          
-          <Card className="border-border/50 shadow-premium bg-card">
-            <CardContent className="pt-6">
-              <div className="space-y-3">
-                {Object.entries(businessContent.hours).map(([day, hours]) => (
-                  <div key={day} className="flex justify-between items-center py-2 border-b border-border/30 last:border-0">
-                    <span className="font-medium capitalize text-foreground">{day}</span>
-                    <span className="text-muted-foreground">{hours}</span>
-                  </div>
-                ))}
               </div>
-            </CardContent>
-          </Card>
-        </div>
-      </RevealableSection>
+            </div>
+          </section>
+        </RevealableSection>
+
+        {/* Menu Section */}
+        <RevealableSection id="menu" isRevealed={isRevealed('menu')}>
+          <section 
+            className="py-16 md:py-24 bg-cover bg-center bg-no-repeat relative"
+            style={{ backgroundImage: 'url(/assets/generated/menu-bg-premium-neon-gold.dim_3840x2160.png)' }}
+          >
+            <div className="absolute inset-0 bg-background/90 backdrop-blur-sm"></div>
+            <div className="container mx-auto px-4 max-w-7xl relative z-10">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Our Menu</h2>
+                <div className="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Explore our diverse selection of authentic Pakistani and Chinese cuisine
+                </p>
+              </div>
+
+              <Tabs defaultValue={filteredMenu[0]?.category || 'menu'} className="w-full">
+                <TabsList className="w-full flex flex-wrap justify-center gap-2 h-auto bg-card/50 backdrop-blur-sm p-2 mb-8">
+                  {filteredMenu.map((category) => (
+                    <TabsTrigger
+                      key={category.category}
+                      value={category.category}
+                      className="data-[state=active]:bg-accent data-[state=active]:text-accent-foreground px-4 py-2"
+                    >
+                      {category.category}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+
+                {filteredMenu.map((category) => (
+                  <TabsContent key={category.category} value={category.category} className="mt-6">
+                    <MenuCategoryGrid category={category} />
+                  </TabsContent>
+                ))}
+              </Tabs>
+            </div>
+          </section>
+        </RevealableSection>
+
+        {/* Hours Section */}
+        <RevealableSection id="hours" isRevealed={isRevealed('hours')}>
+          <section className="py-16 md:py-24 bg-background">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Opening Hours</h2>
+                <div className="w-20 h-1 bg-accent mx-auto mb-6"></div>
+              </div>
+
+              <Card className="border-border/30 shadow-premium bg-card/80 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3 text-2xl">
+                    <Clock className="w-6 h-6 text-accent" />
+                    Weekly Schedule
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {hoursArray.map((schedule, idx) => (
+                    <div
+                      key={idx}
+                      className="flex justify-between items-center py-3 border-b border-border/30 last:border-0"
+                    >
+                      <span className="font-medium text-foreground">{schedule.days}</span>
+                      <span className="text-muted-foreground">{schedule.hours}</span>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+        </RevealableSection>
+
+        {/* Contact Section */}
+        <RevealableSection id="contact" isRevealed={isRevealed('contact')}>
+          <section className="py-16 md:py-24 bg-background">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Contact Us</h2>
+                <div className="w-20 h-1 bg-accent mx-auto mb-6"></div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <Card className="border-border/30 shadow-premium bg-card/80 backdrop-blur-sm">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3">
+                      <Phone className="w-5 h-5 text-accent" />
+                      Phone
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <a
+                      href={`tel:${businessContent.contact.phone}`}
+                      className="text-muted-foreground hover:text-accent transition-colors"
+                    >
+                      {businessContent.contact.phone}
+                    </a>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-border/30 shadow-premium bg-card/80 backdrop-blur-sm">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3">
+                      <Mail className="w-5 h-5 text-accent" />
+                      Email
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <a
+                      href={`mailto:${businessContent.contact.email}`}
+                      className="text-muted-foreground hover:text-accent transition-colors break-all"
+                    >
+                      {businessContent.contact.email}
+                    </a>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-border/30 shadow-premium bg-card/80 backdrop-blur-sm md:col-span-2">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3">
+                      <MapPin className="w-5 h-5 text-accent" />
+                      Address
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-muted-foreground">{fullAddress}</p>
+                    <Button asChild className="w-full sm:w-auto">
+                      <a
+                        href={businessContent.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2"
+                      >
+                        <MapPin className="w-4 h-4" />
+                        View on Google Maps
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </section>
+        </RevealableSection>
+
+        {/* Location Section */}
+        <RevealableSection id="location" isRevealed={isRevealed('location')}>
+          <section className="py-16 md:py-24 bg-background">
+            <div className="container mx-auto px-4 max-w-6xl">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Find Us</h2>
+                <div className="w-20 h-1 bg-accent mx-auto mb-6"></div>
+              </div>
+
+              <LocationMapPreview />
+            </div>
+          </section>
+        </RevealableSection>
+      </main>
 
       {/* Footer */}
-      <footer className="bg-card border-t border-border/50 py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground text-center md:text-left">
-              © {currentYear} {businessContent.name}. All rights reserved.
-            </p>
-            
-            <div className="flex items-center gap-4">
-              {/* Social Links */}
-              <a
-                href={businessContent.social.facebookUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded"
-                aria-label="Facebook"
-              >
-                <SiFacebook className="w-5 h-5" />
-              </a>
-              <a
-                href={businessContent.social.tiktokUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded"
-                aria-label="TikTok"
-              >
-                <TikTokIcon className="w-5 h-5" />
-              </a>
-            </div>
-            
-            <p className="text-sm text-muted-foreground text-center md:text-right flex items-center gap-1">
-              Built with <Heart className="w-4 h-4 text-red-500 fill-current" /> using{' '}
-              <a
-                href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appIdentifier}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded"
-              >
-                caffeine.ai
-              </a>
-            </p>
-          </div>
+      <footer className="bg-card/50 backdrop-blur-sm border-t border-border/30 py-8">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-muted-foreground text-sm">
+            © {currentYear} {businessContent.name}. All rights reserved.
+          </p>
+          <p className="text-muted-foreground text-sm mt-2 flex items-center justify-center gap-1">
+            Built with <Heart className="w-4 h-4 text-accent inline" /> using{' '}
+            <a
+              href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appIdentifier}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:underline"
+            >
+              caffeine.ai
+            </a>
+          </p>
         </div>
       </footer>
     </div>

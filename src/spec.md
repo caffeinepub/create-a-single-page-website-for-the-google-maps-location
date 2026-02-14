@@ -1,11 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Add a new circular HND badge chef logo asset and use it everywhere the site logo appears, including the browser favicon.
+**Goal:** Update the premium dark theme menu presentation by removing menu item photos/watermarks, fixing HND logo transparency, and improving text readability with lighter text colors.
 
 **Planned changes:**
-- Add new generated logo assets under `frontend/public/assets/generated/`: a 512×512 transparent PNG badge logo and a 64×64 transparent PNG favicon variant.
-- Update current logo references in `frontend/src/components/SiteHeader.tsx` and the hero logo in `frontend/src/App.tsx` to use the new badge logo asset via the existing `SafeImage` component with appropriate English alt text.
-- Update `frontend/index.html` to reference the new favicon PNG via a `<link rel="icon" type="image/png" ...>`.
+- Hide/remove the food photo thumbnail area from all Menu item cards while keeping the existing text (name, optional description/note, prices) and WhatsApp ordering + variant-selection behavior unchanged.
+- Remove the HND watermark/logo overlay previously shown on top of Menu item photos and ensure no leftover spacing/visual artifacts remain in Menu card layout.
+- Update the header and hero to use HND logo assets that have clean, fully transparent backgrounds (and adjust any filename references if changed).
+- Adjust global/theme text color tokens/styles to make muted/secondary text noticeably lighter and more readable on the premium dark theme without changing any displayed text content.
 
-**User-visible outcome:** The header logo, hero logo, and browser tab favicon display the new circular HND chef badge logo.
+**User-visible outcome:** Menu items appear as clean text-only cards with ordering working as before, the HND logo displays without any visible background box on dark UI, and site text (especially muted/secondary text) is brighter and easier to read.

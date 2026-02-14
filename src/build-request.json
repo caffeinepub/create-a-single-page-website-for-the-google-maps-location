@@ -1,87 +1,95 @@
 {
   "kind": "build_request",
-  "title": "Add new circular HND badge logo asset and use it for header + favicon",
+  "title": "Hide Menu item photos, fix HND logo transparency, and lighten text colors",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-45",
-      "text": "Add new generated logo image assets under `frontend/public/assets/generated/` that match the provided design: modern circular badge for brand text “HND” with a red outer circular border, white inner background, a friendly minimal cartoon chef (smiling) holding a pizza tray, wearing a chef hat and scarf; the “HND” text must be bold, modern, rounded, and use red and green; the asset must be clean, minimal, professional, high-resolution, vector-style, transparent background, with no watermark, blur, or extra text.",
+      "id": "REQ-58",
+      "text": "Remove/hide the per-menu-item food photos from the Menu item cards so each Menu item displays text content (name, description/note if present, and all prices) plus the existing WhatsApp ordering button/variant-selection behavior, but no food image thumbnail is shown.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "recent-messages-4"
         ],
         "quotes": [
-          "Create a modern circular badge logo for a WEBSITE brand named \"HND\".\nThis logo must be designed for a WEBSITE HEADER and FAVICON use.\nUse a red outer circular border and white inner background.\nIn the center, add a friendly cartoon chef character holding a pizza tray, wearing a chef hat and scarf, smiling.\nBelow the chef, write the brand name \"HND\" in bold modern rounded typography using red and green colors.\nThe logo should be clean, minimal, professional, and suitable for website branding.\nOutput must be high resolution, vector style, transparent background, no watermark, no blur, no extra text, scalable for web use."
+          "Menu ma item ma Jo photo LGA ha wo HTA do"
         ]
       },
       "acceptanceCriteria": [
-        "The following files exist in `frontend/public/assets/generated/` with transparent backgrounds and crisp edges at 1:1 zoom: `hnd-logo-badge-chef.dim_512x512.png` and `hnd-favicon-badge-chef.dim_64x64.png`.",
-        "The logo visually matches the specified layout: red circular border + white inner circle, chef character holding a pizza tray with chef hat + scarf, smiling, and “HND” text beneath in bold rounded styling using red + green.",
-        "No watermarking, no additional text besides “HND”, and no visible blur/pixelation artifacts."
+        "In the Menu section, each Menu item card renders without any visible food image/thumbnail area.",
+        "Menu item name, optional description/note, and prices render exactly as before (no changes to menu text/prices).",
+        "The 'Order on WhatsApp' button remains available per item, and the variant-selection dialog still appears for items with multiple variants.",
+        "No empty/blank placeholder image container is shown where the photo used to be."
       ]
     },
     {
-      "id": "REQ-46",
-      "text": "Update the site UI to use the new HND badge logo asset for all current logo placements (header logo and hero logo), replacing the existing `/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png` references.",
+      "id": "REQ-59",
+      "text": "Remove the HND watermark/logo overlay that is currently rendered on top of each Menu item photo (since Menu item photos are being removed).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "recent-messages-4"
         ],
         "quotes": [
-          "This logo must be designed for a WEBSITE HEADER and FAVICON use."
+          "Menu ma item ma Jo photo LGA ha wo HTA do"
         ]
       },
       "acceptanceCriteria": [
-        "`frontend/src/components/SiteHeader.tsx` uses `/assets/generated/hnd-logo-badge-chef.dim_512x512.png` as the logo `src`.",
-        "`frontend/src/App.tsx` hero logo uses `/assets/generated/hnd-logo-badge-chef.dim_512x512.png` as the logo `src`.",
-        "Logo images still render via the existing `SafeImage` component and retain appropriate `alt` text in English."
+        "No HND watermark overlay is rendered anywhere within Menu item cards.",
+        "The CSS class/styles dedicated to the Menu watermark do not cause any visual artifacts or layout spacing issues in the Menu section."
       ]
     },
     {
-      "id": "REQ-47",
-      "text": "Add favicon configuration in `frontend/index.html` to use the new favicon asset so browsers display the HND badge in the tab icon.",
+      "id": "REQ-60",
+      "text": "Fix the HND logo image assets used in the header and hero so the logo image itself has a clean, fully transparent background (no visible background box/edges on the dark theme). Update any UI references if the logo filenames change.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "recent-messages-4"
         ],
         "quotes": [
-          "This logo must be designed for a WEBSITE HEADER and FAVICON use."
+          "HND KA background sai sa remove kro"
         ]
       },
       "acceptanceCriteria": [
-        "`frontend/index.html` includes a favicon `<link>` pointing to `/assets/generated/hnd-favicon-badge-chef.dim_64x64.png` (e.g., `rel=\"icon\"`, `type=\"image/png\"`).",
-        "When running the app in a browser, the tab favicon displays the new HND badge logo."
+        "The HND logo displayed in the header and hero appears with a transparent background on the dark UI (no visible box, halo, or solid fill around the logo).",
+        "If updated logo filenames are introduced, all current logo usages (header and hero) reference the updated filenames and load successfully."
+      ]
+    },
+    {
+      "id": "REQ-61",
+      "text": "Update site-wide text colors to be lighter/more readable on the premium dark theme by adjusting the theme tokens/styles so that muted text (e.g., tagline, descriptions, secondary labels) is noticeably brighter while maintaining contrast and hierarchy.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages-4"
+        ],
+        "quotes": [
+          "text colour light ma kro sb"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Body text remains bright and readable across all sections on the dark background.",
+        "Muted text (elements using muted-foreground) is lighter than before and remains readable (no low-contrast gray-on-dark).",
+        "No user-facing text content is changed (English text remains the same)."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under `frontend/src/components/ui` (read-only UI components).",
-    "Keep changes limited to logo assets and logo references; do not change existing site sections or unrelated content.",
-    "All new image assets must be added as static files under `frontend/public/assets/generated/` (do not serve images from the backend)."
+    "Do not modify any files under frontend/src/components/ui (shadcn components are read-only).",
+    "Keep existing Menu item names/prices/categories exactly unchanged; only change presentation (hiding photos) and styling.",
+    "No backend changes are required for this request."
   ],
   "nonGoals": [
-    "Redesigning the menu UI or changing menu data.",
-    "Changing business name/tagline/SEO text beyond favicon linkage.",
-    "Adding new pages or new site sections."
+    "Do not add new site sections or change the section navigation behavior.",
+    "Do not change WhatsApp phone number/message template logic or ordering flow beyond keeping it working after photo removal.",
+    "Do not regenerate or add new food photos for menu items as part of this request."
   ],
   "imageRequirements": {
-    "required": [
-      "Circular badge logo with red outer ring and white inner circle; centered friendly minimal cartoon chef holding a pizza tray, wearing chef hat and scarf, smiling; “HND” in bold rounded modern type below the chef using red and green; transparent background (hnd-logo-badge-chef.dim_512x512.png)",
-      "Simplified circular badge favicon matching the same chef + “HND” mark; readable at small size; transparent background (hnd-favicon-badge-chef.dim_64x64.png)"
-    ],
-    "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
+    "required": [],
+    "edits": [
+      "Cleanly remove any non-transparent background/edges (hnd-logo-badge-chef-transparent.dim_512x512.png > hnd-logo-badge-chef-transparent-fixed.dim_512x512.png)",
+      "Cleanly remove any non-transparent background/edges (hnd-favicon-badge-chef.dim_64x64.png > hnd-favicon-badge-chef-fixed.dim_64x64.png)"
+    ]
   }
 }

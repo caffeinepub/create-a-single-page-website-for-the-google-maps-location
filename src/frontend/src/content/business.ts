@@ -13,13 +13,13 @@ function generateMenuItemSlug(name: string): string {
     .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
 }
 
-// Helper function to get menu item image path
+// Helper function to get menu item image path - Updated for Ultra HD 4K
 function getMenuItemImage(name: string): string {
   const slug = generateMenuItemSlug(name);
-  return `/assets/generated/menu-item-${slug}.dim_512x512.jpg`;
+  return `/assets/generated/menu-item-${slug}.dim_3840x2160.jpg`;
 }
 
-// Menu category image mapping - Updated with HND branding
+// Menu category image mapping - Updated with HND branding (Deals removed)
 const menuImages = {
   tandoor: "/assets/generated/menu-thumb-tandoor-hnd.dim_256x256.jpg",
   handi: "/assets/generated/menu-thumb-handi-hnd.dim_256x256.jpg",
@@ -27,7 +27,6 @@ const menuImages = {
   chinese: "/assets/generated/menu-thumb-chinese-hnd.dim_256x256.jpg",
   bbq: "/assets/generated/menu-thumb-bbq-hnd.dim_256x256.jpg",
   fastfood: "/assets/generated/menu-thumb-fastfood-hnd.dim_256x256.jpg",
-  deals: "/assets/generated/menu-thumb-deals-hnd.dim_256x256.jpg",
   drinks: "/assets/generated/menu-thumb-drinks-hnd.dim_256x256.jpg",
   default: "/assets/generated/menu-thumb-default-hnd.dim_256x256.jpg"
 };
@@ -276,11 +275,13 @@ export const businessContent = {
         { name: "HND Special BBQ Platter", price: 3500, note: "A grand platter featuring our finest BBQ selections", image: getMenuItemImage("HND Special BBQ Platter"), alt: "HND Special BBQ Platter" },
         { name: "Chicken Tikka", full: 1200, half: 600, image: getMenuItemImage("Chicken Tikka"), alt: "HND Chicken Tikka" },
         { name: "Malai Boti", full: 1300, half: 650, image: getMenuItemImage("Malai Boti"), alt: "HND Malai Boti" },
-        { name: "Seekh Kabab", full: 1400, half: 700, image: getMenuItemImage("Seekh Kabab"), alt: "HND Seekh Kabab" },
-        { name: "Reshmi Kabab", full: 1300, half: 650, image: getMenuItemImage("Reshmi Kabab"), alt: "HND Reshmi Kabab" },
+        { name: "Seekh Kabab", full: 1100, half: 550, image: getMenuItemImage("Seekh Kabab"), alt: "HND Seekh Kabab" },
         { name: "Chicken Boti", full: 1200, half: 600, image: getMenuItemImage("Chicken Boti"), alt: "HND Chicken Boti" },
-        { name: "Beef Seekh Kabab", full: 1500, half: 750, image: getMenuItemImage("Beef Seekh Kabab"), alt: "HND Beef Seekh Kabab" },
-        { name: "Mutton Seekh Kabab", full: 1600, half: 800, image: getMenuItemImage("Mutton Seekh Kabab"), alt: "HND Mutton Seekh Kabab" }
+        { name: "Reshmi Kabab", full: 1300, half: 650, image: getMenuItemImage("Reshmi Kabab"), alt: "HND Reshmi Kabab" },
+        { name: "Beef Seekh Kabab", full: 1200, half: 600, image: getMenuItemImage("Beef Seekh Kabab"), alt: "HND Beef Seekh Kabab" },
+        { name: "Mutton Seekh Kabab", full: 1400, half: 700, image: getMenuItemImage("Mutton Seekh Kabab"), alt: "HND Mutton Seekh Kabab" },
+        { name: "Chicken Wings", full: 1100, half: 550, image: getMenuItemImage("Chicken Wings"), alt: "HND Chicken Wings" },
+        { name: "Tandoori Chicken", full: 1500, half: 750, image: getMenuItemImage("Tandoori Chicken"), alt: "HND Tandoori Chicken" }
       ]
     },
     {
@@ -290,36 +291,18 @@ export const businessContent = {
         { name: "HND Special Burger", price: 450, image: getMenuItemImage("HND Special Burger"), alt: "HND Special Burger" },
         { name: "Zinger Burger", price: 350, image: getMenuItemImage("Zinger Burger"), alt: "HND Zinger Burger" },
         { name: "Chicken Burger", price: 300, image: getMenuItemImage("Chicken Burger"), alt: "HND Chicken Burger" },
-        { name: "Beef Burger", price: 320, image: getMenuItemImage("Beef Burger"), alt: "HND Beef Burger" },
+        { name: "Beef Burger", price: 350, image: getMenuItemImage("Beef Burger"), alt: "HND Beef Burger" },
         { name: "Club Sandwich", price: 400, image: getMenuItemImage("Club Sandwich"), alt: "HND Club Sandwich" },
-        { name: "Chicken Pizza", small: 650, medium: 1200, large: 1800, image: "/assets/generated/menu-item-chicken-pizza.dim_512x512.jpg", alt: "HND Chicken Pizza" },
-        { name: "Beef Pizza", small: 700, medium: 1300, large: 1900, image: "/assets/generated/menu-item-beef-pizza.dim_512x512.jpg", alt: "HND Beef Pizza" },
-        { name: "Fries", regular: 150, large: 250, image: getMenuItemImage("Fries"), alt: "HND Fries" },
-        { name: "Chicken Nuggets", price: 350, image: getMenuItemImage("Chicken Nuggets"), alt: "HND Chicken Nuggets" },
-        { name: "Chicken Wings", price: 450, image: getMenuItemImage("Chicken Wings"), alt: "HND Chicken Wings" }
-      ]
-    },
-    {
-      category: "Deals",
-      image: menuImages.deals,
-      items: [
-        { name: "HND Family Deal", price: 3500, note: "Complete family meal with variety of items", image: getMenuItemImage("HND Family Deal"), alt: "HND Family Deal" },
-        { name: "Couple Deal", price: 1800, note: "Perfect for two people", image: getMenuItemImage("Couple Deal"), alt: "HND Couple Deal" },
-        { name: "Student Deal", price: 500, note: "Budget-friendly meal for students", image: getMenuItemImage("Student Deal"), alt: "HND Student Deal" },
-        { name: "Midnight Deal", price: 1200, note: "Special late-night offer", image: getMenuItemImage("Midnight Deal"), alt: "HND Midnight Deal" }
-      ]
-    },
-    {
-      category: "Drinks",
-      image: menuImages.drinks,
-      items: [
-        { name: "Coca Cola", price: 100, image: getMenuItemImage("Coca Cola"), alt: "HND Coca Cola" },
-        { name: "Pepsi", price: 100, image: getMenuItemImage("Pepsi"), alt: "HND Pepsi" },
-        { name: "Sprite", price: 100, image: getMenuItemImage("Sprite"), alt: "HND Sprite" },
-        { name: "Fanta", price: 100, image: getMenuItemImage("Fanta"), alt: "HND Fanta" },
-        { name: "7UP", price: 100, image: getMenuItemImage("7UP"), alt: "HND 7UP" },
-        { name: "Mineral Water", price: 50, image: getMenuItemImage("Mineral Water"), alt: "HND Mineral Water" },
-        { name: "Dew", price: 100, image: getMenuItemImage("Dew"), alt: "HND Dew" }
+        { name: "Chicken Sandwich", price: 300, image: getMenuItemImage("Chicken Sandwich"), alt: "HND Chicken Sandwich" },
+        { name: "Chicken Roll", price: 250, image: getMenuItemImage("Chicken Roll"), alt: "HND Chicken Roll" },
+        { name: "Beef Roll", price: 280, image: getMenuItemImage("Beef Roll"), alt: "HND Beef Roll" },
+        { name: "Chicken Pizza", small: 650, medium: 1100, large: 1600, image: getMenuItemImage("Chicken Pizza"), alt: "HND Chicken Pizza" },
+        { name: "Beef Pizza", small: 700, medium: 1200, large: 1700, image: getMenuItemImage("Beef Pizza"), alt: "HND Beef Pizza" },
+        { name: "Vegetable Pizza", small: 550, medium: 950, large: 1400, image: getMenuItemImage("Vegetable Pizza"), alt: "HND Vegetable Pizza" },
+        { name: "Fries", regular: 200, large: 350, image: getMenuItemImage("Fries"), alt: "HND Fries" },
+        { name: "Loaded Fries", price: 450, image: getMenuItemImage("Loaded Fries"), alt: "HND Loaded Fries" },
+        { name: "Chicken Nuggets", price: 400, image: getMenuItemImage("Chicken Nuggets"), alt: "HND Chicken Nuggets" },
+        { name: "Chicken Strips", price: 450, image: getMenuItemImage("Chicken Strips"), alt: "HND Chicken Strips" }
       ]
     }
   ]

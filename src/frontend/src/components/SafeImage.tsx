@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface SafeImageProps {
   src: string;
@@ -10,6 +10,12 @@ interface SafeImageProps {
 export function SafeImage({ src, alt, fallbackSrc, className = '' }: SafeImageProps) {
   const [imgSrc, setImgSrc] = useState(src);
   const [hasError, setHasError] = useState(false);
+
+  // Reset state when src prop changes (e.g., switching categories/tabs)
+  useEffect(() => {
+    setImgSrc(src);
+    setHasError(false);
+  }, [src]);
 
   const handleError = () => {
     if (!hasError) {
