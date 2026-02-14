@@ -1,25 +1,26 @@
 import { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
 interface SectionProps {
-  id: string;
-  background?: 'default' | 'muted';
   children: ReactNode;
   className?: string;
+  variant?: 'default' | 'muted' | 'accent';
 }
 
-export function Section({ id, background = 'default', children, className = '' }: SectionProps) {
-  const bgClass = background === 'muted' 
-    ? 'bg-muted/30' 
-    : 'bg-background';
+export function Section({ children, className, variant = 'default' }: SectionProps) {
+  const variantClasses = {
+    default: 'bg-background',
+    muted: 'bg-muted/30',
+    accent: 'bg-accent/5',
+  };
 
   return (
-    <section 
-      id={id} 
-      className={`py-16 md:py-24 ${bgClass} ${className}`}
-    >
-      <div className="container mx-auto px-4">
-        {children}
-      </div>
+    <section className={cn(
+      'py-12 md:py-16 animate-fade-in motion-reduce:animate-none',
+      variantClasses[variant],
+      className
+    )}>
+      {children}
     </section>
   );
 }

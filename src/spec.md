@@ -1,12 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Update the premium dark theme menu presentation by removing menu item photos/watermarks, fixing HND logo transparency, and improving text readability with lighter text colors.
+**Goal:** Clean up footer/UI credits and iconography, refine the logo presentation with a light-green background treatment, and improve dark-theme typography and motion with subtle animations.
 
 **Planned changes:**
-- Hide/remove the food photo thumbnail area from all Menu item cards while keeping the existing text (name, optional description/note, prices) and WhatsApp ordering + variant-selection behavior unchanged.
-- Remove the HND watermark/logo overlay previously shown on top of Menu item photos and ensure no leftover spacing/visual artifacts remain in Menu card layout.
-- Update the header and hero to use HND logo assets that have clean, fully transparent backgrounds (and adjust any filename references if changed).
-- Adjust global/theme text color tokens/styles to make muted/secondary text noticeably lighter and more readable on the premium dark theme without changing any displayed text content.
+- Remove any “Built with … using caffeine.ai” credit/label from the UI, including removing any outbound caffeine.ai link from the footer while keeping the remaining footer content unchanged.
+- Remove any heart emoji or heart icon/symbol used inline in the UI, keeping all user-facing text in English.
+- Update the HND logo display in header and hero to sit on a clearly visible light-green background badge/container while keeping the logo image itself intact and clean on the dark theme.
+- Adjust site-wide text colors away from pure white to a softer off-white with readable muted text hierarchy, and add subtle entrance/hover/focus animations without changing existing content/sections or menu item text.
 
-**User-visible outcome:** Menu items appear as clean text-only cards with ordering working as before, the HND logo displays without any visible background box on dark UI, and site text (especially muted/secondary text) is brighter and easier to read.
+**User-visible outcome:** The site no longer shows any caffeine.ai build credit or heart symbol, the HND logo appears on a light-green badge, text looks less harsh on the dark theme, and the UI feels more lively via subtle animations.

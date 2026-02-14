@@ -1,181 +1,142 @@
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog';
-import { buildWhatsAppOrderLink, isWhatsAppConfigured, getAvailableVariants, VariantOption } from '@/lib/whatsapp';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { MessageCircle } from 'lucide-react';
-import { ReactElement, useState } from 'react';
+import { buildWhatsAppOrderLink, getAvailableVariants, VariantOption } from '@/lib/whatsapp';
+
+interface MenuItem {
+  name: string;
+  description?: string;
+  price?: number | null;
+  full?: number;
+  half?: number;
+  fullPrice?: number;
+  halfPrice?: number;
+  single?: number;
+  large?: number;
+  medium?: number;
+  small?: number;
+  family?: number;
+  beef?: number;
+  chicken?: number;
+  [key: string]: any;
+}
 
 interface MenuItemCardProps {
-  item: {
-    name: string;
-    image: string;
-    alt: string;
-    description?: string;
-    note?: string;
-    price?: number | null;
-    full?: number;
-    half?: number;
-    single?: number;
-    large?: number;
-    medium?: number;
-    small?: number;
-    family?: number;
-    beef?: number;
-    chicken?: number;
-    [key: string]: any;
-  };
+  item: MenuItem;
 }
 
 export function MenuItemCard({ item }: MenuItemCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const hasWhatsApp = isWhatsAppConfigured();
-  const availableVariants = getAvailableVariants(item);
-
-  // Use the exact item name as provided in business.ts without any modifications
-  const displayName = item.name;
+  const [selectedVariant, setSelectedVariant] = useState<VariantOption | null>(null);
   
-  // Build price display
-  const priceElements: ReactElement[] = [];
-  
-  if (item.price !== undefined && item.price !== null) {
-    priceElements.push(<span key="price">Rs. {item.price}</span>);
-  }
-  if (item.full) {
-    priceElements.push(<span key="full">Full: Rs. {item.full}</span>);
-  }
-  if (item.half) {
-    priceElements.push(<span key="half">Half: Rs. {item.half}</span>);
-  }
-  if (item.single) {
-    priceElements.push(<span key="single">Single: Rs. {item.single}</span>);
-  }
-  if (item.large) {
-    priceElements.push(<span key="large">Large: Rs. {item.large}</span>);
-  }
-  if (item.medium) {
-    priceElements.push(<span key="medium">Medium: Rs. {item.medium}</span>);
-  }
-  if (item.small) {
-    priceElements.push(<span key="small">Small: Rs. {item.small}</span>);
-  }
-  if (item.family) {
-    priceElements.push(<span key="family">Family: Rs. {item.family}</span>);
-  }
-  if (item.beef) {
-    priceElements.push(<span key="beef">Beef: Rs. {item.beef}</span>);
-  }
-  if (item.chicken) {
-    priceElements.push(<span key="chicken">Chicken: Rs. {item.chicken}</span>);
-  }
+  const variants = getAvailableVariants(item);
+  const hasMultipleVariants = variants.length > 1;
 
   const handleOrderClick = () => {
-    // If multiple variants exist, show selection dialog
-    if (availableVariants.length > 1) {
+    if (hasMultipleVariants) {
       setIsDialogOpen(true);
-    } else if (availableVariants.length === 1) {
-      // Single variant: order directly with exact name from business.ts
-      const whatsappLink = buildWhatsAppOrderLink(item, availableVariants[0]);
-      if (whatsappLink) {
-        window.open(whatsappLink, '_blank', 'noopener,noreferrer');
-      }
     } else {
-      // No variants: fallback to generic order with exact name from business.ts
-      const whatsappLink = buildWhatsAppOrderLink(item);
-      if (whatsappLink) {
-        window.open(whatsappLink, '_blank', 'noopener,noreferrer');
+      // Single price - order directly
+      const whatsappUrl = buildWhatsAppOrderLink(item);
+      if (whatsappUrl) {
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
       }
     }
   };
 
-  const handleVariantSelect = (variant: VariantOption) => {
-    const whatsappLink = buildWhatsAppOrderLink(item, variant);
-    if (whatsappLink) {
-      window.open(whatsappLink, '_blank', 'noopener,noreferrer');
+  const handleVariantOrder = () => {
+    if (selectedVariant) {
+      const whatsappUrl = buildWhatsAppOrderLink(item, selectedVariant);
+      if (whatsappUrl) {
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      }
       setIsDialogOpen(false);
+      setSelectedVariant(null);
     }
   };
 
   return (
     <>
-      <Card className="menu-item-card border-border/30 overflow-hidden hover:shadow-premium transition-all duration-300 hover:scale-[1.02] flex flex-col h-full bg-card/95 backdrop-blur-sm">
-        <CardHeader className="pb-2 flex-grow">
-          <CardTitle className="text-base text-foreground">{displayName}</CardTitle>
-          {(item.description || item.note) && (
-            <CardDescription className="text-xs line-clamp-2">
-              {item.description || item.note}
+      <Card className="border-border/30 bg-card/80 backdrop-blur-sm shadow-md hover:shadow-premium transition-all duration-300 hover:scale-[1.02] motion-reduce:hover:scale-100 group">
+        <CardHeader>
+          <CardTitle className="text-lg md:text-xl text-foreground group-hover:text-accent transition-colors duration-300">
+            {item.name}
+          </CardTitle>
+          {item.description && (
+            <CardDescription className="text-sm text-muted-foreground line-clamp-2">
+              {item.description}
             </CardDescription>
           )}
         </CardHeader>
-        <CardContent className="pt-0 space-y-3">
-          {priceElements.length > 0 ? (
-            <div className="flex flex-wrap gap-2 text-sm font-semibold text-accent">
-              {priceElements}
-            </div>
-          ) : (
-            <div className="text-sm text-muted-foreground">Price on request</div>
-          )}
+        <CardContent className="space-y-4">
+          <div className="flex flex-wrap gap-2 items-center">
+            {item.price && (
+              <span className="text-xl font-bold text-accent">
+                Rs. {item.price}
+              </span>
+            )}
+            {item.halfPrice && (
+              <span className="text-lg font-semibold text-muted-foreground">
+                Half: Rs. {item.halfPrice}
+              </span>
+            )}
+            {item.fullPrice && (
+              <span className="text-lg font-semibold text-muted-foreground">
+                Full: Rs. {item.fullPrice}
+              </span>
+            )}
+          </div>
           
-          {hasWhatsApp ? (
-            <Button
-              onClick={handleOrderClick}
-              className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
-              size="sm"
-              variant="default"
-            >
-              <MessageCircle className="w-4 h-4 mr-2" />
-              Order on WhatsApp
-            </Button>
-          ) : (
-            <Button
-              disabled
-              className="w-full"
-              size="sm"
-              variant="outline"
-              title="WhatsApp ordering is not configured"
-            >
-              <MessageCircle className="w-4 h-4 mr-2" />
-              Order Unavailable
-            </Button>
-          )}
+          <Button 
+            onClick={handleOrderClick}
+            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground transition-all duration-300 hover:scale-105 motion-reduce:hover:scale-100"
+            size="sm"
+          >
+            <MessageCircle className="w-4 h-4 mr-2" />
+            Order via WhatsApp
+          </Button>
         </CardContent>
       </Card>
 
-      {/* Variant selection dialog */}
+      {/* Variant Selection Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-md bg-card">
+        <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Select an option</DialogTitle>
+            <DialogTitle>Select Size</DialogTitle>
             <DialogDescription>
-              Choose your preferred option for {displayName}
+              Choose your preferred size for {item.name}
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-3 py-4">
-            {availableVariants.map((variant) => (
-              <Button
+          
+          <div className="space-y-3 py-4">
+            {variants.map((variant) => (
+              <button
                 key={variant.key}
-                onClick={() => handleVariantSelect(variant)}
-                variant="outline"
-                className="w-full justify-between h-auto py-3 px-4 hover:bg-accent/10 hover:border-accent"
+                onClick={() => setSelectedVariant(variant)}
+                className={`w-full p-4 rounded-lg border-2 transition-all duration-300 text-left ${
+                  selectedVariant?.key === variant.key
+                    ? 'border-accent bg-accent/10'
+                    : 'border-border hover:border-accent/50'
+                }`}
               >
-                <span className="font-medium">{variant.label}</span>
-                <span className="text-accent font-semibold">Rs. {variant.price}</span>
-              </Button>
+                <div className="flex justify-between items-center">
+                  <span className="font-medium text-foreground">{variant.label}</span>
+                  <span className="text-lg font-bold text-accent">Rs. {variant.price}</span>
+                </div>
+              </button>
             ))}
           </div>
+
           <DialogFooter>
             <Button
-              type="button"
-              variant="ghost"
-              onClick={() => setIsDialogOpen(false)}
+              onClick={handleVariantOrder}
+              disabled={!selectedVariant}
+              className="w-full transition-all duration-300"
             >
-              Cancel
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Continue to WhatsApp
             </Button>
           </DialogFooter>
         </DialogContent>

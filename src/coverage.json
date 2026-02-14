@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T23:21:35.824Z",
+  "generatedAt": "2026-02-14T23:28:45.766Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -11,59 +11,57 @@
     "implemented": 4,
     "items": [
       {
-        "id": "REQ-58",
-        "summary": "Remove/hide the per-menu-item food photos from the Menu item cards so each Menu item displays text content (name, description/note if present, and all prices) plus the existing WhatsApp ordering button/variant-selection behavior, but no food image thumbnail is shown.",
+        "id": "REQ-62",
+        "summary": "Remove any visible “Built with … using caffeine.ai” credit/label from the UI, including the outbound link to caffeine.ai in the footer.",
         "status": "implemented",
         "plannedFiles": [
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-63",
+        "summary": "Remove the heart emoji/heart symbol from the production UI (including any heart icon used inline with text) while keeping user-facing text in English.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-64",
+        "summary": "Update HND logo presentation so the logo appears with a light-green background behind it (e.g., a rounded badge/container), while keeping the logo image itself intact and transparent where applicable.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/SiteHeader.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/SiteHeader.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-65",
+        "summary": "Adjust the site-wide typography color palette so text is not rendered as pure white everywhere; keep strong readability on the dark theme, and add subtle UI animations for a more lively feel without changing the site’s content/sections.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/index.css",
+          "frontend/tailwind.config.js",
+          "frontend/src/components/Section.tsx",
           "frontend/src/components/MenuItemCard.tsx",
           "frontend/src/components/MenuCategoryGrid.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/MenuItemCard.tsx"
-        ]
-      },
-      {
-        "id": "REQ-59",
-        "summary": "Remove the HND watermark/logo overlay that is currently rendered on top of each Menu item photo (since Menu item photos are being removed).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/MenuItemCard.tsx",
-          "frontend/src/index.css"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/MenuItemCard.tsx",
-          "frontend/src/index.css"
-        ]
-      },
-      {
-        "id": "REQ-60",
-        "summary": "Fix the HND logo image assets used in the header and hero so the logo image itself has a clean, fully transparent background (no visible background box/edges on the dark theme). Update any UI references if the logo filenames change.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/public/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png",
-          "frontend/public/assets/generated/hnd-favicon-badge-chef-fixed.dim_64x64.png",
-          "frontend/src/components/SiteHeader.tsx",
-          "frontend/src/App.tsx",
-          "frontend/index.html"
-        ],
-        "matchedFiles": [
-          "frontend/public/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png",
-          "frontend/public/assets/generated/hnd-favicon-badge-chef-fixed.dim_64x64.png",
-          "frontend/src/components/SiteHeader.tsx",
-          "frontend/src/App.tsx",
-          "frontend/index.html"
-        ]
-      },
-      {
-        "id": "REQ-61",
-        "summary": "Update site-wide text colors to be lighter/more readable on the premium dark theme by adjusting the theme tokens/styles so that muted text (e.g., tagline, descriptions, secondary labels) is noticeably brighter while maintaining contrast and hierarchy.",
-        "status": "implemented",
-        "plannedFiles": [
           "frontend/src/index.css",
-          "frontend/index.css"
-        ],
-        "matchedFiles": [
-          "frontend/src/index.css"
+          "frontend/tailwind.config.js",
+          "frontend/src/components/Section.tsx",
+          "frontend/src/components/MenuItemCard.tsx",
+          "frontend/src/components/MenuCategoryGrid.tsx"
         ]
       }
     ]
@@ -73,13 +71,14 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.html",
-    "frontend/public/assets/generated/hnd-favicon-badge-chef-fixed.dim_64x64.png",
-    "frontend/public/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png",
     "frontend/src/App.tsx",
+    "frontend/src/components/MenuCategoryGrid.tsx",
     "frontend/src/components/MenuItemCard.tsx",
+    "frontend/src/components/RevealableSection.tsx",
+    "frontend/src/components/Section.tsx",
     "frontend/src/components/SiteHeader.tsx",
     "frontend/src/index.css",
+    "frontend/tailwind.config.js",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

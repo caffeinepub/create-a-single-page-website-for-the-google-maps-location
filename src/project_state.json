@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 43,
-  "summary": "Single-page marketing website for HOTEL NASRA DA with HND branding; keep the existing menu text exactly unchanged, and currently remove/hide the per-menu-item photos from the Menu item cards; fix the HND logo to have a properly removed/transparent background; update overall text colors to be lighter for readability on the dark theme.",
+  "projectStateVersion": 45,
+  "summary": "Single-page marketing website for HOTEL NASRA DA with HND branding; keep the existing menu text exactly unchanged, and currently remove/hide the per-menu-item photos from the Menu item cards; fix the HND logo to have a properly removed/transparent background; update overall text colors to be lighter for readability on the dark theme; remove any “Build with using Caffeine” label and any heart emoji from the UI; adjust HND logo background to light green; avoid making all text/fonts pure white; add subtle UI animations.",
   "architectural_notes": [
     "Menu content should be stored in the centralized content configuration (same TS object/file as other business details) and rendered as text (no menu image dependency).",
     "Potential scope change: user requests images for each menu item, which conflicts with the prior requirement that the menu be text-only (no menu image dependency). Clarify/decide whether to allow per-item images and how they will be sourced/stored.",
@@ -21,7 +21,6 @@
     "Homepage/section reveal behavior is incorrect: when clicking navigation buttons, sections appear in a way that still feels like everything is on one long scrolling page; user wants content to be conditionally shown per button (not all sections visible at once)."
   ],
   "isFixRequest": true,
-  "imageRequirements": "## Edit Images\n- Cleanly remove any non-transparent background/edges (hnd-logo-badge-chef-transparent.dim_512x512.png > hnd-logo-badge-chef-transparent-fixed.dim_512x512.png)\n- Cleanly remove any non-transparent background/edges (hnd-favicon-badge-chef.dim_64x64.png > hnd-favicon-badge-chef-fixed.dim_64x64.png)",
   "existing_features": [
     {
       "id": "feature-create-a-responsive-marketing-website-single-page-for-the-place-referenced-by-https-maps-app-goo-gl-ndbp8xbnmzzhedmm8-with-clear-sections-for-hero-name-short-tagline-about-description-hours-address-contact-phone-email-placeholders-if-not-known-and-a-location-section-that-includes-a-prominent-button-linking-to-the-google-maps-url",
@@ -510,6 +509,38 @@
         "REQ-61"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-remove-any-visible-built-with-using-caffeine-ai-credit-label-from-the-ui-including-the-outbound-link-to-caffeine-ai-in-the-footer",
+      "title": "Remove any visible “Built with … using caffeine.ai” credit/label from the UI, including the outbound link to caffeine.ai in the footer.",
+      "reqIds": [
+        "REQ-62"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-heart-emoji-heart-symbol-from-the-production-ui-including-any-heart-icon-used-inline-with-text-while-keeping-user-facing-text-in-english",
+      "title": "Remove the heart emoji/heart symbol from the production UI (including any heart icon used inline with text) while keeping user-facing text in English.",
+      "reqIds": [
+        "REQ-63"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-hnd-logo-presentation-so-the-logo-appears-with-a-light-green-background-behind-it-e-g-a-rounded-badge-container-while-keeping-the-logo-image-itself-intact-and-transparent-where-applicable",
+      "title": "Update HND logo presentation so the logo appears with a light-green background behind it (e.g., a rounded badge/container), while keeping the logo image itself intact and transparent where applicable.",
+      "reqIds": [
+        "REQ-64"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-adjust-the-site-wide-typography-color-palette-so-text-is-not-rendered-as-pure-white-everywhere-keep-strong-readability-on-the-dark-theme-and-add-subtle-ui-animations-for-a-more-lively-feel-without-changing-the-site-s-content-sections",
+      "title": "Adjust the site-wide typography color palette so text is not rendered as pure white everywhere; keep strong readability on the dark theme, and add subtle UI animations for a more lively feel without changing the site’s content/sections.",
+      "reqIds": [
+        "REQ-65"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -666,6 +697,36 @@
     {
       "id": "AR-26",
       "summary": "Update site-wide text colors to a lighter palette for better readability on the dark theme.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Remove any “Build with using Caffeine” text/label from the UI.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-28",
+      "summary": "Remove the heart emoji shown in the UI (avoid emoji in production UI text).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-29",
+      "summary": "Set the HND logo background to a light green color (logo presentation update).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-30",
+      "summary": "Do not render all text/fonts as pure white; use a balanced readable light-on-dark text palette instead.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Add animations to the site (subtle UI motion/animated elements).",
       "reqIds": [],
       "status": "pending"
     }

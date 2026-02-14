@@ -5,7 +5,7 @@ import { SafeImage } from './components/SafeImage';
 import { MenuCategoryGrid } from './components/MenuCategoryGrid';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Clock, Phone, Mail, ExternalLink, UtensilsCrossed, Heart } from 'lucide-react';
+import { MapPin, Clock, Phone, Mail, ExternalLink, UtensilsCrossed } from 'lucide-react';
 import { SiFacebook } from 'react-icons/si';
 import { businessContent, defaultMenuImage } from './content/business';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -25,7 +25,6 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 
 function App() {
   const currentYear = new Date().getFullYear();
-  const appIdentifier = encodeURIComponent(window.location.hostname || 'hotel-nasra-da');
   const { isRevealed, revealThenScroll } = useRevealableSections();
 
   // Filter out "Deals" category as a defensive measure
@@ -72,25 +71,27 @@ function App() {
             
             {/* Hero Content */}
             <div className="relative z-10 container mx-auto px-4 max-w-6xl text-center">
-              <div className="flex justify-center mb-6 md:mb-8">
-                <SafeImage
-                  src="/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png"
-                  alt="HND Restaurant logo"
-                  fallbackSrc={defaultMenuImage}
-                  className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-2xl"
-                />
+              <div className="flex justify-center mb-6 md:mb-8 animate-fade-in-up">
+                <div className="bg-logo-badge rounded-2xl p-4 shadow-premium">
+                  <SafeImage
+                    src="/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png"
+                    alt="HND Restaurant logo"
+                    fallbackSrc={defaultMenuImage}
+                    className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-2xl"
+                  />
+                </div>
               </div>
               
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 tracking-tight">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 tracking-tight animate-fade-in-up animation-delay-100">
                 {businessContent.name}
               </h1>
               
-              <p className="text-xl md:text-2xl text-muted-foreground mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-muted-foreground mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up animation-delay-200">
                 {businessContent.tagline}
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-                <Button asChild size="lg" className="text-base px-8 py-6 shadow-premium">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 animate-fade-in-up animation-delay-300">
+                <Button asChild size="lg" className="text-base px-8 py-6 shadow-premium transition-all duration-300 hover:scale-105">
                   <a
                     href={businessContent.mapsUrl}
                     target="_blank"
@@ -107,7 +108,7 @@ function App() {
                   asChild 
                   size="lg" 
                   variant="outline" 
-                  className="text-base px-8 py-6 bg-card/80 backdrop-blur-sm border-border/50"
+                  className="text-base px-8 py-6 bg-card/80 backdrop-blur-sm border-border/50 transition-all duration-300 hover:scale-105"
                 >
                   <a href={`tel:${businessContent.contact.phone}`} className="inline-flex items-center gap-2">
                     <Phone className="w-5 h-5" />
@@ -117,7 +118,7 @@ function App() {
               </div>
 
               {/* Social Media Links */}
-              <div className="flex gap-4 justify-center items-center">
+              <div className="flex gap-4 justify-center items-center animate-fade-in-up animation-delay-400">
                 <a
                   href={businessContent.social.facebookUrl}
                   target="_blank"
@@ -166,7 +167,7 @@ function App() {
                   
                   <div className="flex items-start gap-4">
                     <div className="flex-shrink-0 w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                      <Heart className="w-6 h-6 text-accent" />
+                      <UtensilsCrossed className="w-6 h-6 text-accent" />
                     </div>
                     <div>
                       <h3 className="text-xl font-semibold mb-2 text-foreground">Our Commitment</h3>
@@ -212,7 +213,7 @@ function App() {
                     <TabsTrigger
                       key={category.category}
                       value={category.category}
-                      className="data-[state=active]:bg-accent data-[state=active]:text-accent-foreground px-4 py-2"
+                      className="data-[state=active]:bg-accent data-[state=active]:text-accent-foreground px-4 py-2 transition-all duration-300"
                     >
                       {category.category}
                     </TabsTrigger>
@@ -353,17 +354,6 @@ function App() {
         <div className="container mx-auto px-4 text-center">
           <p className="text-muted-foreground text-sm">
             © {currentYear} {businessContent.name}. All rights reserved.
-          </p>
-          <p className="text-muted-foreground text-sm mt-2 flex items-center justify-center gap-1">
-            Built with <Heart className="w-4 h-4 text-accent inline" /> using{' '}
-            <a
-              href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appIdentifier}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:underline"
-            >
-              caffeine.ai
-            </a>
           </p>
         </div>
       </footer>

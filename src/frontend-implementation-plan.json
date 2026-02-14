@@ -1,103 +1,95 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Hide menu item photos, remove watermark, fix logo transparency, and brighten muted text",
+  "title": "UI polish: remove Caffeine credit & heart, add logo badge, refine typography colors, and subtle animations",
   "requirements": [
     {
-      "id": "REQ-58",
-      "summary": "Remove/hide per-menu-item food photos from Menu item cards while preserving existing text, prices, and WhatsApp ordering/variant selection behavior.",
+      "id": "REQ-62",
+      "summary": "Remove any Caffeine build credit text and caffeine.ai referral link from the footer while keeping other footer content unchanged.",
       "acceptanceCriteria": [
-        "In the Menu section, each Menu item card renders without any visible food image/thumbnail area.",
-        "Menu item name, optional description/note, and prices render exactly as before (no changes to menu text/prices).",
-        "The 'Order on WhatsApp' button remains available per item, and the variant-selection dialog still appears for items with multiple variants.",
-        "No empty/blank placeholder image container is shown where the photo used to be."
+        "The footer no longer renders any text that mentions “Built with”, “using caffeine.ai”, “caffeine.ai”, or similar Caffeine build credit wording.",
+        "No caffeine.ai referral link is present anywhere in the rendered UI.",
+        "All other footer content (copyright line, year, business name) remains visible and unchanged."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/MenuItemCard.tsx",
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Remove the image/thumbnail column (including SafeImage usage) from the Menu item card layout so only text content, prices, and WhatsApp order controls render; keep variant-selection dialog behavior unchanged."
-        },
-        {
-          "path": "frontend/src/components/MenuCategoryGrid.tsx",
-          "operation": "modify",
-          "description": "Adjust any grid/card sizing assumptions (if present) so Menu item cards lay out cleanly without an image column and without leaving reserved/blank image space."
+          "description": "Update the footer to remove the entire “Built with … using caffeine.ai” line and remove the outbound caffeine.ai link, preserving the existing copyright line exactly as-is."
         }
       ]
     },
     {
-      "id": "REQ-59",
-      "summary": "Remove the HND watermark/logo overlay styling and rendering from Menu item cards.",
+      "id": "REQ-63",
+      "summary": "Remove all heart emoji/symbol usage (including decorative heart icons) across the production UI while keeping user-facing text in English.",
       "acceptanceCriteria": [
-        "No HND watermark overlay is rendered anywhere within Menu item cards.",
-        "The CSS class/styles dedicated to the Menu watermark do not cause any visual artifacts or layout spacing issues in the Menu section."
+        "No heart emoji (e.g., ❤️) is rendered anywhere in the UI.",
+        "No heart icon/symbol is rendered inline as a decorative replacement for emoji (e.g., the footer line currently using a Heart icon is removed or updated to not include a heart).",
+        "No new non-English user-facing strings are introduced as part of this change."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/MenuItemCard.tsx",
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Remove the watermark overlay markup from Menu item cards (now that photos are removed) so no overlay element is rendered."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Remove the menu watermark CSS rules (e.g., .menu-watermark-premium) to prevent leftover styling from affecting layout or visuals."
+          "description": "Remove the Heart icon usage from the UI (including the About section decorative icon and any footer usage), update imports accordingly, and ensure any replacement decorative element is non-heart (or omitted) without changing existing user-facing text content."
         }
       ]
     },
     {
-      "id": "REQ-60",
-      "summary": "Update header and hero to use fixed transparent HND logo assets (and update favicon) so no background box/edges appear on the dark theme.",
+      "id": "REQ-64",
+      "summary": "Present the HND logo with a light-green background badge/container in both header and hero while keeping the logo image intact and accessible.",
       "acceptanceCriteria": [
-        "The HND logo displayed in the header and hero appears with a transparent background on the dark UI (no visible box, halo, or solid fill around the logo).",
-        "If updated logo filenames are introduced, all current logo usages (header and hero) reference the updated filenames and load successfully."
+        "The HND logo in the header and hero is displayed on top of a clearly visible light-green background shape (badge/container).",
+        "The light-green background does not create visible jagged edges/boxes around the logo image itself (logo image should still look clean on the dark theme).",
+        "Logo remains accessible with appropriate alt text unchanged (e.g., “HND Restaurant logo”)."
       ],
       "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png",
-          "operation": "create",
-          "description": "Add the corrected transparent logo asset (background/edges cleanly removed) as a static frontend asset at this exact path/filename."
-        },
-        {
-          "path": "frontend/public/assets/generated/hnd-favicon-badge-chef-fixed.dim_64x64.png",
-          "operation": "create",
-          "description": "Add the corrected transparent favicon asset (background/edges cleanly removed) as a static frontend asset at this exact path/filename."
-        },
         {
           "path": "frontend/src/components/SiteHeader.tsx",
           "operation": "modify",
-          "description": "Update the header logo reference to use /assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png so the logo renders with a clean transparent background."
+          "description": "Wrap the header logo <SafeImage> in a rounded light-green badge/container (with padding) so the transparent logo sits cleanly on the badge; keep existing alt text unchanged."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update the hero logo reference to use /assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png so the logo renders with a clean transparent background."
-        },
-        {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Update the favicon reference to use /assets/generated/hnd-favicon-badge-chef-fixed.dim_64x64.png so the favicon uses the corrected transparent asset."
+          "description": "Wrap the hero logo <SafeImage> in a larger rounded light-green badge/container (with padding) to match the header treatment; keep existing alt text unchanged and preserve the logo image source."
         }
       ]
     },
     {
-      "id": "REQ-61",
-      "summary": "Brighten site-wide muted/secondary text colors for better readability on the premium dark theme without changing any text content.",
+      "id": "REQ-65",
+      "summary": "Refine site-wide text colors away from pure white while preserving readability on dark theme, and add subtle UI animations without changing content/sections.",
       "acceptanceCriteria": [
-        "Body text remains bright and readable across all sections on the dark background.",
-        "Muted text (elements using muted-foreground) is lighter than before and remains readable (no low-contrast gray-on-dark).",
-        "No user-facing text content is changed (English text remains the same)."
+        "Primary text (foreground) is changed from pure/near-pure white to a slightly softer off-white, while maintaining strong contrast on the dark background.",
+        "Muted text remains visibly readable (not too dim) and maintains hierarchy vs. headings/body text.",
+        "Subtle animations are present (e.g., gentle entrance/fade/slide for sections or cards, and/or refined hover/focus transitions) without adding new sections or changing existing content text.",
+        "No changes are made to menu item names/prices text content; animations must not interfere with navigation/section swapping behavior."
       ],
       "file_operations": [
         {
           "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Adjust the theme token(s) for muted text (notably --muted-foreground in the dark theme variables) to a noticeably lighter value while maintaining hierarchy and contrast."
+          "description": "Adjust the theme tokens for --foreground and --muted-foreground (and any related text tokens as needed) to use a softer off-white for primary text and a readable muted tone, maintaining strong contrast on the dark background."
         },
         {
-          "path": "frontend/index.css",
+          "path": "frontend/tailwind.config.js",
           "operation": "modify",
-          "description": "If this global token file is used in the build, align its dark-mode --muted-foreground (and any related muted text tokens) with the brighter muted text color so muted text is consistently more readable across the app."
+          "description": "Extend Tailwind animation/keyframes to support subtle entrance and micro-interaction animations (e.g., gentle fade/slide), using existing project tooling only (no new third-party animation libraries)."
+        },
+        {
+          "path": "frontend/src/components/Section.tsx",
+          "operation": "modify",
+          "description": "Apply a subtle entrance animation to sections when they mount (works naturally with reveal-based rendering), including motion-reduction handling so animations are non-intrusive and do not affect layout/scroll behavior."
+        },
+        {
+          "path": "frontend/src/components/MenuItemCard.tsx",
+          "operation": "modify",
+          "description": "Refine hover/focus micro-interactions (e.g., smoother transitions, subtle lift/shadow) without changing any menu item names/prices/content text, and ensure animations do not interfere with clicking or dialog behavior."
+        },
+        {
+          "path": "frontend/src/components/MenuCategoryGrid.tsx",
+          "operation": "modify",
+          "description": "Add subtle container/card entrance or transition styling for menu category presentation (non-content), ensuring the UI remains readable and navigation/section swapping behavior is unaffected."
         }
       ]
     }

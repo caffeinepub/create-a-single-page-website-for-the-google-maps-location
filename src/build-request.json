@@ -1,95 +1,105 @@
 {
   "kind": "build_request",
-  "title": "Hide Menu item photos, fix HND logo transparency, and lighten text colors",
+  "title": "Remove Caffeine credit/heart, adjust logo background to light green, refine text colors, and add subtle animations",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-58",
-      "text": "Remove/hide the per-menu-item food photos from the Menu item cards so each Menu item displays text content (name, description/note if present, and all prices) plus the existing WhatsApp ordering button/variant-selection behavior, but no food image thumbnail is shown.",
+      "id": "REQ-62",
+      "text": "Remove any visible “Built with … using caffeine.ai” credit/label from the UI, including the outbound link to caffeine.ai in the footer.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages-4"
+          "msg-4"
         ],
         "quotes": [
-          "Menu ma item ma Jo photo LGA ha wo HTA do"
+          "Is ma build with using caffeine LIKHA ha wo HTA do"
         ]
       },
       "acceptanceCriteria": [
-        "In the Menu section, each Menu item card renders without any visible food image/thumbnail area.",
-        "Menu item name, optional description/note, and prices render exactly as before (no changes to menu text/prices).",
-        "The 'Order on WhatsApp' button remains available per item, and the variant-selection dialog still appears for items with multiple variants.",
-        "No empty/blank placeholder image container is shown where the photo used to be."
+        "The footer no longer renders any text that mentions “Built with”, “using caffeine.ai”, “caffeine.ai”, or similar Caffeine build credit wording.",
+        "No caffeine.ai referral link is present anywhere in the rendered UI.",
+        "All other footer content (copyright line, year, business name) remains visible and unchanged."
       ]
     },
     {
-      "id": "REQ-59",
-      "text": "Remove the HND watermark/logo overlay that is currently rendered on top of each Menu item photo (since Menu item photos are being removed).",
+      "id": "REQ-63",
+      "text": "Remove the heart emoji/heart symbol from the production UI (including any heart icon used inline with text) while keeping user-facing text in English.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages-4"
+          "msg-4"
         ],
         "quotes": [
-          "Menu ma item ma Jo photo LGA ha wo HTA do"
+          "...or heart Wala emoji bhi HTA do"
         ]
       },
       "acceptanceCriteria": [
-        "No HND watermark overlay is rendered anywhere within Menu item cards.",
-        "The CSS class/styles dedicated to the Menu watermark do not cause any visual artifacts or layout spacing issues in the Menu section."
+        "No heart emoji (e.g., ❤️) is rendered anywhere in the UI.",
+        "No heart icon/symbol is rendered inline as a decorative replacement for emoji (e.g., the footer line currently using a Heart icon is removed or updated to not include a heart).",
+        "No new non-English user-facing strings are introduced as part of this change."
       ]
     },
     {
-      "id": "REQ-60",
-      "text": "Fix the HND logo image assets used in the header and hero so the logo image itself has a clean, fully transparent background (no visible background box/edges on the dark theme). Update any UI references if the logo filenames change.",
+      "id": "REQ-64",
+      "text": "Update HND logo presentation so the logo appears with a light-green background behind it (e.g., a rounded badge/container), while keeping the logo image itself intact and transparent where applicable.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages-4"
+          "msg-4"
         ],
         "quotes": [
-          "HND KA background sai sa remove kro"
+          "...or HND logo ka background light green ma rakho"
         ]
       },
       "acceptanceCriteria": [
-        "The HND logo displayed in the header and hero appears with a transparent background on the dark UI (no visible box, halo, or solid fill around the logo).",
-        "If updated logo filenames are introduced, all current logo usages (header and hero) reference the updated filenames and load successfully."
+        "The HND logo in the header and hero is displayed on top of a clearly visible light-green background shape (badge/container).",
+        "The light-green background does not create visible jagged edges/boxes around the logo image itself (logo image should still look clean on the dark theme).",
+        "Logo remains accessible with appropriate alt text unchanged (e.g., “HND Restaurant logo”)."
       ]
     },
     {
-      "id": "REQ-61",
-      "text": "Update site-wide text colors to be lighter/more readable on the premium dark theme by adjusting the theme tokens/styles so that muted text (e.g., tagline, descriptions, secondary labels) is noticeably brighter while maintaining contrast and hierarchy.",
+      "id": "REQ-65",
+      "text": "Adjust the site-wide typography color palette so text is not rendered as pure white everywhere; keep strong readability on the dark theme, and add subtle UI animations for a more lively feel without changing the site’s content/sections.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages-4"
+          "msg-4"
         ],
         "quotes": [
-          "text colour light ma kro sb"
+          "...or sb Text or font white colour na rakho or animated rakho"
         ]
       },
       "acceptanceCriteria": [
-        "Body text remains bright and readable across all sections on the dark background.",
-        "Muted text (elements using muted-foreground) is lighter than before and remains readable (no low-contrast gray-on-dark).",
-        "No user-facing text content is changed (English text remains the same)."
+        "Primary text (foreground) is changed from pure/near-pure white to a slightly softer off-white, while maintaining strong contrast on the dark background.",
+        "Muted text remains visibly readable (not too dim) and maintains hierarchy vs. headings/body text.",
+        "Subtle animations are present (e.g., gentle entrance/fade/slide for sections or cards, and/or refined hover/focus transitions) without adding new sections or changing existing content text.",
+        "No changes are made to menu item names/prices text content; animations must not interfere with navigation/section swapping behavior."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui (shadcn components are read-only).",
-    "Keep existing Menu item names/prices/categories exactly unchanged; only change presentation (hiding photos) and styling.",
-    "No backend changes are required for this request."
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Keep user-facing text in English.",
+    "Do not change existing menu item names/prices/content text; only adjust styling/decoration/animations.",
+    "Backend remains single-actor; no backend changes are required for this request."
   ],
   "nonGoals": [
-    "Do not add new site sections or change the section navigation behavior.",
-    "Do not change WhatsApp phone number/message template logic or ordering flow beyond keeping it working after photo removal.",
-    "Do not regenerate or add new food photos for menu items as part of this request."
+    "Adding new pages or new site sections.",
+    "Introducing any backend features or persistence changes.",
+    "Adding third-party animation libraries beyond what is already available in the project."
   ],
   "imageRequirements": {
     "required": [],
-    "edits": [
-      "Cleanly remove any non-transparent background/edges (hnd-logo-badge-chef-transparent.dim_512x512.png > hnd-logo-badge-chef-transparent-fixed.dim_512x512.png)",
-      "Cleanly remove any non-transparent background/edges (hnd-favicon-badge-chef.dim_64x64.png > hnd-favicon-badge-chef-fixed.dim_64x64.png)"
-    ]
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

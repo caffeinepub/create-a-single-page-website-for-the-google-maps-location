@@ -23,27 +23,34 @@ export function SiteHeader({ onNavigate }: SiteHeaderProps) {
         <div className="flex items-center justify-between gap-4 h-16">
           {/* Logo */}
           <div className="flex items-center gap-3 flex-shrink-0">
-            <SafeImage
-              src="/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png"
-              alt="HND Restaurant logo"
-              fallbackSrc={defaultMenuImage}
-              className="w-10 h-10 object-contain"
-            />
-            <span className="font-bold text-lg hidden sm:inline">{businessContent.name}</span>
+            <div className="bg-logo-badge rounded-xl p-2 shadow-md">
+              <SafeImage
+                src="/assets/generated/hnd-logo-badge-chef-transparent-fixed.dim_512x512.png"
+                alt="HND Restaurant logo"
+                fallbackSrc={defaultMenuImage}
+                className="w-10 h-10 object-contain"
+              />
+            </div>
+            <span className="text-lg md:text-xl font-bold text-foreground hidden sm:inline">
+              {businessContent.name}
+            </span>
           </div>
 
-          {/* Navigation - visible on all screen sizes */}
-          <nav className="flex items-center gap-1 sm:gap-2 overflow-x-auto scrollbar-hide flex-1 justify-end">
-            {navItems.map((item) => (
-              <Button
-                key={item.id}
-                variant="ghost"
-                onClick={() => onNavigate(item.id)}
-                className="text-xs sm:text-sm font-medium whitespace-nowrap flex-shrink-0 px-2 sm:px-4"
-              >
-                {item.label}
-              </Button>
-            ))}
+          {/* Navigation - Horizontally scrollable on mobile */}
+          <nav className="flex-1 overflow-x-auto scrollbar-hide">
+            <div className="flex items-center justify-end gap-1 md:gap-2 min-w-max">
+              {navItems.map((item) => (
+                <Button
+                  key={item.id}
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onNavigate(item.id)}
+                  className="text-xs md:text-sm whitespace-nowrap hover:bg-accent/10 transition-all duration-300"
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </div>
           </nav>
         </div>
       </div>
