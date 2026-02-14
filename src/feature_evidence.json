@@ -2,12 +2,9 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-identify-and-fix-the-root-cause-of-the-caffeine-build-deployment-failure-that-reports-system-configuration-error-ensuring-the-project-builds-successfully-in-the-platform-environment",
-      "featureTitle": "Identify and fix the root cause of the Caffeine build/deployment failure that reports “System configuration error”, ensuring the project builds successfully in the platform environment.",
-      "files": [
-        "frontend/postcss.config.cjs",
-        "frontend/tailwind.config.js"
-      ],
+      "featureId": "feature-add-new-generated-logo-image-assets-under-frontend-public-assets-generated-that-match-the-provided-design-modern-circular-badge-for-brand-text-hnd-with-a-red-outer-circular-border-white-inner-background-a-friendly-minimal-cartoon-chef-smiling-holding-a-pizza-tray-wearing-a-chef-hat-and-scarf-the-hnd-text-must-be-bold-modern-rounded-and-use-red-and-green-the-asset-must-be-clean-minimal-professional-high-resolution-vector-style-transparent-background-with-no-watermark-blur-or-extra-text",
+      "featureTitle": "Add new generated logo image assets under `frontend/public/assets/generated/` that match the provided design: modern circular badge for brand text “HND” with a red outer circular border, white inner background, a friendly minimal cartoon chef (smiling) holding a pizza tray, wearing a chef hat and scarf; the “HND” text must be bold, modern, rounded, and use red and green; the asset must be clean, minimal, professional, high-resolution, vector-style, transparent background, with no watermark, blur, or extra text.",
+      "files": [],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
@@ -16,15 +13,16 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-25"
+        "REQ-45"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-make-the-tailwind-configuration-compatible-with-the-build-toolchain-by-removing-any-module-format-mismatch-e-g-esm-only-imports-exports-that-could-break-tailwind-vite-processing-in-the-deployment-environment",
-      "featureTitle": "Make the Tailwind configuration compatible with the build toolchain by removing any module-format mismatch (e.g., ESM-only imports/exports) that could break Tailwind/Vite processing in the deployment environment.",
+      "featureId": "feature-update-the-site-ui-to-use-the-new-hnd-badge-logo-asset-for-all-current-logo-placements-header-logo-and-hero-logo-replacing-the-existing-assets-generated-hnd-logo-restaurant-transparent-dim-512x512-png-references",
+      "featureTitle": "Update the site UI to use the new HND badge logo asset for all current logo placements (header logo and hero logo), replacing the existing `/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png` references.",
       "files": [
-        "frontend/tailwind.config.js"
+        "frontend/src/App.tsx",
+        "frontend/src/components/SiteHeader.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -34,7 +32,25 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-26"
+        "REQ-46"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-favicon-configuration-in-frontend-index-html-to-use-the-new-favicon-asset-so-browsers-display-the-hnd-badge-in-the-tab-icon",
+      "featureTitle": "Add favicon configuration in `frontend/index.html` to use the new favicon asset so browsers display the HND badge in the tab icon.",
+      "files": [
+        "frontend/index.html"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-47"
       ],
       "confidence": "high"
     }

@@ -1,50 +1,64 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T21:56:08.051Z",
+  "generatedAt": "2026-02-14T22:41:44.678Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 3,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-25",
-        "summary": "Identify and fix the root cause of the Caffeine build/deployment failure that reports “System configuration error”, ensuring the project builds successfully in the platform environment.",
+        "id": "REQ-45",
+        "summary": "Add new generated logo image assets under `frontend/public/assets/generated/` that match the provided design: modern circular badge for brand text “HND” with a red outer circular border, white inner background, a friendly minimal cartoon chef (smiling) holding a pizza tray, wearing a chef hat and scarf; the “HND” text must be bold, modern, rounded, and use red and green; the asset must be clean, minimal, professional, high-resolution, vector-style, transparent background, with no watermark, blur, or extra text.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/tailwind.config.js",
-          "frontend/postcss.config.cjs"
+          "frontend/public/assets/generated/hnd-logo-badge-chef.dim_512x512.png",
+          "frontend/public/assets/generated/hnd-favicon-badge-chef.dim_64x64.png"
         ],
         "matchedFiles": [
-          "frontend/tailwind.config.js",
-          "frontend/postcss.config.cjs"
+          "frontend/public/assets/generated/hnd-logo-badge-chef.dim_512x512.png",
+          "frontend/public/assets/generated/hnd-favicon-badge-chef.dim_64x64.png"
         ]
       },
       {
-        "id": "REQ-26",
-        "summary": "Make the Tailwind configuration compatible with the build toolchain by removing any module-format mismatch (e.g., ESM-only imports/exports) that could break Tailwind/Vite processing in the deployment environment.",
+        "id": "REQ-46",
+        "summary": "Update the site UI to use the new HND badge logo asset for all current logo placements (header logo and hero logo), replacing the existing `/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png` references.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/tailwind.config.js"
+          "frontend/src/components/SiteHeader.tsx",
+          "frontend/src/App.tsx"
         ],
         "matchedFiles": [
-          "frontend/tailwind.config.js"
+          "frontend/src/components/SiteHeader.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-47",
+        "summary": "Add favicon configuration in `frontend/index.html` to use the new favicon asset so browsers display the HND badge in the tab icon.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/index.html"
+        ],
+        "matchedFiles": [
+          "frontend/index.html"
         ]
       }
     ]
   },
   "changedFiles": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/postcss.config.cjs",
-    "frontend/tailwind.config.js",
+    "frontend/index.html",
+    "frontend/public/assets/generated/hnd-favicon-badge-chef.dim_64x64.png",
+    "frontend/public/assets/generated/hnd-logo-badge-chef.dim_512x512.png",
+    "frontend/src/App.tsx",
+    "frontend/src/components/SiteHeader.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

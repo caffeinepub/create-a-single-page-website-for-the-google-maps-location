@@ -1,42 +1,62 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix Tailwind/build configuration to eliminate deployment “System configuration error”",
+  "title": "Add new circular HND badge logo asset and use it for header + favicon",
   "requirements": [
     {
-      "id": "REQ-25",
-      "summary": "Fix the deployment build configuration so the app builds and deploys successfully without the “System configuration error”, preserving the existing SPA behavior.",
+      "id": "REQ-45",
+      "summary": "Add new generated circular badge logo + favicon image assets under frontend/public/assets/generated/ matching the specified chef + HND design.",
       "acceptanceCriteria": [
-        "A clean build and deploy completes without the “System configuration error”.",
-        "The deployed site loads successfully and renders the existing single-page UI (Hero, Contact, Location, and revealable sections) without runtime errors.",
-        "No existing implemented features regress (menu rendering, image loading with fallback, reveal-then-scroll navigation, WhatsApp ordering links)."
+        "The following files exist in `frontend/public/assets/generated/` with transparent backgrounds and crisp edges at 1:1 zoom: `hnd-logo-badge-chef.dim_512x512.png` and `hnd-favicon-badge-chef.dim_64x64.png`.",
+        "The logo visually matches the specified layout: red circular border + white inner circle, chef character holding a pizza tray with chef hat + scarf, smiling, and “HND” text beneath in bold rounded styling using red + green.",
+        "No watermarking, no additional text besides “HND”, and no visible blur/pixelation artifacts."
       ],
       "file_operations": [
         {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Align Tailwind config module format with the deployment toolchain (convert to a CommonJS-compatible configuration) to address build-time configuration failures. (Related template: build-template-react / initial-app. Verify the component's usage instructions before implementing.)"
+          "path": "frontend/public/assets/generated/hnd-logo-badge-chef.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the new high-resolution, vector-style (rasterized PNG) circular badge logo asset with transparent background that matches the provided design spec (red outer ring, white inner circle, smiling cartoon chef holding pizza tray with chef hat + scarf, bold rounded “HND” in red + green). Keep changes limited to static assets under frontend/public/assets/generated/."
         },
         {
-          "path": "frontend/postcss.config.cjs",
+          "path": "frontend/public/assets/generated/hnd-favicon-badge-chef.dim_64x64.png",
           "operation": "create",
-          "description": "Add an explicit, CommonJS PostCSS configuration that wires Tailwind and autoprefixer in a toolchain-compatible way, reducing reliance on implicit defaults that may differ in the platform environment. (Related template: build-template-react / initial-app. Verify the component's usage instructions before implementing.)"
+          "description": "Add the simplified favicon PNG (64x64) matching the same badge mark (chef + “HND”), readable at small size, transparent background, crisp edges, no watermark/blur/extra text. Keep as a static file under frontend/public/assets/generated/ (do not serve from backend)."
         }
       ]
     },
     {
-      "id": "REQ-26",
-      "summary": "Remove Tailwind module-format mismatches so Tailwind/Vite processing works reliably in the deployment environment without changing immutable UI component files.",
+      "id": "REQ-46",
+      "summary": "Replace existing logo references in the header and hero to use the new HND badge logo asset while continuing to render via SafeImage with appropriate English alt text.",
       "acceptanceCriteria": [
-        "Tailwind configuration loads without errors during build.",
-        "CSS is generated correctly (dark theme tokens and existing Tailwind utilities continue to work).",
-        "No changes are made to any files under `frontend/src/components/ui` or other immutable paths."
+        "`frontend/src/components/SiteHeader.tsx` uses `/assets/generated/hnd-logo-badge-chef.dim_512x512.png` as the logo `src`.",
+        "`frontend/src/App.tsx` hero logo uses `/assets/generated/hnd-logo-badge-chef.dim_512x512.png` as the logo `src`.",
+        "Logo images still render via the existing `SafeImage` component and retain appropriate `alt` text in English."
       ],
       "file_operations": [
         {
-          "path": "frontend/tailwind.config.js",
+          "path": "frontend/src/components/SiteHeader.tsx",
           "operation": "modify",
-          "description": "Replace ESM-only imports/exports with a CommonJS-compatible configuration (e.g., require/module.exports) while preserving existing theme tokens, content globs, and plugin usage to keep current styling output unchanged. (Related template: initial-app. Verify the component's usage instructions before implementing.)"
+          "description": "Update the existing header logo `SafeImage` to use `/assets/generated/hnd-logo-badge-chef.dim_512x512.png` as `src`, replacing `/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png`. Preserve existing `SafeImage` usage, fallback behavior, and English alt text. Do not modify any files under frontend/src/components/ui."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Update the hero logo `SafeImage` to use `/assets/generated/hnd-logo-badge-chef.dim_512x512.png` as `src`, replacing `/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png`. Keep all other hero content/sections unchanged and continue using `SafeImage` with appropriate English alt text."
+        }
+      ]
+    },
+    {
+      "id": "REQ-47",
+      "summary": "Configure the favicon in frontend/index.html to use the new generated HND badge favicon asset.",
+      "acceptanceCriteria": [
+        "`frontend/index.html` includes a favicon `<link>` pointing to `/assets/generated/hnd-favicon-badge-chef.dim_64x64.png` (e.g., `rel=\"icon\"`, `type=\"image/png\"`).",
+        "When running the app in a browser, the tab favicon displays the new HND badge logo."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Add/ensure a favicon `<link rel=\"icon\" type=\"image/png\">` in the `<head>` pointing to `/assets/generated/hnd-favicon-badge-chef.dim_64x64.png`. Keep changes limited to favicon linkage only (no unrelated head/content changes)."
         }
       ]
     }

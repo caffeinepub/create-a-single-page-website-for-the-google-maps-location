@@ -15,12 +15,61 @@ interface MenuItem {
   [key: string]: any;
 }
 
+export interface VariantOption {
+  label: string;
+  price: number;
+  key: string;
+}
+
+/**
+ * Derives the list of available variant options for a menu item
+ * @param item - The menu item
+ * @returns Array of variant options with label, price, and key
+ */
+export function getAvailableVariants(item: MenuItem): VariantOption[] {
+  const variants: VariantOption[] = [];
+  
+  if (item.price !== undefined && item.price !== null) {
+    variants.push({ label: 'Regular', price: item.price, key: 'price' });
+  }
+  if (item.full) {
+    variants.push({ label: 'Full', price: item.full, key: 'full' });
+  }
+  if (item.half) {
+    variants.push({ label: 'Half', price: item.half, key: 'half' });
+  }
+  if (item.single) {
+    variants.push({ label: 'Single', price: item.single, key: 'single' });
+  }
+  if (item.large) {
+    variants.push({ label: 'Large', price: item.large, key: 'large' });
+  }
+  if (item.medium) {
+    variants.push({ label: 'Medium', price: item.medium, key: 'medium' });
+  }
+  if (item.small) {
+    variants.push({ label: 'Small', price: item.small, key: 'small' });
+  }
+  if (item.family) {
+    variants.push({ label: 'Family', price: item.family, key: 'family' });
+  }
+  if (item.beef) {
+    variants.push({ label: 'Beef', price: item.beef, key: 'beef' });
+  }
+  if (item.chicken) {
+    variants.push({ label: 'Chicken', price: item.chicken, key: 'chicken' });
+  }
+
+  return variants;
+}
+
 /**
  * Builds a WhatsApp deep link with a pre-filled message for ordering a menu item
  * @param item - The menu item to order
+ * @param selectedVariant - Optional selected variant (label + price)
  * @returns WhatsApp URL with encoded message, or null if WhatsApp is not configured
  */
-export function buildWhatsAppOrderLink(item: MenuItem): string | null {
+export function buildWhatsAppOrderLink(item: MenuItem, selectedVariant?: VariantOption): string | null {
   const { whatsapp } = businessContent;
   
   // Check if WhatsApp is configured
@@ -28,41 +77,49 @@ export function buildWhatsAppOrderLink(item: MenuItem): string | null {
     return null;
   }
 
-  // Build price string from available price fields
-  const priceDetails: string[] = [];
+  // Build price string
+  let priceString: string;
   
-  if (item.price !== undefined && item.price !== null) {
-    priceDetails.push(`Rs. ${item.price}`);
-  }
-  if (item.full) {
-    priceDetails.push(`Full: Rs. ${item.full}`);
-  }
-  if (item.half) {
-    priceDetails.push(`Half: Rs. ${item.half}`);
-  }
-  if (item.single) {
-    priceDetails.push(`Single: Rs. ${item.single}`);
-  }
-  if (item.large) {
-    priceDetails.push(`Large: Rs. ${item.large}`);
-  }
-  if (item.medium) {
-    priceDetails.push(`Medium: Rs. ${item.medium}`);
-  }
-  if (item.small) {
-    priceDetails.push(`Small: Rs. ${item.small}`);
-  }
-  if (item.family) {
-    priceDetails.push(`Family: Rs. ${item.family}`);
-  }
-  if (item.beef) {
-    priceDetails.push(`Beef: Rs. ${item.beef}`);
-  }
-  if (item.chicken) {
-    priceDetails.push(`Chicken: Rs. ${item.chicken}`);
-  }
+  if (selectedVariant) {
+    // Use the selected variant
+    priceString = `${selectedVariant.label}: Rs. ${selectedVariant.price}`;
+  } else {
+    // Fallback: build from all available price fields
+    const priceDetails: string[] = [];
+    
+    if (item.price !== undefined && item.price !== null) {
+      priceDetails.push(`Rs. ${item.price}`);
+    }
+    if (item.full) {
+      priceDetails.push(`Full: Rs. ${item.full}`);
+    }
+    if (item.half) {
+      priceDetails.push(`Half: Rs. ${item.half}`);
+    }
+    if (item.single) {
+      priceDetails.push(`Single: Rs. ${item.single}`);
+    }
+    if (item.large) {
+      priceDetails.push(`Large: Rs. ${item.large}`);
+    }
+    if (item.medium) {
+      priceDetails.push(`Medium: Rs. ${item.medium}`);
+    }
+    if (item.small) {
+      priceDetails.push(`Small: Rs. ${item.small}`);
+    }
+    if (item.family) {
+      priceDetails.push(`Family: Rs. ${item.family}`);
+    }
+    if (item.beef) {
+      priceDetails.push(`Beef: Rs. ${item.beef}`);
+    }
+    if (item.chicken) {
+      priceDetails.push(`Chicken: Rs. ${item.chicken}`);
+    }
 
-  const priceString = priceDetails.length > 0 ? priceDetails.join(', ') : 'Price on request';
+    priceString = priceDetails.length > 0 ? priceDetails.join(', ') : 'Price on request';
+  }
 
   // Build the message using the template or default format
   const message = whatsapp.messageTemplate

@@ -1,56 +1,87 @@
 {
   "kind": "build_request",
-  "title": "Fix deployment “System configuration error” by correcting project build configuration",
-  "priority": "high",
+  "title": "Add new circular HND badge logo asset and use it for header + favicon",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-25",
-      "text": "Identify and fix the root cause of the Caffeine build/deployment failure that reports “System configuration error”, ensuring the project builds successfully in the platform environment.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-6"
-        ],
-        "quotes": [
-          "Solve system configuration error"
-        ]
-      },
-      "acceptanceCriteria": [
-        "A clean build and deploy completes without the “System configuration error”.",
-        "The deployed site loads successfully and renders the existing single-page UI (Hero, Contact, Location, and revealable sections) without runtime errors.",
-        "No existing implemented features regress (menu rendering, image loading with fallback, reveal-then-scroll navigation, WhatsApp ordering links)."
-      ]
-    },
-    {
-      "id": "REQ-26",
-      "text": "Make the Tailwind configuration compatible with the build toolchain by removing any module-format mismatch (e.g., ESM-only imports/exports) that could break Tailwind/Vite processing in the deployment environment.",
+      "id": "REQ-45",
+      "text": "Add new generated logo image assets under `frontend/public/assets/generated/` that match the provided design: modern circular badge for brand text “HND” with a red outer circular border, white inner background, a friendly minimal cartoon chef (smiling) holding a pizza tray, wearing a chef hat and scarf; the “HND” text must be bold, modern, rounded, and use red and green; the asset must be clean, minimal, professional, high-resolution, vector-style, transparent background, with no watermark, blur, or extra text.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-4"
         ],
         "quotes": [
-          "Solve system configuration error"
+          "Create a modern circular badge logo for a WEBSITE brand named \"HND\".\nThis logo must be designed for a WEBSITE HEADER and FAVICON use.\nUse a red outer circular border and white inner background.\nIn the center, add a friendly cartoon chef character holding a pizza tray, wearing a chef hat and scarf, smiling.\nBelow the chef, write the brand name \"HND\" in bold modern rounded typography using red and green colors.\nThe logo should be clean, minimal, professional, and suitable for website branding.\nOutput must be high resolution, vector style, transparent background, no watermark, no blur, no extra text, scalable for web use."
         ]
       },
       "acceptanceCriteria": [
-        "Tailwind configuration loads without errors during build.",
-        "CSS is generated correctly (dark theme tokens and existing Tailwind utilities continue to work).",
-        "No changes are made to any files under `frontend/src/components/ui` or other immutable paths."
+        "The following files exist in `frontend/public/assets/generated/` with transparent backgrounds and crisp edges at 1:1 zoom: `hnd-logo-badge-chef.dim_512x512.png` and `hnd-favicon-badge-chef.dim_64x64.png`.",
+        "The logo visually matches the specified layout: red circular border + white inner circle, chef character holding a pizza tray with chef hat + scarf, smiling, and “HND” text beneath in bold rounded styling using red + green.",
+        "No watermarking, no additional text besides “HND”, and no visible blur/pixelation artifacts."
+      ]
+    },
+    {
+      "id": "REQ-46",
+      "text": "Update the site UI to use the new HND badge logo asset for all current logo placements (header logo and hero logo), replacing the existing `/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png` references.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "This logo must be designed for a WEBSITE HEADER and FAVICON use."
+        ]
+      },
+      "acceptanceCriteria": [
+        "`frontend/src/components/SiteHeader.tsx` uses `/assets/generated/hnd-logo-badge-chef.dim_512x512.png` as the logo `src`.",
+        "`frontend/src/App.tsx` hero logo uses `/assets/generated/hnd-logo-badge-chef.dim_512x512.png` as the logo `src`.",
+        "Logo images still render via the existing `SafeImage` component and retain appropriate `alt` text in English."
+      ]
+    },
+    {
+      "id": "REQ-47",
+      "text": "Add favicon configuration in `frontend/index.html` to use the new favicon asset so browsers display the HND badge in the tab icon.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "This logo must be designed for a WEBSITE HEADER and FAVICON use."
+        ]
+      },
+      "acceptanceCriteria": [
+        "`frontend/index.html` includes a favicon `<link>` pointing to `/assets/generated/hnd-favicon-badge-chef.dim_64x64.png` (e.g., `rel=\"icon\"`, `type=\"image/png\"`).",
+        "When running the app in a browser, the tab favicon displays the new HND badge logo."
       ]
     }
   ],
   "constraints": [
-    "Respect the single-actor backend architecture (all Motoko logic remains in `backend/main.mo`).",
-    "Do not edit any paths listed in `frontend.immutablePaths` in SYSTEM_CONTEXT.",
-    "Use English for any user-facing text."
+    "Do not modify any files under `frontend/src/components/ui` (read-only UI components).",
+    "Keep changes limited to logo assets and logo references; do not change existing site sections or unrelated content.",
+    "All new image assets must be added as static files under `frontend/public/assets/generated/` (do not serve images from the backend)."
   ],
   "nonGoals": [
-    "Adding new website sections or changing existing content copy.",
-    "Introducing new backend services, databases, or third-party auth providers beyond Internet Identity."
+    "Redesigning the menu UI or changing menu data.",
+    "Changing business name/tagline/SEO text beyond favicon linkage.",
+    "Adding new pages or new site sections."
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Circular badge logo with red outer ring and white inner circle; centered friendly minimal cartoon chef holding a pizza tray, wearing chef hat and scarf, smiling; “HND” in bold rounded modern type below the chef using red and green; transparent background (hnd-logo-badge-chef.dim_512x512.png)",
+      "Simplified circular badge favicon matching the same chef + “HND” mark; readable at small size; transparent background (hnd-favicon-badge-chef.dim_64x64.png)"
+    ],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

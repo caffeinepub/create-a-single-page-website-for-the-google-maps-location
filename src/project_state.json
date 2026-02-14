@@ -1,20 +1,26 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 15,
-  "summary": "Single-page marketing website for HOTEL NASRA DA; user wants HND logo branding, menu items displayed with unique photos, improved UI polish, and now requests an per-item Order button that opens WhatsApp with a pre-filled message for that specific menu item.",
+  "projectStateVersion": 29,
+  "summary": "Single-page marketing website for HOTEL NASRA DA with HND branding; includes requirements to fix transparent background, create/use a restaurant-appropriate HND logo with transparent background (now specified as a modern circular badge logo with a cartoon chef for header + favicon), correct the menu so each listed item has its own unique photo (no repeats), standardize naming to include 'HND' before item names, and add Facebook/TikTok social links on the homepage.",
   "architectural_notes": [
     "Menu content should be stored in the centralized content configuration (same TS object/file as other business details) and rendered as text (no menu image dependency).",
     "Potential scope change: user requests images for each menu item, which conflicts with the prior requirement that the menu be text-only (no menu image dependency). Clarify/decide whether to allow per-item images and how they will be sourced/stored.",
     "Branding update: add/use an 'HND' logo in the header/hero start area and remove/avoid the existing map logo.",
     "Menu item imagery requirement: each menu item image must be distinct; avoid reusing the same photo across items.",
     "User requested a navigation-driven/conditional rendering layout: keep Contact/Location on the main view and reveal other sections on button click (instead of showing all sections at once).",
-    "Ordering UX requirement: add a per-menu-item 'Order' CTA that deep-links to WhatsApp (wa.me / click-to-chat) with a prefilled message including the item name (and optionally price), so the user can order that specific item."
+    "Ordering UX requirement: add a per-menu-item 'Order' CTA that deep-links to WhatsApp (wa.me / click-to-chat) with a prefilled message including the item name (and optionally price), so the user can order that specific item.",
+    "Ordering UX enhancement: if an item has multiple variants (e.g., Half/Full), the Order flow should first collect the user’s selection and include the chosen variant (and corresponding price if shown) in the WhatsApp pre-filled message.",
+    "User requirement update: ensure the page/site background is not transparent (avoid unintended transparency in global layout/background layers).",
+    "User requirement: menu item naming may need to be standardized with an 'HND' prefix before item names (confirm exact formatting: e.g., 'HND <Item Name>').",
+    "Menu imagery requirement clarification: for each written menu item (e.g., Pizza), display the matching item photo alongside it (no generic/full-menu image usage)."
   ],
   "known_issues": [
     "Images are not displaying correctly on the site (user reported missing/incorrect image rendering).",
-    "Build/deployment failing due to a \"System configuration error\" (platform/system-level error)."
+    "Build/deployment failing due to a \"System configuration error\" (platform/system-level error).",
+    "User reports the website background is transparent and should be fixed (should render as solid/dark background)."
   ],
-  "isFixRequest": true,
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Circular badge logo with red outer ring and white inner circle; centered friendly minimal cartoon chef holding a pizza tray, wearing chef hat and scarf, smiling; “HND” in bold rounded modern type below the chef using red and green; transparent background (hnd-logo-badge-chef.dim_512x512.png)\n- Simplified circular badge favicon matching the same chef + “HND” mark; readable at small size; transparent background (hnd-favicon-badge-chef.dim_64x64.png)",
   "existing_features": [
     {
       "id": "feature-create-a-responsive-marketing-website-single-page-for-the-place-referenced-by-https-maps-app-goo-gl-ndbp8xbnmzzhedmm8-with-clear-sections-for-hero-name-short-tagline-about-description-hours-address-contact-phone-email-placeholders-if-not-known-and-a-location-section-that-includes-a-prominent-button-linking-to-the-google-maps-url",
@@ -223,6 +229,174 @@
         "REQ-26"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-menu-item-card-layout-so-each-menu-item-clearly-shows-its-photo-next-to-beside-the-item-name-and-prices-in-a-consistent-responsive-layout-e-g-image-thumbnail-on-the-left-with-text-prices-on-the-right-while-keeping-the-existing-grid-tabs-structure-and-english-ui-text",
+      "title": "Update the Menu item card layout so each menu item clearly shows its photo next to (beside) the item name and prices in a consistent, responsive layout (e.g., image thumbnail on the left with text/prices on the right), while keeping the existing grid/tabs structure and English UI text.",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-when-a-user-clicks-order-on-whatsapp-for-a-menu-item-that-has-multiple-size-variant-prices-e-g-half-full-small-medium-large-beef-chicken-single-family-show-an-in-page-selection-ui-modal-dialog-prompting-the-user-to-choose-one-available-variant-before-opening-whatsapp",
+      "title": "When a user clicks “Order on WhatsApp” for a menu item that has multiple size/variant prices (e.g., Half/Full, Small/Medium/Large, Beef/Chicken, Single/Family), show an in-page selection UI (modal/dialog) prompting the user to choose one available variant before opening WhatsApp.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-whatsapp-order-link-generation-so-that-after-the-user-selects-a-variant-the-whatsapp-message-includes-1-the-item-name-2-the-selected-variant-label-e-g-half-full-and-3-the-selected-price-all-in-english",
+      "title": "Update WhatsApp order link generation so that, after the user selects a variant, the WhatsApp message includes: (1) the item name, (2) the selected variant label (e.g., “Half”, “Full”), and (3) the selected price, all in English.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-the-user-provided-hnd-logo-image-picsart-26-02-15-02-31-07-789-1-png-across-the-site-by-adding-an-optimized-copy-under-frontend-public-assets-generated-and-updating-all-current-hnd-logo-references-to-use-the-new-asset-consistently-header-logo-hero-logo-and-footer-logo",
+      "title": "Apply the user-provided HND logo image (`Picsart_26-02-15_02-31-07-789-1.png`) across the site by adding an optimized copy under `frontend/public/assets/generated/` and updating all current HND logo references to use the new asset consistently (header logo, hero logo, and footer logo).",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-website-background-so-it-is-never-transparent-ensure-html-body-and-the-app-root-render-a-solid-dark-background-color-across-all-sections-and-during-scroll-no-page-level-transparency-showing-through",
+      "title": "Fix the website background so it is never transparent: ensure `html`, `body`, and the app root render a solid dark background color across all sections and during scroll (no page-level transparency showing through).",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-hnd-logo-to-be-restaurant-appropriate-and-ensure-the-logo-image-itself-has-a-transparent-background-apply-the-updated-logo-consistently-anywhere-the-hnd-logo-is-shown-header-hero-footer-and-any-other-existing-placements",
+      "title": "Update the HND logo to be restaurant-appropriate and ensure the logo image itself has a transparent background; apply the updated logo consistently anywhere the HND logo is shown (header, hero, footer, and any other existing placements).",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-correct-the-menu-so-every-menu-item-displays-its-own-correct-photo-matching-the-written-item-and-photos-are-not-repeated-due-to-missing-broken-paths-audit-frontend-src-content-business-ts-image-references-and-the-static-assets-under-frontend-public-assets-generated-so-each-menu-item-loads-its-unique-image-without-falling-back-to-a-shared-default",
+      "title": "Correct the Menu so every menu item displays its own correct photo (matching the written item) and photos are not repeated due to missing/broken paths: audit `frontend/src/content/business.ts` image references and the static assets under `frontend/public/assets/generated/` so each menu item loads its unique image without falling back to a shared default.",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-standardize-menu-item-naming-so-that-menu-item-titles-use-the-hnd-prefix-consistently-before-each-item-name-e-g-hnd-chicken-karahi-while-keeping-user-facing-text-in-english",
+      "title": "Standardize menu item naming so that menu item titles use the 'HND' prefix consistently before each item name (e.g., 'HND Chicken Karahi'), while keeping user-facing text in English.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-hnd-logo-overlay-watermark-on-top-of-every-menu-item-photo-shown-in-the-menu-section-using-the-existing-hnd-logo-asset-assets-generated-hnd-logo-restaurant-transparent-dim-512x512-png-and-rendering-it-as-an-image-overlay-not-as-html-text-the-overlay-must-appear-consistently-on-every-menuitemcard-image-thumbnail-and-must-not-block-core-photo-visibility",
+      "title": "Add an HND logo overlay (watermark) on top of every menu item photo shown in the Menu section, using the existing HND logo asset (`/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png`) and rendering it as an image overlay (not as HTML text). The overlay must appear consistently on every `MenuItemCard` image thumbnail and must not block core photo visibility.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-audit-frontend-src-content-business-ts-menu-items-and-update-each-businesscontent-menu-items-image-so-that-every-menu-item-shows-a-photo-of-the-same-dish-e-g-pizza-items-must-use-pizza-photos-avoiding-any-generic-incorrect-images-and-avoiding-reusing-the-same-photo-for-different-menu-items",
+      "title": "Audit `frontend/src/content/business.ts` menu items and update each `businessContent.menu[].items[].image` so that every menu item shows a photo of the same dish (e.g., Pizza items must use Pizza photos), avoiding any generic/incorrect images and avoiding reusing the same photo for different menu items.",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-standardize-menu-item-photos-to-use-static-assets-under-frontend-public-assets-generated-not-assets-uploads-screenshots-by-moving-replacing-the-referenced-files-and-updating-frontend-src-content-business-ts-to-point-to-the-generated-asset-paths",
+      "title": "Standardize menu item photos to use static assets under `frontend/public/assets/generated/` (not `/assets/` uploads/screenshots) by moving/replacing the referenced files and updating `frontend/src/content/business.ts` to point to the generated asset paths.",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-configurable-facebook-and-tiktok-social-profile-urls-to-the-centralized-content-config-frontend-src-content-business-ts-and-wire-the-ui-to-use-these-values-do-not-hardcode-social-urls-in-components-use-the-exact-urls-provided-by-the-user-facebook-https-www-facebook-com-share-189s9drttk-and-tiktok-https-www-tiktok-com-hotel-nasry-da-r-1-t-zs-93vs7ffgyn4",
+      "title": "Add configurable Facebook and TikTok social profile URLs to the centralized content config (`frontend/src/content/business.ts`) and wire the UI to use these values (do not hardcode social URLs in components). Use the exact URLs provided by the user: Facebook `https://www.facebook.com/share/189s9DRTtK/` and TikTok `https://www.tiktok.com/@hotel.nasry.da?_r=1&_t=ZS-93vS7fFgyn4`.",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-visible-social-buttons-links-for-facebook-and-tiktok-on-the-homepage-main-view-e-g-within-the-hero-section-in-frontend-src-app-tsx-styled-consistently-with-the-existing-premium-dark-ui-each-social-link-must-open-in-a-new-tab-and-include-accessible-labeling-e-g-aria-label-values-in-english",
+      "title": "Add visible social buttons/links for Facebook and TikTok on the homepage main view (e.g., within the Hero section in `frontend/src/App.tsx`), styled consistently with the existing premium dark UI. Each social link must open in a new tab and include accessible labeling (e.g., `aria-label` values in English).",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-footer-connect-with-us-links-in-frontend-src-app-tsx-to-reflect-the-business-s-actual-social-presence-by-showing-facebook-and-tiktok-using-the-configured-urls-from-businesscontent-and-remove-avoid-placeholder-social-links-e-g-https-facebook-com-https-instagram-com-https-x-com-unless-explicitly-configured",
+      "title": "Update the footer “Connect With Us” links in `frontend/src/App.tsx` to reflect the business’s actual social presence by showing Facebook and TikTok using the configured URLs from `businessContent`, and remove/avoid placeholder social links (e.g., `https://facebook.com`, `https://instagram.com`, `https://x.com`) unless explicitly configured.",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-menu-item-card-layout-so-each-menu-item-consistently-renders-the-item-name-prices-on-the-left-and-the-food-photo-on-the-right-desktop-tablet-while-remaining-responsive-stacking-appropriately-on-small-screens-keep-the-existing-menu-data-structure-and-whatsapp-ordering-behavior-unchanged",
+      "title": "Update the Menu item card layout so each menu item consistently renders the item name/prices on the left and the food photo on the right (desktop/tablet), while remaining responsive (stacking appropriately on small screens). Keep the existing menu data structure and WhatsApp ordering behavior unchanged.",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-category-thumbnail-photos-from-the-menu-category-header-ui-so-the-category-header-displays-only-the-category-title-no-category-image-blocks-this-applies-to-all-menu-categories-rendered-by-menucategorygrid",
+      "title": "Remove category thumbnail photos from the menu category header UI so the category header displays only the category title (no category image blocks). This applies to all menu categories rendered by MenuCategoryGrid.",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-more-modern-premium-restaurant-menu-visual-styling-to-the-menu-section-using-a-dark-background-with-gold-and-or-neon-accents-while-keeping-all-existing-english-ui-text-and-the-current-section-structure-add-a-dedicated-menu-section-background-image-asset-and-use-it-as-the-menu-section-backdrop-with-an-overlay-to-preserve-readability",
+      "title": "Apply a more modern premium restaurant menu visual styling to the Menu section using a dark background with gold and/or neon accents, while keeping all existing English UI text and the current section structure. Add a dedicated Menu section background image asset and use it as the Menu section backdrop (with an overlay to preserve readability).",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-hnd-logo-watermark-overlay-on-every-menu-item-photo-looks-like-a-modern-premium-slightly-transparent-watermark-and-does-not-obstruct-the-food-photo-keep-using-the-existing-hnd-logo-asset-for-the-overlay",
+      "title": "Ensure the HND logo watermark overlay on every menu item photo looks like a modern, premium, slightly transparent watermark and does not obstruct the food photo. Keep using the existing HND logo asset for the overlay.",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-new-generated-logo-image-assets-under-frontend-public-assets-generated-that-match-the-provided-design-modern-circular-badge-for-brand-text-hnd-with-a-red-outer-circular-border-white-inner-background-a-friendly-minimal-cartoon-chef-smiling-holding-a-pizza-tray-wearing-a-chef-hat-and-scarf-the-hnd-text-must-be-bold-modern-rounded-and-use-red-and-green-the-asset-must-be-clean-minimal-professional-high-resolution-vector-style-transparent-background-with-no-watermark-blur-or-extra-text",
+      "title": "Add new generated logo image assets under `frontend/public/assets/generated/` that match the provided design: modern circular badge for brand text “HND” with a red outer circular border, white inner background, a friendly minimal cartoon chef (smiling) holding a pizza tray, wearing a chef hat and scarf; the “HND” text must be bold, modern, rounded, and use red and green; the asset must be clean, minimal, professional, high-resolution, vector-style, transparent background, with no watermark, blur, or extra text.",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-ui-to-use-the-new-hnd-badge-logo-asset-for-all-current-logo-placements-header-logo-and-hero-logo-replacing-the-existing-assets-generated-hnd-logo-restaurant-transparent-dim-512x512-png-references",
+      "title": "Update the site UI to use the new HND badge logo asset for all current logo placements (header logo and hero logo), replacing the existing `/assets/generated/hnd-logo-restaurant-transparent.dim_512x512.png` references.",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-favicon-configuration-in-frontend-index-html-to-use-the-new-favicon-asset-so-browsers-display-the-hnd-badge-in-the-tab-icon",
+      "title": "Add favicon configuration in `frontend/index.html` to use the new favicon asset so browsers display the HND badge in the tab icon.",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -295,6 +469,54 @@
     {
       "id": "AR-12",
       "summary": "Add an 'Order' button for each menu item that opens WhatsApp with a pre-filled message containing that selected item (and relevant details).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "When clicking a menu item’s Order button, prompt the user to select an available size/variant (e.g., Half/Full where applicable) before opening WhatsApp with the pre-filled message.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Fix the site/page background so it is not transparent (ensure proper solid/dark background rendering).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Standardize menu item naming to include 'HND' as a prefix before each item name where required by the user.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Update/replace the HND logo so it is restaurant-appropriate and ensure the logo asset background is transparent.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Add the HND logo on top of each menu item photo (apply logo overlay/watermark per image so each item photo has HND branding).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Add Facebook and TikTok social buttons/links on the homepage (using the provided URLs).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Revise Menu item card layout to keep item names/text on the left and the correct food photo on the right, using a clean premium dark menu style with gold/neon accents; remove existing/incorrect menu photos and re-add correct dish photos per item (e.g., pizza items use pizza images).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Create a modern circular badge 'HND' logo (red outer circular border, white inner background) with a friendly cartoon chef holding a pizza tray, and 'HND' text in bold rounded typography using red/green; deliver as high-res vector-style asset with transparent background suitable for website header and favicon.",
       "reqIds": [],
       "status": "pending"
     }

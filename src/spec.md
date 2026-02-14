@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Fix the deployment “System configuration error” so the project builds and deploys successfully in the target platform environment without breaking existing UI behavior.
+**Goal:** Add a new circular HND badge chef logo asset and use it everywhere the site logo appears, including the browser favicon.
 
 **Planned changes:**
-- Identify the root cause of the build/deployment failure that reports “System configuration error” and correct the project build configuration to match the platform toolchain.
-- Update Tailwind configuration to avoid module-format mismatches that can break Tailwind/Vite processing during deployment (while keeping existing dark theme tokens/utilities working).
-- Ensure no edits are made in any immutable frontend paths (including `frontend/src/components/ui`) and verify existing features continue to work (menu rendering, image fallback loading, reveal-then-scroll navigation, WhatsApp ordering links).
+- Add new generated logo assets under `frontend/public/assets/generated/`: a 512×512 transparent PNG badge logo and a 64×64 transparent PNG favicon variant.
+- Update current logo references in `frontend/src/components/SiteHeader.tsx` and the hero logo in `frontend/src/App.tsx` to use the new badge logo asset via the existing `SafeImage` component with appropriate English alt text.
+- Update `frontend/index.html` to reference the new favicon PNG via a `<link rel="icon" type="image/png" ...>`.
 
-**User-visible outcome:** The site deploys cleanly and loads the existing single-page UI (Hero, Contact, Location, and revealable sections) without runtime errors, with all current functionality intact.
+**User-visible outcome:** The header logo, hero logo, and browser tab favicon display the new circular HND chef badge logo.

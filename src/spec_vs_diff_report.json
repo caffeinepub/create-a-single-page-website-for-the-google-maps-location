@@ -1,52 +1,40 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T21:56:08.048Z",
-  "summary": "REQ-26 appears implemented by converting Tailwind/PostCSS config to explicit CommonJS to avoid module-format mismatches. However, the diff also introduces multiple unrelated frontend/UI changes and a new backend migration mechanism that were not requested. REQ-25’s end-to-end goal (clean deploy without “System configuration error” and no regressions) cannot be confirmed from the diff summary alone.",
+  "generatedAt": "2026-02-14T22:41:44.675Z",
+  "summary": "REQ-46 and REQ-47 appear implemented (logo references updated in header/hero; favicon link added). REQ-45 is missing because the required new PNG assets are not added under frontend/public/assets/generated/. The diff also includes several UI/theme/content changes beyond the stated constraint of limiting changes to logo assets and logo references.",
   "missing_requirements": [
     {
-      "id": "REQ-25",
-      "requirement": "Identify and fix the root cause of the Caffeine build/deployment failure (“System configuration error”) and ensure a clean build/deploy with the existing single-page UI working and no feature regressions.",
-      "reason": "While Tailwind/PostCSS compatibility changes are present, the diff summary does not provide evidence that the specific Caffeine deployment “System configuration error” is resolved, nor does it demonstrate that the deployed site loads successfully and preserves all existing behaviors without regressions.",
+      "id": "REQ-45",
+      "requirement": "Add new generated logo image assets under `frontend/public/assets/generated/`: `hnd-logo-badge-chef.dim_512x512.png` and `hnd-favicon-badge-chef.dim_64x64.png`.",
+      "reason": "The diff shows no added files, so the required new image assets are not present in the change set.",
       "evidence": [
-        "frontend/tailwind.config.js",
-        "frontend/postcss.config.cjs",
-        "backend/main.mo",
-        "frontend-file-summaries.txt"
+        "File diff summary: \"Added: 0\" / \"ADDED FILES: - none\""
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Added a backend migration module and changed backend actor initialization to use a `(with migration = Migration.run)` clause.",
-      "reason": "BuildRequest focuses on fixing a deployment build configuration issue (not adding backend migration wiring). This is a new backend behavior/configuration not requested and risks altering backend structure/behavior beyond the stated constraints.",
+      "description": "Added/changed hero and other UI behavior not limited to swapping logo references (e.g., introduction of a custom TikTok SVG icon component and other non-logo UI code in App).",
+      "reason": "BuildRequest constraints require changes to be limited to logo assets and logo references; TikTok icon/UI behavior is unrelated to updating logo and favicon.",
       "evidence": [
-        "backend/migration.mo",
-        "backend/main.mo"
+        "frontend/src/App.tsx (adds \"// TikTok icon component\" and defines `TikTokIcon` SVG)"
       ]
     },
     {
-      "description": "Broad frontend UI/content refactors and feature additions (new HND logo usage, MenuCategoryGrid/MenuItemCard changes, map embed fallback component behavior, dark theme token overhaul, SEO/meta/font preload tweaks, new hooks/utilities).",
-      "reason": "Non-goals explicitly prohibit adding new website sections or changing existing content copy; the request is narrowly scoped to build/deployment configuration (Tailwind toolchain compatibility). The diff summary indicates extensive UI/component/content changes unrelated to the build fix request.",
+      "description": "Broader site redesign/theme/menu-related changes (premium dark theme, menu section styling, watermark utilities, Tailwind/PostCSS config changes, menu/photo layout changes, business/menu content expansion).",
+      "reason": "Non-goals/constraints explicitly say to keep changes limited to logo assets and references and not change existing site sections or unrelated content; these changes go beyond favicon/logo updates.",
       "evidence": [
-        "frontend-file-summaries.txt"
-      ]
-    },
-    {
-      "description": "Introduced an empty placeholder hook file for future React Query hooks (`useQueries.ts`).",
-      "reason": "Not requested by the BuildRequest and unrelated to fixing Tailwind/build deployment configuration.",
-      "evidence": [
-        "frontend-file-summaries.txt"
+        "frontend-file-summaries.txt (describes premium dark mode color system, menu section styling, Tailwind config conversion, PostCSS config, menu item card layout changes, business menu structure updates)"
       ]
     }
   ],
-  "confidence": 0.72,
+  "confidence": 0.74,
   "changed_files": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/postcss.config.cjs",
-    "frontend/tailwind.config.js",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/SiteHeader.tsx",
     "project_state.json"
   ]
 }
