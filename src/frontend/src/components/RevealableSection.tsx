@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Section } from './Section';
 
 interface RevealableSectionProps {
@@ -16,12 +16,33 @@ export function RevealableSection({
   background = 'default',
   className,
 }: RevealableSectionProps) {
-  if (!isRevealed) {
+  const [shouldRender, setShouldRender] = useState(isRevealed);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+
+  useEffect(() => {
+    if (isRevealed) {
+      setShouldRender(true);
+      setIsAnimatingOut(false);
+    } else if (shouldRender) {
+      // Start fade-out animation
+      setIsAnimatingOut(true);
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+        setIsAnimatingOut(false);
+      }, 400); // Match fade-out duration
+      return () => clearTimeout(timer);
+    }
+  }, [isRevealed, shouldRender]);
+
+  if (!shouldRender) {
     return null;
   }
 
   return (
-    <Section variant={background} className={className}>
+    <Section 
+      variant={background} 
+      className={`${className || ''} ${isAnimatingOut ? 'animate-fade-out' : ''}`}
+    >
       {children}
     </Section>
   );

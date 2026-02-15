@@ -1,14 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Fix menu category banner images so Salad/Soup categories show appropriate visuals, and ensure Drinks visuals contain no beer imagery.
+**Goal:** Remove all “Built with Caffeine” UI credit/link and ensure the HND logo renders cleanly and consistently across the site.
 
 **Planned changes:**
-- Update `frontend/src/content/business.ts` category image mappings (`image` fields and/or `categoryBannerImages`) so:
-  - “Lawazmat (Salads)” and “Salad” use a salad banner image.
-  - “Soup” uses a soup banner image.
-  - “Hot & Cold Bar” and “Fresh Juice Seasonal” use a drinks banner image representing juice/cold drinks with no beer imagery.
-- Add new static banner image assets under `frontend/public/assets/generated/` for Salad and Soup, and ensure all referenced banner filenames exist at runtime.
-- Update existing drinks visuals to remove any beer imagery while keeping references intact and avoiding broken images.
+- Remove any visible “Built with …”, “Caffeine”, or “caffeine.ai” text and any outbound link to caffeine.ai from the UI (including the footer).
+- Clean up any leftover unused imports/variables caused by removing the credit label.
+- Replace the HND logo asset with a corrected transparent version and update all logo usages (header logo, hero logo, and menu category watermark) to reference the same corrected asset path.
 
-**User-visible outcome:** In the Menu UI, Salad and Soup categories display correct salad/soup banners, and Drinks-related categories display juice/cold-drink imagery with no beer visuals, without changing any menu item names or prices.
+**User-visible outcome:** The app shows no Caffeine-related credit/link anywhere, and the HND logo displays with a clean transparent background (no box/edges) consistently in the header, hero area, and menu category watermark on mobile and desktop.

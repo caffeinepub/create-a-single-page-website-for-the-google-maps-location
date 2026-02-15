@@ -1,66 +1,63 @@
 {
   "kind": "build_request",
-  "title": "Fix Menu category images for Salad/Soup and remove beer imagery from Drinks visuals",
+  "title": "Fix HND logo asset and remove “Built with Caffeine” footer credit",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-72",
-      "text": "Update Menu category banner image mapping so Salad/Soup categories use salad/soup-appropriate photos (not drinks), and ensure Drinks categories use juice/cold-drink photos with no beer imagery. Apply this specifically by updating `frontend/src/content/business.ts` category `image` fields and/or `categoryBannerImages` so that:\n- \"Lawazmat (Salads)\", \"Salad\" use a salad banner image.\n- \"Soup\" uses a soup banner image.\n- \"Hot & Cold Bar\" and \"Fresh Juice Seasonal\" use a drinks banner image that visually represents juice/cold drinks and contains no beer imagery.\nNo menu item names or prices may be changed.",
+      "id": "REQ-80",
+      "text": "Remove any visible “Built with … using caffeine.ai” credit/label from the UI, including any outbound link to caffeine.ai, and ensure it is not rendered in the footer or anywhere else in the production UI.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-4",
+          "msg-8"
         ],
         "quotes": [
-          "Salad or soup section ma salad or soup ki photo lgao drink ki nhi or bear ki photo HTA do SB jga sa drink ma juice or cold drink ki photo lgao"
+          "HND KA logo Sahi kro or BUILD WITH CAFFEINE remove KR do",
+          "Continue"
         ]
       },
       "acceptanceCriteria": [
-        "In the Menu UI, the category banner for \"Lawazmat (Salads)\" displays a salad-related image (not a drinks image).",
-        "In the Menu UI, the category banner for \"Salad\" displays a salad-related image (not a drinks image).",
-        "In the Menu UI, the category banner for \"Soup\" displays a soup-related image (not a drinks image).",
-        "In the Menu UI, the category banners for \"Hot & Cold Bar\" and \"Fresh Juice Seasonal\" display drinks imagery that represents juice/cold drinks and does not include beer imagery.",
-        "No menu item names, descriptions/notes, or prices are modified in `frontend/src/content/business.ts`."
+        "No text containing “Built with”, “Caffeine”, or “caffeine.ai” is visible anywhere in the app UI (including the footer).",
+        "There is no outbound link to caffeine.ai rendered anywhere in the UI.",
+        "Build succeeds and no unused imports/variables remain from removing the credit label."
       ]
     },
     {
-      "id": "REQ-73",
-      "text": "Add the required static image assets under `frontend/public/assets/generated/` and ensure all updated category banner references point to files that exist at runtime (no broken images).",
+      "id": "REQ-81",
+      "text": "Fix the HND logo so it renders cleanly on the site (no visible background box/edges), and apply the corrected logo asset consistently everywhere the HND logo is shown (header logo, hero logo, and menu category watermark).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-4",
+          "msg-8"
         ],
         "quotes": [
-          "Salad or soup section ma salad or soup ki photo lgao drink ki nhi or bear ki photo HTA do SB jga sa drink ma juice or cold drink ki photo lgao"
+          "HND KA logo Sahi kro or BUILD WITH CAFFEINE remove KR do",
+          "Continue"
         ]
       },
       "acceptanceCriteria": [
-        "New banner image files for Salad and Soup exist under `frontend/public/assets/generated/` with the exact filenames referenced by `frontend/src/content/business.ts`.",
-        "The existing drinks banner image file used by the drinks categories is updated so it contains no beer imagery and visually matches juice/cold drinks.",
-        "No category banner image renders as a broken image icon; if an image fails, the existing `SafeImage` fallback behavior continues to work."
+        "The HND logo image has a fully transparent background with clean edges when displayed on the site theme.",
+        "The SiteHeader logo, Hero logo, and MenuCategoryGrid watermark all reference the same corrected logo asset path.",
+        "Logo rendering remains crisp and correctly sized on mobile and desktop, with no layout shifts or broken image fallbacks."
       ]
     }
   ],
   "constraints": [
-    "Use English for any user-facing text.",
-    "Do not change menu item names/prices/categories beyond updating category banner image references.",
-    "Keep the frontend stack and do not modify any files under `frontend/src/components/ui` or other immutable paths.",
-    "Store all new/updated images as static assets under `frontend/public/assets/generated/` (do not serve images from the backend)."
+    "Do not edit files under frontend/src/components/ui (compose them only).",
+    "Do not edit any frontend immutable paths listed in SYSTEM_CONTEXT.",
+    "Keep all user-facing text in English."
   ],
   "nonGoals": [
-    "Do not add new site sections or change overall site navigation behavior.",
-    "Do not change per-item menu photos/visibility behavior beyond the requested category banner image fixes.",
-    "Do not change WhatsApp ordering behavior."
+    "No new site sections or new content additions beyond removing the Caffeine credit and fixing the logo asset.",
+    "No changes to menu item names or prices.",
+    "No backend changes (Motoko actor) are required for this request."
   ],
   "imageRequirements": {
-    "required": [
-      "Salad category banner photo (menu-category-salad.dim_1600x900.jpg)",
-      "Soup category banner photo (menu-category-soup.dim_1600x900.jpg)"
-    ],
+    "required": [],
     "edits": [
-      "Remove any beer imagery and make it represent juice/cold drinks (menu-category-drinks.dim_1600x900.jpg > menu-category-drinks.dim_1600x900.jpg)",
-      "Remove any beer imagery and make it represent juice/cold drinks (menu-thumb-drinks-hnd.dim_256x256.jpg > menu-thumb-drinks-hnd.dim_256x256.jpg)"
+      "Make the logo background fully transparent with clean edges (hnd-logo-badge-chef-transparent-fixed.dim_512x512.png > hnd-logo-badge-chef-transparent-clean.dim_512x512.png)"
     ]
   },
   "userProfileUpdate": {

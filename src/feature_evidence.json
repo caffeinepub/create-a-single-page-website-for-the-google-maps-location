@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-menu-category-banner-image-mapping-so-salad-soup-categories-use-salad-soup-appropriate-photos-not-drinks-and-ensure-drinks-categories-use-juice-cold-drink-photos-with-no-beer-imagery-apply-this-specifically-by-updating-frontend-src-content-business-ts-category-image-fields-and-or-categorybannerimages-so-that-lawazmat-salads-salad-use-a-salad-banner-image-soup-uses-a-soup-banner-image-hot-cold-bar-and-fresh-juice-seasonal-use-a-drinks-banner-image-that-visually-represents-juice-cold-drinks-and-contains-no-beer-imagery-no-menu-item-names-or-prices-may-be-changed",
-      "featureTitle": "Update Menu category banner image mapping so Salad/Soup categories use salad/soup-appropriate photos (not drinks), and ensure Drinks categories use juice/cold-drink photos with no beer imagery. Apply this specifically by updating `frontend/src/content/business.ts` category `image` fields and/or `categoryBannerImages` so that:\n- \"Lawazmat (Salads)\", \"Salad\" use a salad banner image.\n- \"Soup\" uses a soup banner image.\n- \"Hot & Cold Bar\" and \"Fresh Juice Seasonal\" use a drinks banner image that visually represents juice/cold drinks and contains no beer imagery.\nNo menu item names or prices may be changed.",
+      "featureId": "feature-remove-any-visible-built-with-using-caffeine-ai-credit-label-from-the-ui-including-any-outbound-link-to-caffeine-ai-and-ensure-it-is-not-rendered-in-the-footer-or-anywhere-else-in-the-production-ui",
+      "featureTitle": "Remove any visible “Built with … using caffeine.ai” credit/label from the UI, including any outbound link to caffeine.ai, and ensure it is not rendered in the footer or anywhere else in the production UI.",
       "files": [
-        "frontend/src/content/business.ts"
+        "frontend/src/App.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -15,14 +15,18 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-72"
+        "REQ-80"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-the-required-static-image-assets-under-frontend-public-assets-generated-and-ensure-all-updated-category-banner-references-point-to-files-that-exist-at-runtime-no-broken-images",
-      "featureTitle": "Add the required static image assets under `frontend/public/assets/generated/` and ensure all updated category banner references point to files that exist at runtime (no broken images).",
-      "files": [],
+      "featureId": "feature-fix-the-hnd-logo-so-it-renders-cleanly-on-the-site-no-visible-background-box-edges-and-apply-the-corrected-logo-asset-consistently-everywhere-the-hnd-logo-is-shown-header-logo-hero-logo-and-menu-category-watermark",
+      "featureTitle": "Fix the HND logo so it renders cleanly on the site (no visible background box/edges), and apply the corrected logo asset consistently everywhere the HND logo is shown (header logo, hero logo, and menu category watermark).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/MenuCategoryGrid.tsx",
+        "frontend/src/components/SiteHeader.tsx"
+      ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
@@ -31,7 +35,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-73"
+        "REQ-81"
       ],
       "confidence": "high"
     }

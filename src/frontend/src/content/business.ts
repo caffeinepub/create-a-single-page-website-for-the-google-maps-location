@@ -32,7 +32,7 @@ const menuImages = {
 };
 
 // Category banner images - Wide format for section headers
-const categoryBannerImages = {
+const categoryBannerImages: Record<string, string> = {
   tandoor: "/assets/generated/menu-category-tandoor.dim_1600x900.jpg",
   handi: "/assets/generated/menu-category-handi.dim_1600x900.jpg",
   karahi: "/assets/generated/menu-category-karahi.dim_1600x900.jpg",
@@ -46,8 +46,9 @@ const categoryBannerImages = {
   soup: "/assets/generated/menu-category-soup.dim_1600x900.jpg"
 };
 
-// Export default menu image for fallback
+// Export default menu image for fallback and category banner images
 export const defaultMenuImage = menuImages.default;
+export { categoryBannerImages };
 
 export const businessContent = {
   name: "HOTEL NASRA DA",
@@ -279,7 +280,6 @@ export const businessContent = {
         { name: "Lyal Soup", family: 1100, single: 390, image: getMenuItemImage("Lyal Soup"), alt: "HND Lyal Soup" },
         { name: "Chicken Corn Soup", family: 1000, single: 350, image: getMenuItemImage("Chicken Corn Soup"), alt: "HND Chicken Corn Soup" },
         { name: "Hot & Sour Soup", family: 1000, single: 350, image: getMenuItemImage("Hot & Sour Soup"), alt: "HND Hot & Sour Soup" },
-        { name: "Vegetable Soup", family: 900, single: 300, image: getMenuItemImage("Vegetable Soup"), alt: "HND Vegetable Soup" },
         { name: "Manchow Soup", family: 1000, single: 350, image: getMenuItemImage("Manchow Soup"), alt: "HND Manchow Soup" }
       ]
     },
@@ -287,30 +287,26 @@ export const businessContent = {
       category: "BBQ",
       image: categoryBannerImages.bbq,
       items: [
-        { name: "HND Special BBQ Platter", full: 3500, half: 1800, image: getMenuItemImage("HND Special BBQ Platter"), alt: "HND Special BBQ Platter" },
+        { name: "HND Special BBQ", full: 2500, half: 1250, image: getMenuItemImage("HND Special BBQ"), alt: "HND Special BBQ" },
         { name: "Chicken Tikka", full: 1200, half: 600, image: getMenuItemImage("Chicken Tikka"), alt: "HND Chicken Tikka" },
         { name: "Chicken Malai Boti", full: 1300, half: 650, image: getMenuItemImage("Chicken Malai Boti"), alt: "HND Chicken Malai Boti" },
-        { name: "Chicken Seekh Kabab", full: 1100, half: 550, image: getMenuItemImage("Chicken Seekh Kabab"), alt: "HND Chicken Seekh Kabab" },
-        { name: "Beef Seekh Kabab", full: 1200, half: 600, image: getMenuItemImage("Beef Seekh Kabab"), alt: "HND Beef Seekh Kabab" },
-        { name: "Mutton Seekh Kabab", full: 1400, half: 700, image: getMenuItemImage("Mutton Seekh Kabab"), alt: "HND Mutton Seekh Kabab" },
+        { name: "Chicken Seekh Kabab", full: 1200, half: 600, image: getMenuItemImage("Chicken Seekh Kabab"), alt: "HND Chicken Seekh Kabab" },
+        { name: "Beef Seekh Kabab", full: 1300, half: 650, image: getMenuItemImage("Beef Seekh Kabab"), alt: "HND Beef Seekh Kabab" },
+        { name: "Mutton Seekh Kabab", full: 1800, half: 900, image: getMenuItemImage("Mutton Seekh Kabab"), alt: "HND Mutton Seekh Kabab" },
         { name: "Chicken Reshmi Kabab", full: 1300, half: 650, image: getMenuItemImage("Chicken Reshmi Kabab"), alt: "HND Chicken Reshmi Kabab" },
-        { name: "Chicken Bihari Boti", full: 1400, half: 700, image: getMenuItemImage("Chicken Bihari Boti"), alt: "HND Chicken Bihari Boti" },
-        { name: "Beef Bihari Boti", full: 1500, half: 750, image: getMenuItemImage("Beef Bihari Boti"), alt: "HND Beef Bihari Boti" }
+        { name: "Chicken Bihari Kabab", full: 1400, half: 700, image: getMenuItemImage("Chicken Bihari Kabab"), alt: "HND Chicken Bihari Kabab" },
+        { name: "Beef Bihari Kabab", full: 1500, half: 750, image: getMenuItemImage("Beef Bihari Kabab"), alt: "HND Beef Bihari Kabab" }
       ]
     },
     {
-      category: "Fast Food",
+      category: "Burger",
       image: categoryBannerImages.burger,
       items: [
         { name: "HND Special Burger", price: 450, image: getMenuItemImage("HND Special Burger"), alt: "HND Special Burger" },
         { name: "Zinger Burger", price: 350, image: getMenuItemImage("Zinger Burger"), alt: "HND Zinger Burger" },
         { name: "Chicken Burger", price: 300, image: getMenuItemImage("Chicken Burger"), alt: "HND Chicken Burger" },
         { name: "Beef Burger", price: 350, image: getMenuItemImage("Beef Burger"), alt: "HND Beef Burger" },
-        { name: "Club Sandwich", price: 400, image: getMenuItemImage("Club Sandwich"), alt: "HND Club Sandwich" },
-        { name: "Chicken Sandwich", price: 300, image: getMenuItemImage("Chicken Sandwich"), alt: "HND Chicken Sandwich" },
-        { name: "French Fries", price: 200, image: getMenuItemImage("French Fries"), alt: "HND French Fries" },
-        { name: "Chicken Nuggets", price: 350, image: getMenuItemImage("Chicken Nuggets"), alt: "HND Chicken Nuggets" },
-        { name: "Chicken Wings", price: 400, image: getMenuItemImage("Chicken Wings"), alt: "HND Chicken Wings" }
+        { name: "Cheese Burger", price: 400, image: getMenuItemImage("Cheese Burger"), alt: "HND Cheese Burger" }
       ]
     },
     {
@@ -318,11 +314,11 @@ export const businessContent = {
       image: categoryBannerImages.pizza,
       items: [
         { name: "HND Special Pizza", large: 1800, medium: 1200, small: 800, image: getMenuItemImage("HND Special Pizza"), alt: "HND Special Pizza" },
-        { name: "Chicken Tikka Pizza", large: 1600, medium: 1100, small: 700, image: getMenuItemImage("Chicken Tikka Pizza"), alt: "HND Chicken Tikka Pizza" },
-        { name: "Chicken Fajita Pizza", large: 1600, medium: 1100, small: 700, image: getMenuItemImage("Chicken Fajita Pizza"), alt: "HND Chicken Fajita Pizza" },
-        { name: "Beef Pizza", large: 1700, medium: 1200, small: 800, image: getMenuItemImage("Beef Pizza"), alt: "HND Beef Pizza" },
+        { name: "Chicken Tikka Pizza", large: 1600, medium: 1000, small: 700, image: getMenuItemImage("Chicken Tikka Pizza"), alt: "HND Chicken Tikka Pizza" },
+        { name: "Chicken Fajita Pizza", large: 1600, medium: 1000, small: 700, image: getMenuItemImage("Chicken Fajita Pizza"), alt: "HND Chicken Fajita Pizza" },
+        { name: "Beef Pizza", large: 1700, medium: 1100, small: 750, image: getMenuItemImage("Beef Pizza"), alt: "HND Beef Pizza" },
         { name: "Vegetable Pizza", large: 1400, medium: 900, small: 600, image: getMenuItemImage("Vegetable Pizza"), alt: "HND Vegetable Pizza" },
-        { name: "Cheese Pizza", large: 1300, medium: 850, small: 550, image: getMenuItemImage("Cheese Pizza"), alt: "HND Cheese Pizza" }
+        { name: "Cheese Pizza", large: 1500, medium: 950, small: 650, image: getMenuItemImage("Cheese Pizza"), alt: "HND Cheese Pizza" }
       ]
     }
   ]

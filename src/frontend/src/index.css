@@ -4,27 +4,29 @@
 
 @layer base {
   :root {
-    --background: oklch(0.98 0.005 240);
-    --foreground: oklch(0.15 0.02 240);
-    --card: oklch(0.99 0.002 240);
-    --card-foreground: oklch(0.15 0.02 240);
-    --popover: oklch(0.99 0.002 240);
-    --popover-foreground: oklch(0.15 0.02 240);
-    --primary: oklch(0.65 0.18 45);
-    --primary-foreground: oklch(0.99 0.002 240);
-    --secondary: oklch(0.92 0.01 240);
-    --secondary-foreground: oklch(0.15 0.02 240);
-    --muted: oklch(0.94 0.01 240);
-    --muted-foreground: oklch(0.45 0.02 240);
-    --accent: oklch(0.65 0.18 45);
-    --accent-foreground: oklch(0.99 0.002 240);
-    --destructive: oklch(0.55 0.22 25);
+    /* Premium pastel light theme with soft blue and light gold */
+    --background: oklch(0.99 0.002 240);
+    --foreground: oklch(0.20 0.015 240);
+    --card: oklch(1.0 0 0);
+    --card-foreground: oklch(0.20 0.015 240);
+    --popover: oklch(1.0 0 0);
+    --popover-foreground: oklch(0.20 0.015 240);
+    --primary: oklch(0.75 0.08 60);
+    --primary-foreground: oklch(0.98 0.002 240);
+    --secondary: oklch(0.88 0.04 240);
+    --secondary-foreground: oklch(0.20 0.015 240);
+    --muted: oklch(0.96 0.005 240);
+    --muted-foreground: oklch(0.50 0.015 240);
+    --accent: oklch(0.75 0.08 60);
+    --accent-foreground: oklch(0.98 0.002 240);
+    --destructive: oklch(0.60 0.18 25);
     --destructive-foreground: oklch(0.99 0.002 240);
-    --border: oklch(0.88 0.01 240);
-    --input: oklch(0.88 0.01 240);
-    --ring: oklch(0.65 0.18 45);
-    --radius: 0.5rem;
+    --border: oklch(0.92 0.005 240);
+    --input: oklch(0.92 0.005 240);
+    --ring: oklch(0.75 0.08 60);
+    --radius: 0.75rem;
     --logo-badge: oklch(0.88 0.12 145);
+    --soft-blue: oklch(0.85 0.06 240);
   }
 
   .dark {
@@ -56,9 +58,14 @@
     @apply border-border;
   }
   html, body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
     margin: 0;
     padding: 0;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+  
+  ::selection {
+    @apply bg-accent/20 text-foreground;
   }
 }
 
@@ -72,7 +79,7 @@
   display: none;
 }
 
-/* Animation utilities */
+/* Premium Animation Keyframes */
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -93,12 +100,79 @@
   }
 }
 
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes gentle-lift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes icon-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+@keyframes icon-wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes soft-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Animation Utilities */
 .animate-fade-in {
   animation: fade-in 0.6s ease-out forwards;
 }
 
 .animate-fade-in-up {
   animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-fade-out {
+  animation: fade-out 0.4s ease-out forwards;
+}
+
+.animate-gentle-lift {
+  animation: gentle-lift 0.3s ease-out forwards;
+}
+
+.animate-icon-pulse {
+  animation: icon-pulse 2s ease-in-out infinite;
+}
+
+.animate-icon-wiggle {
+  animation: icon-wiggle 0.5s ease-in-out;
 }
 
 .animation-delay-100 {
@@ -117,10 +191,26 @@
   animation-delay: 400ms;
 }
 
+.animation-delay-500 {
+  animation-delay: 500ms;
+}
+
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
   .animate-fade-in,
-  .animate-fade-in-up {
+  .animate-fade-in-up,
+  .animate-fade-out,
+  .animate-gentle-lift,
+  .animate-icon-pulse,
+  .animate-icon-wiggle {
     animation: none;
     opacity: 1;
     transform: none;

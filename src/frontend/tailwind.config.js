@@ -56,7 +56,8 @@ module.exports = {
                     4: 'oklch(var(--chart-4))',
                     5: 'oklch(var(--chart-5))'
                 },
-                'logo-badge': 'oklch(var(--logo-badge))'
+                'logo-badge': 'oklch(var(--logo-badge))',
+                'soft-blue': 'oklch(var(--soft-blue))'
             },
             borderRadius: {
                 lg: 'var(--radius)',
@@ -64,9 +65,11 @@ module.exports = {
                 sm: 'calc(var(--radius) - 4px)'
             },
             boxShadow: {
-                xs: '0 1px 2px 0 rgba(0,0,0,0.05)',
-                'soft': '0 2px 8px -2px rgba(0, 0, 0, 0.1), 0 4px 12px -2px rgba(0, 0, 0, 0.08)',
-                'premium': '0 4px 20px -2px rgba(0, 0, 0, 0.15), 0 2px 10px -2px rgba(0, 0, 0, 0.1)'
+                xs: '0 1px 2px 0 rgba(0,0,0,0.04)',
+                'soft': '0 2px 12px -2px rgba(0, 0, 0, 0.08), 0 4px 16px -4px rgba(0, 0, 0, 0.06)',
+                'premium': '0 8px 32px -4px rgba(0, 0, 0, 0.12), 0 4px 16px -2px rgba(0, 0, 0, 0.08)',
+                'luxury': '0 12px 48px -8px rgba(0, 0, 0, 0.15), 0 6px 24px -4px rgba(0, 0, 0, 0.1)',
+                'glow': '0 0 20px rgba(0, 0, 0, 0.08)'
             },
             fontFamily: {
                 sans: [
@@ -101,13 +104,43 @@ module.exports = {
                         opacity: '1',
                         transform: 'translateY(0)'
                     }
+                },
+                'fade-out': {
+                    from: { opacity: '1' },
+                    to: { opacity: '0' }
+                },
+                'gentle-lift': {
+                    from: { transform: 'translateY(0)' },
+                    to: { transform: 'translateY(-4px)' }
+                },
+                'icon-pulse': {
+                    '0%, 100%': { 
+                        transform: 'scale(1)',
+                        opacity: '1'
+                    },
+                    '50%': { 
+                        transform: 'scale(1.05)',
+                        opacity: '0.9'
+                    }
+                },
+                'icon-wiggle': {
+                    '0%, 100%': { transform: 'rotate(0deg)' },
+                    '25%': { transform: 'rotate(-3deg)' },
+                    '75%': { transform: 'rotate(3deg)' }
                 }
             },
             animation: {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
                 'fade-in': 'fade-in 0.6s ease-out forwards',
-                'fade-in-up': 'fade-in-up 0.6s ease-out forwards'
+                'fade-in-up': 'fade-in-up 0.6s ease-out forwards',
+                'fade-out': 'fade-out 0.4s ease-out forwards',
+                'gentle-lift': 'gentle-lift 0.3s ease-out forwards',
+                'icon-pulse': 'icon-pulse 2s ease-in-out infinite',
+                'icon-wiggle': 'icon-wiggle 0.5s ease-in-out'
+            },
+            transitionDuration: {
+                '400': '400ms'
             }
         }
     },

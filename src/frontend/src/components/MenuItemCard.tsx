@@ -59,13 +59,13 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
 
   return (
     <>
-      <Card className="border-border/30 bg-card/80 backdrop-blur-sm shadow-md hover:shadow-premium transition-all duration-300 hover:scale-[1.02] motion-reduce:hover:scale-100 group">
-        <CardHeader>
+      <Card className="border border-border bg-card shadow-soft hover:shadow-luxury transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 motion-reduce:hover:scale-100 motion-reduce:hover:translate-y-0 group overflow-hidden">
+        <CardHeader className="space-y-2">
           <CardTitle className="text-lg md:text-xl text-foreground group-hover:text-accent transition-colors duration-300">
             {item.name}
           </CardTitle>
           {item.description && (
-            <CardDescription className="text-sm text-muted-foreground line-clamp-2">
+            <CardDescription className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
               {item.description}
             </CardDescription>
           )}
@@ -78,12 +78,12 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
               </span>
             )}
             {item.halfPrice && (
-              <span className="text-lg font-semibold text-muted-foreground">
+              <span className="text-base font-semibold text-muted-foreground">
                 Half: Rs. {item.halfPrice}
               </span>
             )}
             {item.fullPrice && (
-              <span className="text-lg font-semibold text-muted-foreground">
+              <span className="text-base font-semibold text-muted-foreground">
                 Full: Rs. {item.fullPrice}
               </span>
             )}
@@ -91,7 +91,7 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
           
           <Button 
             onClick={handleOrderClick}
-            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground transition-all duration-300 hover:scale-105 motion-reduce:hover:scale-100"
+            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft hover:shadow-premium transition-all duration-300 hover:scale-105 motion-reduce:hover:scale-100"
             size="sm"
           >
             <MessageCircle className="w-4 h-4 mr-2" />
@@ -102,10 +102,10 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
 
       {/* Variant Selection Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md bg-card border-border shadow-luxury">
           <DialogHeader>
-            <DialogTitle>Select Size</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-foreground">Select Size</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
               Choose your preferred size for {item.name}
             </DialogDescription>
           </DialogHeader>
@@ -115,10 +115,10 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
               <button
                 key={variant.key}
                 onClick={() => setSelectedVariant(variant)}
-                className={`w-full p-4 rounded-lg border-2 transition-all duration-300 text-left ${
+                className={`w-full p-4 rounded-lg border-2 transition-all duration-300 text-left hover:scale-[1.02] motion-reduce:hover:scale-100 ${
                   selectedVariant?.key === variant.key
-                    ? 'border-accent bg-accent/10'
-                    : 'border-border hover:border-accent/50'
+                    ? 'border-accent bg-accent/10 shadow-soft'
+                    : 'border-border hover:border-accent/50 hover:bg-muted/30'
                 }`}
               >
                 <div className="flex justify-between items-center">
@@ -133,7 +133,7 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
             <Button
               onClick={handleVariantOrder}
               disabled={!selectedVariant}
-              className="w-full transition-all duration-300"
+              className="w-full transition-all duration-300 hover:scale-105 motion-reduce:hover:scale-100 shadow-soft hover:shadow-premium"
             >
               <MessageCircle className="w-4 h-4 mr-2" />
               Continue to WhatsApp
